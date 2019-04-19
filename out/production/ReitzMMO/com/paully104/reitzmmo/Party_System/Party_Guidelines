@@ -1,0 +1,7 @@
+
+[PARTY JOIN SYSTEM]
+Party should work in the following fashion
+* Player A creates a party or Player A invites player B to party
+IF(party does not exist when inviting it should make a party automatically)
+Player B receives a toast or notification asking to join by doing /party join
+Player B joins player A's party
