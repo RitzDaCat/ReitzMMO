@@ -31,7 +31,7 @@ public class ReitzRPGMain implements CommandExecutor {
         }
 
 
-        if ((cmd.getName().equalsIgnoreCase("Reitz") || cmd.getName().equalsIgnoreCase("RRM") || cmd.getName().equalsIgnoreCase("ReitzMMO")) && args.length == 1 && args[0].equalsIgnoreCase("Stats")) {
+        else if ((cmd.getName().equalsIgnoreCase("Reitz") || cmd.getName().equalsIgnoreCase("RRM") || cmd.getName().equalsIgnoreCase("ReitzMMO")) && args.length == 1 && args[0].equalsIgnoreCase("Stats")) {
 
             sender.sendMessage(ChatColor.GOLD + "|||Current Stats|||");
             sender.sendMessage(ChatColor.GOLD + "     Level: " + API.getPlayerDataFromAPI(Bukkit.getPlayer(sender.getName()), "Level"));
@@ -43,7 +43,7 @@ public class ReitzRPGMain implements CommandExecutor {
             return true;
         }
 
-        if ((cmd.getName().equalsIgnoreCase("Reitz") || cmd.getName().equalsIgnoreCase("RRM") || cmd.getName().equalsIgnoreCase("ReitzMMO")) && args.length == 1 && args[0].equalsIgnoreCase("FixHealth"))
+        else if ((cmd.getName().equalsIgnoreCase("Reitz") || cmd.getName().equalsIgnoreCase("RRM") || cmd.getName().equalsIgnoreCase("ReitzMMO")) && args.length == 1 && args[0].equalsIgnoreCase("FixHealth"))
         {
             Player p = Bukkit.getPlayer(sender.getName());
 
@@ -77,7 +77,7 @@ public class ReitzRPGMain implements CommandExecutor {
 
             }
         }
-        if ((cmd.getName().equalsIgnoreCase("Reitz") || cmd.getName().equalsIgnoreCase("RRM") || cmd.getName().equalsIgnoreCase("ReitzMMO")) && args.length == 1 && args[0].equalsIgnoreCase("FixEXP"))
+        else if ((cmd.getName().equalsIgnoreCase("Reitz") || cmd.getName().equalsIgnoreCase("RRM") || cmd.getName().equalsIgnoreCase("ReitzMMO")) && args.length == 1 && args[0].equalsIgnoreCase("FixEXP"))
         {
             World world = Bukkit.getPlayer(sender.getName()).getWorld();
             for(Entity e :world.getEntities())

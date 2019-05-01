@@ -435,7 +435,7 @@ public class MonsterLevelsDamage implements Listener {
         }
         //Witch throws potion
         else if(defender.getType() == EntityType.PLAYER && (attacker.getType() == EntityType.SPLASH_POTION
-        || attacker.getType() ==EntityType.LINGERING_POTION))
+        || attacker.getType() ==EntityType.SPLASH_POTION))
         {
             Arrow arrow = (Arrow)attacker;
             if (arrow.getShooter() instanceof Witch)

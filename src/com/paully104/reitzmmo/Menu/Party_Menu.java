@@ -53,9 +53,9 @@ public class Party_Menu implements Listener{
     @EventHandler
     public void onInventoryMoveEvent(InventoryMoveItemEvent event)
     {
-        System.out.println(event.getDestination().getName());
-        if (event.getDestination().getName().equals(PARTY_MENU.getName())) {
-            System.out.println(event.getDestination().getName());
+        System.out.println(event.getDestination().toString());
+        if (event.getDestination() == PARTY_MENU) {
+            System.out.println(event.getDestination().toString());
             System.out.println("InventoryMoveEvent on GUI_MENU");
             event.setCancelled(true);
         }
@@ -67,7 +67,7 @@ public class Party_Menu implements Listener{
         Player player = (Player) event.getWhoClicked(); // The player that clicked the item
         ItemStack clicked = event.getCurrentItem(); // The item that was clicked
         Inventory inventory = event.getInventory(); // The inventory that was clicked in
-        if (inventory.getName().equals(PARTY_MENU.getName())) {
+        if (inventory == PARTY_MENU) {
             if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Create")) { // The item that the player clicked it dirt
                 event.setCancelled(true); // Make it so the dirt is back in its original spot
                 player.closeInventory(); // Closes there inventory
@@ -75,7 +75,7 @@ public class Party_Menu implements Listener{
                 // Adds dirt
 
             }
-            if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Add")) { // The item that the player clicked it dirt
+            else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Add")) { // The item that the player clicked it dirt
                 event.setCancelled(true); // Make it so the dirt is back in its original spot
                 player.closeInventory(); // Closes there inventory
                 //Well who the hell are we adding?
@@ -84,35 +84,35 @@ public class Party_Menu implements Listener{
                 // Adds dirt
 
             }
-            if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Remove")) { // The item that the player clicked it dirt
+            else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Remove")) { // The item that the player clicked it dirt
                 event.setCancelled(true); // Make it so the dirt is back in its original spot
                 player.closeInventory(); // Closes there inventory
                 // Adds dirt
                 player.sendMessage(ChatColor.GREEN+"Use /rparty remove USERNAME");
 
             }
-            if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Disband")) { // The item that the player clicked it dirt
+            else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Disband")) { // The item that the player clicked it dirt
                 event.setCancelled(true); // Make it so the dirt is back in its original spot
                 player.closeInventory(); // Closes there inventory
                 player.performCommand("Rparty disband");
                 // Adds dirt
 
             }
-            if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Get Members")) { // The item that the player clicked it dirt
+            else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Get Members")) { // The item that the player clicked it dirt
                 event.setCancelled(true); // Make it so the dirt is back in its original spot
                 player.closeInventory(); // Closes there inventory
                 player.performCommand("Rparty members");
                 // Adds dirt
 
             }
-            if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Leave")) { // The item that the player clicked it dirt
+            else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Leave")) { // The item that the player clicked it dirt
                 event.setCancelled(true); // Make it so the dirt is back in its original spot
                 player.closeInventory(); // Closes there inventory
                 player.performCommand("Rparty leave");
                 // Adds dirt
 
             }
-            if(clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Return To Menu"))
+            else if(clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Return To Menu"))
             {
                 player.performCommand("Reitz");
 

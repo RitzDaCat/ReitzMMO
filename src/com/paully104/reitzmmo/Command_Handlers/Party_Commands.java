@@ -116,8 +116,16 @@ public class Party_Commands implements CommandExecutor {
             return true;
         }
         if ((cmd.getName().equalsIgnoreCase("RParty") || cmd.getName().equalsIgnoreCase("rparty")) && args.length == 2 &&
-                args[0].equalsIgnoreCase("add")) {
-            if(!(Party_API.inParty.containsKey(sender.getName())) && (Party_API.Party_Leaders.containsKey(sender.getName()))) {
+                args[0].equalsIgnoreCase("add"))
+        {
+
+            if(args[1].equals(sender.getName()))
+            {
+                sender.sendMessage("You cannot invite yourself");
+
+            }
+
+            else if(!(Party_API.inParty.containsKey(sender.getName())) && (Party_API.Party_Leaders.containsKey(sender.getName()))) {
                 System.out.println("Add Party");
                 sender.sendMessage(ChatColor.WHITE + "sending invite to player: " + args[1]);
 

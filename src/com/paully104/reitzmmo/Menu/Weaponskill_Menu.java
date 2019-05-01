@@ -62,7 +62,7 @@ import java.util.Map;
         Player player = (Player) event.getWhoClicked(); // The player that clicked the item
         ItemStack clicked = event.getCurrentItem(); // The item that was clicked
         Inventory inventory = event.getInventory(); // The inventory that was clicked in
-        if (inventory.getName().equals(WEAPONSKILL_MENU.getName())) {
+        if (inventory == WEAPONSKILL_MENU) {
             PlayerData pd = API.Players.get(player.getName());
             int level = pd.getData().getInt("Level");
             if(clicked.hasItemMeta()) {
@@ -82,7 +82,7 @@ import java.util.Map;
                         player.closeInventory();
                         //Need to set the lore of the item
                         System.out.println("1.0 " + player.getInventory().getItemInMainHand().getData().getItemType());
-                        System.out.println("2.0 " + player.getInventory().getName());
+                        System.out.println("2.0 " + player.getInventory().toString());
                         System.out.println("3.0 " + player.getInventory().getHeldItemSlot());
                         System.out.println("4.0 " + player.getInventory().getItemInMainHand().getItemMeta().getDisplayName());
                         System.out.println("5.0 " + player.getInventory().getItemInMainHand().getDurability());
@@ -111,11 +111,13 @@ import java.util.Map;
 
                     }
 
-                    if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Main Menu")) {
+                    else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Main Menu"))
+                    {
                         event.setCancelled(true);
                         player.openInventory(Menu.GUI_MENU);
 
-                    } else {
+                    }
+                    else {
                         event.setCancelled(true);
 
                     }
@@ -130,7 +132,7 @@ import java.util.Map;
                         player.closeInventory();
                         //Need to set the lore of the item
                         System.out.println("1.0 " + player.getInventory().getItemInMainHand().getData().getItemType());
-                        System.out.println("2.0 " + player.getInventory().getName());
+                        System.out.println("2.0 " + player.getInventory().toString());
                         System.out.println("3.0 " + player.getInventory().getHeldItemSlot());
                         System.out.println("4.0 " + player.getInventory().getItemInMainHand().getItemMeta().getDisplayName());
                         System.out.println("5.0 " + player.getInventory().getItemInMainHand().getDurability());
@@ -160,12 +162,12 @@ import java.util.Map;
                     }
 
                     //Bomb Arrow
-                    if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Bomb Arrow")) {
+                    else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Bomb Arrow")) {
                         event.setCancelled(true);
                         player.closeInventory();
                         //Need to set the lore of the item
                         System.out.println("1.0 " + player.getInventory().getItemInMainHand().getData().getItemType());
-                        System.out.println("2.0 " + player.getInventory().getName());
+                        System.out.println("2.0 " + player.getInventory().toString());
                         System.out.println("3.0 " + player.getInventory().getHeldItemSlot());
                         System.out.println("4.0 " + player.getInventory().getItemInMainHand().getItemMeta().getDisplayName());
                         System.out.println("5.0 " + player.getInventory().getItemInMainHand().getDurability());
@@ -195,12 +197,12 @@ import java.util.Map;
                     }
 
                     //Chicken Launcher
-                    if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Chicken launcher")) {
+                    else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Chicken launcher")) {
                         event.setCancelled(true);
                         player.closeInventory();
                         //Need to set the lore of the item
                         System.out.println("1.0 " + player.getInventory().getItemInMainHand().getData().getItemType());
-                        System.out.println("2.0 " + player.getInventory().getName());
+                        System.out.println("2.0 " + player.getInventory().toString());
                         System.out.println("3.0 " + player.getInventory().getHeldItemSlot());
                         System.out.println("4.0 " + player.getInventory().getItemInMainHand().getItemMeta().getDisplayName());
                         System.out.println("5.0 " + player.getInventory().getItemInMainHand().getDurability());
@@ -228,12 +230,13 @@ import java.util.Map;
                         player.getInventory().getItem(slot).setDurability(durability);
 
                     }
-                    if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Shift Back")) {
+                    else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Shift Back"))
+                    {
                         event.setCancelled(true);
                         player.closeInventory();
                         //Need to set the lore of the item
                         System.out.println("1.0 " + player.getInventory().getItemInMainHand().getData().getItemType());
-                        System.out.println("2.0 " + player.getInventory().getName());
+                        System.out.println("2.0 " + player.getInventory().toString());
                         System.out.println("3.0 " + player.getInventory().getHeldItemSlot());
                         System.out.println("4.0 " + player.getInventory().getItemInMainHand().getItemMeta().getDisplayName());
                         System.out.println("5.0 " + player.getInventory().getItemInMainHand().getDurability());

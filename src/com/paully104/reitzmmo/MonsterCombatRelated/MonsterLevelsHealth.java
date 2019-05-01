@@ -165,7 +165,7 @@ public class MonsterLevelsHealth implements Listener {
             }
         }
 
-        if(e.getEntity().getType() == EntityType.WOLF)
+        else if(e.getEntity().getType() == EntityType.WOLF)
         {
             e.getEntity().setMaxHealth(distance * wolfBaseHP);
             e.getEntity().setHealth(distance * wolfBaseHP);
@@ -173,34 +173,34 @@ public class MonsterLevelsHealth implements Listener {
             e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue()*1.25);
         }
 
-        if(e.getEntity().getType() == EntityType.VILLAGER)
+        else if(e.getEntity().getType() == EntityType.VILLAGER)
         {
             e.getEntity().setMaxHealth(distance * villagerBaseHP);
             e.getEntity().setHealth(distance * villagerBaseHP);
         }
 
-        if(e.getEntity().getType() == EntityType.SQUID)
+        else if(e.getEntity().getType() == EntityType.SQUID)
         {
             e.getEntity().setMaxHealth(distance * squidBaseHP);
             e.getEntity().setHealth(distance * squidBaseHP);
         }
 
-        if(e.getEntity().getType() == EntityType.SPIDER)
+        else if(e.getEntity().getType() == EntityType.SPIDER)
         {
             e.getEntity().setMaxHealth(distance * spiderBaseHP);
             e.getEntity().setHealth(distance * spiderBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.SNOWMAN)
+        else if(e.getEntity().getType() == EntityType.SNOWMAN)
         {
             e.getEntity().setMaxHealth(distance * snowmanBaseHP);
             e.getEntity().setHealth(distance * snowmanBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.SLIME)
+        else if(e.getEntity().getType() == EntityType.SLIME)
         {
             e.getEntity().setMaxHealth(distance * slimeBaseHP);
             e.getEntity().setHealth(distance * slimeBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.SKELETON)
+        else if(e.getEntity().getType() == EntityType.SKELETON)
         {
             e.getEntity().setMaxHealth(distance * skeletonBaseHP);
             e.getEntity().setHealth(distance * skeletonBaseHP);
@@ -209,78 +209,78 @@ public class MonsterLevelsHealth implements Listener {
             e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).getValue() * 2.00);
             //Lets slow down the skeleton firing rate to make it more fair UPDATE: Not an accessible trait!
         }
-        if(e.getEntity().getType() == EntityType.SILVERFISH)
+        else if(e.getEntity().getType() == EntityType.SILVERFISH)
         {
             e.getEntity().setMaxHealth(distance * silverfishBaseHP);
             e.getEntity().setHealth(distance * silverfishBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.SHEEP)
+        else if(e.getEntity().getType() == EntityType.SHEEP)
         {
             e.getEntity().setMaxHealth(distance * sheepBaseHP);
             e.getEntity().setHealth(distance * sheepBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.RABBIT)
+        else if(e.getEntity().getType() == EntityType.RABBIT)
         {
             e.getEntity().setMaxHealth(distance * rabbitBaseHP);
             e.getEntity().setHealth(distance * rabbitBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.PIG_ZOMBIE)
+        else if(e.getEntity().getType() == EntityType.PIG_ZOMBIE)
         {
             e.getEntity().setMaxHealth(distance * pigzombieBaseHP);
             e.getEntity().setHealth(distance * pigzombieBaseHP);
             //superfast
             e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue()*1.25);
         }
-        if(e.getEntity().getType() == EntityType.PIG)
+        else if(e.getEntity().getType() == EntityType.PIG)
         {
             e.getEntity().setMaxHealth(distance * pigBaseHP);
             e.getEntity().setHealth(distance * pigBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.MUSHROOM_COW)
+        else if(e.getEntity().getType() == EntityType.MUSHROOM_COW)
         {
             e.getEntity().setMaxHealth(distance * mushroomcowBaseHP);
             e.getEntity().setHealth(distance * mushroomcowBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.MAGMA_CUBE)
+        else if(e.getEntity().getType() == EntityType.MAGMA_CUBE)
         {
             e.getEntity().setMaxHealth(distance * magmacubeBaseHP);
             e.getEntity().setHealth(distance * magmacubeBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.GUARDIAN)
+        else if(e.getEntity().getType() == EntityType.GUARDIAN)
         {
             e.getEntity().setMaxHealth(distance * guardianBaseHP);
             e.getEntity().setHealth(distance * guardianBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.GIANT)
+        else if(e.getEntity().getType() == EntityType.GIANT)
         {
             e.getEntity().setMaxHealth(distance * giantBaseHP);
             e.getEntity().setHealth(distance * giantBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.GHAST)
+        else if(e.getEntity().getType() == EntityType.GHAST)
         {
             e.getEntity().setMaxHealth(distance * ghastBaseHP);
             e.getEntity().setHealth(distance * ghastBaseHP);
             //Slow them down
             e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue()*.85);
         }
-        if(e.getEntity().getType() == EntityType.ENDERMITE)
+        else if(e.getEntity().getType() == EntityType.ENDERMITE)
         {
             e.getEntity().setMaxHealth(distance * endermiteBaseHP);
             e.getEntity().setHealth(distance * endermiteBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.ENDERMAN)
+        else if(e.getEntity().getType() == EntityType.ENDERMAN)
         {
             e.getEntity().setMaxHealth(distance * endermanBaseHP);
             e.getEntity().setHealth(distance * endermanBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.ENDER_DRAGON)
+        else if(e.getEntity().getType() == EntityType.ENDER_DRAGON)
         {
             //Lets make the dragon scary
             distance = 250;
             e.getEntity().setMaxHealth(distance * enderdragonBaseHP);
             e.getEntity().setHealth(distance * enderdragonBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.CREEPER)
+        else if(e.getEntity().getType() == EntityType.CREEPER)
         {
             e.getEntity().setMaxHealth(distance * creeperBaseHP);
             e.getEntity().setHealth(distance * creeperBaseHP);
@@ -292,39 +292,39 @@ public class MonsterLevelsHealth implements Listener {
 
 
         }
-        if(e.getEntity().getType() == EntityType.COW)
+        else if(e.getEntity().getType() == EntityType.COW)
         {
             e.getEntity().setMaxHealth(distance * cowBaseHP);
             e.getEntity().setHealth(distance * cowBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.CHICKEN)
+        else if(e.getEntity().getType() == EntityType.CHICKEN)
         {
             e.getEntity().setMaxHealth(distance * chickenBaseHP);
             e.getEntity().setHealth(distance * chickenBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.CAVE_SPIDER)
+        else if(e.getEntity().getType() == EntityType.CAVE_SPIDER)
         {
             e.getEntity().setMaxHealth(distance * cavespiderBaseHP);
             e.getEntity().setHealth(distance * cavespiderBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.BLAZE)
+        else if(e.getEntity().getType() == EntityType.BLAZE)
         {
             e.getEntity().setMaxHealth(distance * blazeBaseHP);
             e.getEntity().setHealth(distance * blazeBaseHP);
         }
-        if(e.getEntity().getType() == EntityType.WITCH)
+        else if(e.getEntity().getType() == EntityType.WITCH)
         {
             e.getEntity().setMaxHealth(distance * witchBaseHP);
             e.getEntity().setHealth(distance * witchBaseHP);
 
         }
-        if(e.getEntity().getType() == EntityType.WITHER_SKELETON)
+        else if(e.getEntity().getType() == EntityType.WITHER_SKELETON)
         {
             e.getEntity().setMaxHealth(distance * witherSkeletonBaseHP);
             e.getEntity().setHealth(distance * witherSkeletonBaseHP);
 
         }
-        if(e.getEntity().getType() == EntityType.SHULKER)
+        else if(e.getEntity().getType() == EntityType.SHULKER)
         {
             e.getEntity().setMaxHealth(distance * shulkerSkeletonBaseHP);
             e.getEntity().setHealth(distance * shulkerSkeletonBaseHP);

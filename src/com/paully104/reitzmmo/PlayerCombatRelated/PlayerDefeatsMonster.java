@@ -4,16 +4,16 @@ import com.paully104.reitzmmo.ConfigFiles.API;
 import com.paully104.reitzmmo.Hologram.Hologram;
 import com.paully104.reitzmmo.Party_System.Party;
 import com.paully104.reitzmmo.Party_System.Party_API;
-import net.minecraft.server.v1_13_R2.NBTTagCompound;
-import net.minecraft.server.v1_13_R2.NBTTagInt;
-import net.minecraft.server.v1_13_R2.NBTTagList;
-import net.minecraft.server.v1_13_R2.NBTTagString;
+import net.minecraft.server.v1_14_R1.NBTTagCompound;
+import net.minecraft.server.v1_14_R1.NBTTagInt;
+import net.minecraft.server.v1_14_R1.NBTTagList;
+import net.minecraft.server.v1_14_R1.NBTTagString;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -53,7 +53,7 @@ public class PlayerDefeatsMonster implements Listener {
                     //apply to each item
 
 
-                    net.minecraft.server.v1_13_R2.ItemStack nmsStack = CraftItemStack.asNMSCopy(eachItem);
+                    net.minecraft.server.v1_14_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(eachItem);
                     NBTTagCompound compound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
                     NBTTagList modifiers = new NBTTagList();
                     NBTTagCompound damage = new NBTTagCompound();
@@ -63,6 +63,16 @@ public class PlayerDefeatsMonster implements Listener {
                     //need the mobs level
                     String monster_level_from_name = dead.getCustomName().replaceAll("\\D+", "");
                     monster_level = Integer.parseInt(monster_level_from_name);
+
+                    //This is where we can effect the % chance of the item dropped
+                    Random random = new Random();
+                    //random.nextInt(max - min + 1) + min, Generally speaking, if you need to generate numbers from min to max (including both), you write
+                    int randomChance = random.nextInt(10-1+1)+1; //chance between 1 and 10
+                    if (randomChance >= 9)
+                    {
+
+                        monster_level=monster_level+1;
+                    }
 
                     damage.set("Amount", new NBTTagInt(monster_level));
                     damage.set("Operation", new NBTTagInt(0));

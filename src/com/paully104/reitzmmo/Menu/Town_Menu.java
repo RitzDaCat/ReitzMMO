@@ -13,7 +13,7 @@ import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
+import java.lang.reflect.*;
 import java.util.ArrayList;
 
 
@@ -41,11 +41,11 @@ public class Town_Menu implements Listener {
     @EventHandler
     public void onInventoryMoveEvent(InventoryMoveItemEvent event)
     {
-        System.out.println(event.getDestination().getName());
-        if (event.getDestination().getName().equals(TOWN_MENU.getName())) {
+        System.out.println(event.getDestination().toString());
+        if (event.getDestination() == TOWN_MENU) {
 
             System.out.println("InventoryMoveEvent on TOWN MENU");
-            System.out.println(event.getDestination().getName());
+            System.out.println(event.getDestination().toString());
             event.setCancelled(true);
         }
 
@@ -58,7 +58,7 @@ public class Town_Menu implements Listener {
         Player player = (Player) event.getWhoClicked(); // The player that clicked the item
         ItemStack clicked = event.getCurrentItem(); // The item that was clicked
         Inventory inventory = event.getInventory(); // The inventory that was clicked in
-        if (inventory.getName().equals(TOWN_MENU.getName()))
+        if (inventory.toString().equals(TOWN_MENU.toString()))
         {
             if(clicked.hasItemMeta())
             {
@@ -83,7 +83,7 @@ public class Town_Menu implements Listener {
                     }, 100); //5000 MEANS WAIT 5 SECCONDS BEFORE RUNNING THE CODE ABOVE
 
                 }
-                if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Friend Zone")) { // The item that the player clicked it dirt
+                else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Friend Zone")) { // The item that the player clicked it dirt
                     event.setCancelled(true); // Make it so the dirt is back in its original spot
                     player.closeInventory(); // Closes there inventory
                     player.sendMessage(ChatColor.YELLOW + "Teleporting in 5 seconds");
@@ -105,7 +105,7 @@ public class Town_Menu implements Listener {
 
 
                 }
-                if(clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Return To Menu"))
+                else if(clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Return To Menu"))
                 {
                     player.performCommand("Reitz");
 

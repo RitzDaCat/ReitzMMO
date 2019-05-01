@@ -4,16 +4,12 @@ import com.paully104.reitzmmo.ConfigFiles.API;
 import com.paully104.reitzmmo.Custom_Recipes.Custom_Bows;
 import com.paully104.reitzmmo.Enum.Weapon_Damage;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
-import org.apache.commons.lang3.ObjectUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
 
@@ -99,7 +95,7 @@ public class PlayerAttackingMonster implements Listener {
 
 
         }
-        if(e.getDamager() instanceof  Arrow)
+        else if(e.getDamager() instanceof  Arrow)
         {
             isProjectile = true;
             System.out.println("Arrow attack event");

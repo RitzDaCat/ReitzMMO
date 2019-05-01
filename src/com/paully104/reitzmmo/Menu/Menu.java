@@ -11,7 +11,7 @@ import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
+import org.apache.commons.lang.*;
 import java.util.ArrayList;
 
 import static com.paully104.reitzmmo.ConfigFiles.API.plugin;
@@ -50,11 +50,11 @@ public class Menu implements Listener {
     @EventHandler
     public void onInventoryMoveEvent(InventoryMoveItemEvent event)
     {
-        System.out.println(event.getDestination().getName());
-        if (event.getDestination().getName().equals(GUI_MENU.getName())) {
+        System.out.println(event.getDestination().toString());
+        if (event.getDestination() == GUI_MENU) {
 
             System.out.println("InventoryMoveEvent on GUI_MENU");
-            System.out.println(event.getDestination().getName());
+            System.out.println(event.getDestination().toString());
             event.setCancelled(true);
         }
 
@@ -66,7 +66,7 @@ public class Menu implements Listener {
         Player player = (Player) event.getWhoClicked(); // The player that clicked the item
         ItemStack clicked = event.getCurrentItem(); // The item that was clicked
         Inventory inventory = event.getInventory(); // The inventory that was clicked in
-        if (inventory.getName().equals(GUI_MENU.getName())) {
+        if (inventory == GUI_MENU) {
             if(clicked.hasItemMeta()) {
                 if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Home")) { // The item that the player clicked it dirt
                     event.setCancelled(true); // Make it so the dirt is back in its original spot
