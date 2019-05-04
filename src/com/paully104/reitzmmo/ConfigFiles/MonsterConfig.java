@@ -134,6 +134,10 @@ public class MonsterConfig {
         configuration.addDefault("SHULKER_BASE_HP", 8);
         configuration.addDefault("SHULKER_BASE_ATTACK", 4);
 
+        configuration.addDefault("PILLAGER", true);
+        configuration.addDefault("PILLAGER_BASE_HP", 8);
+        configuration.addDefault("PILLAGER_BASE_ATTACK", 4);
+
 
 
         configuration.options().copyDefaults(true);

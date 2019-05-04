@@ -5,8 +5,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
@@ -52,6 +50,7 @@ public class MonsterLevelsHealth implements Listener {
     private final int witchBaseHP = API.monsterConfig.getInt("WITCH_BASE_HP");
     private final int witherSkeletonBaseHP = API.monsterConfig.getInt("WITHERSKELETON_BASE_HP");
     private final int shulkerSkeletonBaseHP = API.monsterConfig.getInt("SHULKER_BASE_HP");
+    private final int pillagerSkeletonBaseHP = API.monsterConfig.getInt("PILLAGER_BASE_HP");
 
     private int calculateDistanceFromSpawn(Location worldSpawn, Location monsterSpawn)
     {
@@ -76,258 +75,225 @@ public class MonsterLevelsHealth implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void applyMonsterLevelOnSpawn(CreatureSpawnEvent e) {
+        int worldEnabled = API.worldConfig.getInt(e.getLocation().getWorld().getName());
+        if(worldEnabled != -1)
+        {
+            Location worldSpawn = e.getLocation().getWorld().getSpawnLocation();
+            Location monsterSpawn = e.getLocation();
+            if (null == monsterSpawn) return;//if there's a problem
+            int distance = calculateDistanceFromSpawn(worldSpawn, monsterSpawn);
 
-        Location worldSpawn = e.getLocation().getWorld().getSpawnLocation();
-        Location monsterSpawn = e.getLocation();
-        if (monsterSpawn == null) return;//if there's a problem
-        int distance = calculateDistanceFromSpawn(worldSpawn, monsterSpawn);
-        Random r = new Random();
-        int low = 0;
-        int high = 100;
-        int result = r.nextInt(high-low) + low;
-        String mobName = e.getEntityType().toString().substring(0, 1).toUpperCase() + e.getEntityType().toString().toLowerCase().substring(1);
-        if(result >= 98 && e.getEntity() instanceof Monster)
-        {
-            distance = distance + 25;
-            String levelColor = ChatColor.YELLOW + "[" + distance + "]";
-            e.getEntity().setCustomName("King " + mobName + levelColor);
-            e.getEntity().setGlowing(true);
+            //The world is set to -1 means don't apply to mobs
 
-        }
-        else if(result >= 90 && e.getEntity() instanceof Monster)
-        {
-            distance = distance + 10;
-            String levelColor = ChatColor.YELLOW + "[" + distance + "]";
-            e.getEntity().setCustomName("Notorious " + mobName + levelColor);
-            e.getEntity().setGlowing(true);
 
-        }
-        else if(result == 66 && e.getEntity() instanceof  Monster)
-        {
-            distance = distance + 6;
-            String levelColor = ChatColor.YELLOW + "[" + distance + "]";
-            e.getEntity().setCustomName("Devilish " + mobName + levelColor);
-            e.getEntity().setSilent(true);
-            e.getEntity().setGlowing(false);
-        }
-        else if(result <= 1 && e.getEntity() instanceof  Monster)
-        {
-            if(distance > 1) {
-                distance = distance - 1;
+            Random r = new Random();
+            int low = 0;
+            int high = 100;
+            int result = r.nextInt(high - low) + low;
+            String mobName = e.getEntityType().toString().substring(0, 1).toUpperCase() + e.getEntityType().toString().toLowerCase().substring(1);
+            if (result >= 98 && e.getEntity() instanceof Monster) {
+                distance = distance + 25;
                 String levelColor = ChatColor.YELLOW + "[" + distance + "]";
-                e.getEntity().setCustomName("Dumb " + mobName + levelColor);
-                e.getEntity().setGlowing(false);
-                e.getEntity().getEquipment().setHelmet(new ItemStack(Material.BUCKET,1));
-            }
-            else
-            {
+                e.getEntity().setCustomName("King " + mobName + levelColor);
+                e.getEntity().setGlowing(true);
+
+            } else if (result >= 90 && e.getEntity() instanceof Monster) {
+                distance = distance + 10;
                 String levelColor = ChatColor.YELLOW + "[" + distance + "]";
-                e.getEntity().setCustomName("Dumb " + mobName + levelColor);
+                e.getEntity().setCustomName("Notorious " + mobName + levelColor);
+                e.getEntity().setGlowing(true);
+
+            } else if (result == 66 && e.getEntity() instanceof Monster) {
+                distance = distance + 6;
+                String levelColor = ChatColor.YELLOW + "[" + distance + "]";
+                e.getEntity().setCustomName("Devilish " + mobName + levelColor);
+                e.getEntity().setSilent(true);
                 e.getEntity().setGlowing(false);
-                e.getEntity().getEquipment().setHelmet(new ItemStack(Material.BUCKET,1));
+            } else if (result <= 1 && e.getEntity() instanceof Monster) {
+                if (distance > 1) {
+                    distance = distance - 1;
+                    String levelColor = ChatColor.YELLOW + "[" + distance + "]";
+                    e.getEntity().setCustomName("Dumb " + mobName + levelColor);
+                    e.getEntity().setGlowing(false);
+                    e.getEntity().getEquipment().setHelmet(new ItemStack(Material.BUCKET, 1));
+                } else {
+                    String levelColor = ChatColor.YELLOW + "[" + distance + "]";
+                    e.getEntity().setCustomName("Dumb " + mobName + levelColor);
+                    e.getEntity().setGlowing(false);
+                    e.getEntity().getEquipment().setHelmet(new ItemStack(Material.BUCKET, 1));
+                }
+            } else {
+                String levelColor = ChatColor.YELLOW + "[" + distance + "]";
+                e.getEntity().setCustomName(mobName + levelColor);
             }
-        }
+            //updated on 5/7 for bad boys
+            e.getEntity().setCustomNameVisible(true);
 
-        else
-        {
-            String levelColor = ChatColor.YELLOW + "[" + distance + "]";
-            e.getEntity().setCustomName(mobName + levelColor);
-        }
-        //updated on 5/7 for bad boys
-       e.getEntity().setCustomNameVisible(true);
+            //configure health per mob
 
-        //configure health per mob
+            switch (e.getEntity().getType()) {
+                case ZOMBIE:
+                    Zombie zombie = (Zombie) e.getEntity();
+                    if (zombie.isBaby()) {
+                        e.getEntity().setMaxHealth(distance * zombieBaseHP);
+                        e.getEntity().setHealth(distance * zombieBaseHP);
+                        //Update onm 4/26/2017 To slow the hell down baby zombies
+                        e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * 0.6);
+                        //Updated on 4/26/2017 to increase follow_range to 2.0 from 1.25
+                        e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).getValue() * 2.00);
+                        //updated on 4/26/2017 to increase the chance of getting tons of zombies :)
+                        e.getEntity().getAttribute(Attribute.ZOMBIE_SPAWN_REINFORCEMENTS).setBaseValue(e.getEntity().getAttribute(Attribute.ZOMBIE_SPAWN_REINFORCEMENTS).getValue() + 0.2);
+                    } else {
+                        e.getEntity().setMaxHealth(distance * zombieBaseHP);
+                        e.getEntity().setHealth(distance * zombieBaseHP);
+                        //superfastZombie
+                        e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * 1.25);
+                        //Updated on 4/26/2017 to increase follow_range to 2.0 from 1.25
+                        e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).getValue() * 2.00);
+                        //updated on 4/26/2017 to increase the chance of getting tons of zombies :)
+                        e.getEntity().getAttribute(Attribute.ZOMBIE_SPAWN_REINFORCEMENTS).setBaseValue(e.getEntity().getAttribute(Attribute.ZOMBIE_SPAWN_REINFORCEMENTS).getValue() + 0.20);
 
-        if(e.getEntity().getType() == EntityType.ZOMBIE) {
-            Zombie zombie = (Zombie) e.getEntity();
-            if (zombie.isBaby())
-            {
-                e.getEntity().setMaxHealth(distance * zombieBaseHP);
-                e.getEntity().setHealth(distance * zombieBaseHP);
-                //Update onm 4/26/2017 To slow the hell down baby zombies
-                e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * 0.6);
-                //Updated on 4/26/2017 to increase follow_range to 2.0 from 1.25
-                e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).getValue() * 2.00);
-                //updated on 4/26/2017 to increase the chance of getting tons of zombies :)
-                e.getEntity().getAttribute(Attribute.ZOMBIE_SPAWN_REINFORCEMENTS).setBaseValue(e.getEntity().getAttribute(Attribute.ZOMBIE_SPAWN_REINFORCEMENTS).getValue() + 0.2);
+                    }
+                    break;
+                case WOLF:
+                    e.getEntity().setMaxHealth(distance * wolfBaseHP);
+                    e.getEntity().setHealth(distance * wolfBaseHP);
+                    e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).getValue() * 2.00);
+                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * 1.25);
+                    break;
+                case VILLAGER:
+                    e.getEntity().setMaxHealth(distance * villagerBaseHP);
+                    e.getEntity().setHealth(distance * villagerBaseHP);
+                    break;
+                case SQUID:
+                    e.getEntity().setMaxHealth(distance * squidBaseHP);
+                    e.getEntity().setHealth(distance * squidBaseHP);
+                    break;
+                case SPIDER:
+                    e.getEntity().setMaxHealth(distance * spiderBaseHP);
+                    e.getEntity().setHealth(distance * spiderBaseHP);
+                    break;
+                case SNOWMAN:
+                    e.getEntity().setMaxHealth(distance * snowmanBaseHP);
+                    e.getEntity().setHealth(distance * snowmanBaseHP);
+                    break;
+                case SLIME:
+                    e.getEntity().setMaxHealth(distance * slimeBaseHP);
+                    e.getEntity().setHealth(distance * slimeBaseHP);
+                    break;
+                case SKELETON:
+                    e.getEntity().setMaxHealth(distance * skeletonBaseHP);
+                    e.getEntity().setHealth(distance * skeletonBaseHP);
+                    //slower Skellies because they suck
+                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * .80);
+                    e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).getValue() * 2.00);
+                    //Lets slow down the skeleton firing rate to make it more fair UPDATE: Not an accessible trait!
+                    break;
+                case SILVERFISH:
+                    e.getEntity().setMaxHealth(distance * silverfishBaseHP);
+                    e.getEntity().setHealth(distance * silverfishBaseHP);
+                    break;
+                case SHEEP:
+                    e.getEntity().setMaxHealth(distance * sheepBaseHP);
+                    e.getEntity().setHealth(distance * sheepBaseHP);
+                    break;
+                case RABBIT:
+                    e.getEntity().setMaxHealth(distance * rabbitBaseHP);
+                    e.getEntity().setHealth(distance * rabbitBaseHP);
+                    break;
+                case PIG_ZOMBIE:
+                    e.getEntity().setMaxHealth(distance * pigzombieBaseHP);
+                    e.getEntity().setHealth(distance * pigzombieBaseHP);
+                    //superfast
+                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * 1.25);
+                    break;
+                case PIG:
+                    e.getEntity().setMaxHealth(distance * pigBaseHP);
+                    e.getEntity().setHealth(distance * pigBaseHP);
+                    break;
+                case MUSHROOM_COW:
+                    e.getEntity().setMaxHealth(distance * mushroomcowBaseHP);
+                    e.getEntity().setHealth(distance * mushroomcowBaseHP);
+                    break;
+                case MAGMA_CUBE:
+                    e.getEntity().setMaxHealth(distance * magmacubeBaseHP);
+                    e.getEntity().setHealth(distance * magmacubeBaseHP);
+                    break;
+                case GUARDIAN:
+                    e.getEntity().setMaxHealth(distance * guardianBaseHP);
+                    e.getEntity().setHealth(distance * guardianBaseHP);
+                    break;
+                case ELDER_GUARDIAN:
+                    e.getEntity().setMaxHealth(distance * guardianBaseHP);
+                    e.getEntity().setHealth(distance * guardianBaseHP);
+                    break;
+                case GIANT:
+                    e.getEntity().setMaxHealth(distance * giantBaseHP);
+                    e.getEntity().setHealth(distance * giantBaseHP);
+                    break;
+                case GHAST:
+                    e.getEntity().setMaxHealth(distance * ghastBaseHP);
+                    e.getEntity().setHealth(distance * ghastBaseHP);
+                    //Slow them down
+                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * .85);
+                    break;
+                case ENDERMITE:
+                    e.getEntity().setMaxHealth(distance * endermiteBaseHP);
+                    e.getEntity().setHealth(distance * endermiteBaseHP);
+                    break;
+                case ENDERMAN:
+                    e.getEntity().setMaxHealth(distance * endermanBaseHP);
+                    e.getEntity().setHealth(distance * endermanBaseHP);
+                    break;
+                case ENDER_DRAGON:
+                    distance = 250;
+                    e.getEntity().setMaxHealth(distance * enderdragonBaseHP);
+                    e.getEntity().setHealth(distance * enderdragonBaseHP);
+                    break;
+                case CREEPER:
+                    e.getEntity().setMaxHealth(distance * creeperBaseHP);
+                    e.getEntity().setHealth(distance * creeperBaseHP);
+                    //superFastCreepers?
+
+                    //this is paul being reasonable
+                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * 1.4);
+                    e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).getValue() * 1.75);
+                    break;
+                case COW:
+                    e.getEntity().setMaxHealth(distance * cowBaseHP);
+                    e.getEntity().setHealth(distance * cowBaseHP);
+                    break;
+                case CHICKEN:
+                    e.getEntity().setMaxHealth(distance * chickenBaseHP);
+                    e.getEntity().setHealth(distance * chickenBaseHP);
+                    break;
+                case CAVE_SPIDER:
+                    e.getEntity().setMaxHealth(distance * cavespiderBaseHP);
+                    e.getEntity().setHealth(distance * cavespiderBaseHP);
+                    break;
+                case BLAZE:
+                    e.getEntity().setMaxHealth(distance * blazeBaseHP);
+                    e.getEntity().setHealth(distance * blazeBaseHP);
+                    break;
+                case WITCH:
+                    e.getEntity().setMaxHealth(distance * witchBaseHP);
+                    e.getEntity().setHealth(distance * witchBaseHP);
+                    break;
+                case WITHER_SKELETON:
+                    e.getEntity().setMaxHealth(distance * witherSkeletonBaseHP);
+                    e.getEntity().setHealth(distance * witherSkeletonBaseHP);
+                    break;
+                case SHULKER:
+                    e.getEntity().setMaxHealth(distance * shulkerSkeletonBaseHP);
+                    e.getEntity().setHealth(distance * shulkerSkeletonBaseHP);
+                    break;
+                case PILLAGER:
+                    e.getEntity().setMaxHealth(distance * pillagerSkeletonBaseHP);
+                    e.getEntity().setHealth(distance * pillagerSkeletonBaseHP);
+                    break;
+
             }
-            else
-            {
-                e.getEntity().setMaxHealth(distance * zombieBaseHP);
-                e.getEntity().setHealth(distance * zombieBaseHP);
-                //superfastZombie
-                e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * 1.25);
-                //Updated on 4/26/2017 to increase follow_range to 2.0 from 1.25
-                e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).getValue() * 2.00);
-                //updated on 4/26/2017 to increase the chance of getting tons of zombies :)
-                e.getEntity().getAttribute(Attribute.ZOMBIE_SPAWN_REINFORCEMENTS).setBaseValue(e.getEntity().getAttribute(Attribute.ZOMBIE_SPAWN_REINFORCEMENTS).getValue() + 0.20);
 
-            }
-        }
-
-        else if(e.getEntity().getType() == EntityType.WOLF)
-        {
-            e.getEntity().setMaxHealth(distance * wolfBaseHP);
-            e.getEntity().setHealth(distance * wolfBaseHP);
-            e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).getValue() * 2.00);
-            e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue()*1.25);
-        }
-
-        else if(e.getEntity().getType() == EntityType.VILLAGER)
-        {
-            e.getEntity().setMaxHealth(distance * villagerBaseHP);
-            e.getEntity().setHealth(distance * villagerBaseHP);
-        }
-
-        else if(e.getEntity().getType() == EntityType.SQUID)
-        {
-            e.getEntity().setMaxHealth(distance * squidBaseHP);
-            e.getEntity().setHealth(distance * squidBaseHP);
-        }
-
-        else if(e.getEntity().getType() == EntityType.SPIDER)
-        {
-            e.getEntity().setMaxHealth(distance * spiderBaseHP);
-            e.getEntity().setHealth(distance * spiderBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.SNOWMAN)
-        {
-            e.getEntity().setMaxHealth(distance * snowmanBaseHP);
-            e.getEntity().setHealth(distance * snowmanBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.SLIME)
-        {
-            e.getEntity().setMaxHealth(distance * slimeBaseHP);
-            e.getEntity().setHealth(distance * slimeBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.SKELETON)
-        {
-            e.getEntity().setMaxHealth(distance * skeletonBaseHP);
-            e.getEntity().setHealth(distance * skeletonBaseHP);
-            //slower Skellies because they suck
-            e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue()*.80);
-            e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).getValue() * 2.00);
-            //Lets slow down the skeleton firing rate to make it more fair UPDATE: Not an accessible trait!
-        }
-        else if(e.getEntity().getType() == EntityType.SILVERFISH)
-        {
-            e.getEntity().setMaxHealth(distance * silverfishBaseHP);
-            e.getEntity().setHealth(distance * silverfishBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.SHEEP)
-        {
-            e.getEntity().setMaxHealth(distance * sheepBaseHP);
-            e.getEntity().setHealth(distance * sheepBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.RABBIT)
-        {
-            e.getEntity().setMaxHealth(distance * rabbitBaseHP);
-            e.getEntity().setHealth(distance * rabbitBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.PIG_ZOMBIE)
-        {
-            e.getEntity().setMaxHealth(distance * pigzombieBaseHP);
-            e.getEntity().setHealth(distance * pigzombieBaseHP);
-            //superfast
-            e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue()*1.25);
-        }
-        else if(e.getEntity().getType() == EntityType.PIG)
-        {
-            e.getEntity().setMaxHealth(distance * pigBaseHP);
-            e.getEntity().setHealth(distance * pigBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.MUSHROOM_COW)
-        {
-            e.getEntity().setMaxHealth(distance * mushroomcowBaseHP);
-            e.getEntity().setHealth(distance * mushroomcowBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.MAGMA_CUBE)
-        {
-            e.getEntity().setMaxHealth(distance * magmacubeBaseHP);
-            e.getEntity().setHealth(distance * magmacubeBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.GUARDIAN)
-        {
-            e.getEntity().setMaxHealth(distance * guardianBaseHP);
-            e.getEntity().setHealth(distance * guardianBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.GIANT)
-        {
-            e.getEntity().setMaxHealth(distance * giantBaseHP);
-            e.getEntity().setHealth(distance * giantBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.GHAST)
-        {
-            e.getEntity().setMaxHealth(distance * ghastBaseHP);
-            e.getEntity().setHealth(distance * ghastBaseHP);
-            //Slow them down
-            e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue()*.85);
-        }
-        else if(e.getEntity().getType() == EntityType.ENDERMITE)
-        {
-            e.getEntity().setMaxHealth(distance * endermiteBaseHP);
-            e.getEntity().setHealth(distance * endermiteBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.ENDERMAN)
-        {
-            e.getEntity().setMaxHealth(distance * endermanBaseHP);
-            e.getEntity().setHealth(distance * endermanBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.ENDER_DRAGON)
-        {
-            //Lets make the dragon scary
-            distance = 250;
-            e.getEntity().setMaxHealth(distance * enderdragonBaseHP);
-            e.getEntity().setHealth(distance * enderdragonBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.CREEPER)
-        {
-            e.getEntity().setMaxHealth(distance * creeperBaseHP);
-            e.getEntity().setHealth(distance * creeperBaseHP);
-            //superFastCreepers?
-
-            //this is paul being reasonable
-            e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue()*1.4);
-            e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).getValue()*1.75);
-
-
-        }
-        else if(e.getEntity().getType() == EntityType.COW)
-        {
-            e.getEntity().setMaxHealth(distance * cowBaseHP);
-            e.getEntity().setHealth(distance * cowBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.CHICKEN)
-        {
-            e.getEntity().setMaxHealth(distance * chickenBaseHP);
-            e.getEntity().setHealth(distance * chickenBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.CAVE_SPIDER)
-        {
-            e.getEntity().setMaxHealth(distance * cavespiderBaseHP);
-            e.getEntity().setHealth(distance * cavespiderBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.BLAZE)
-        {
-            e.getEntity().setMaxHealth(distance * blazeBaseHP);
-            e.getEntity().setHealth(distance * blazeBaseHP);
-        }
-        else if(e.getEntity().getType() == EntityType.WITCH)
-        {
-            e.getEntity().setMaxHealth(distance * witchBaseHP);
-            e.getEntity().setHealth(distance * witchBaseHP);
-
-        }
-        else if(e.getEntity().getType() == EntityType.WITHER_SKELETON)
-        {
-            e.getEntity().setMaxHealth(distance * witherSkeletonBaseHP);
-            e.getEntity().setHealth(distance * witherSkeletonBaseHP);
-
-        }
-        else if(e.getEntity().getType() == EntityType.SHULKER)
-        {
-            e.getEntity().setMaxHealth(distance * shulkerSkeletonBaseHP);
-            e.getEntity().setHealth(distance * shulkerSkeletonBaseHP);
 
         }
 

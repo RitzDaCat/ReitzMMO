@@ -14,7 +14,7 @@ public class WorldConfig {
     {
         File file = FileManager.worldConfig;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-        configuration.options().header("This config is used to set all world levels configurations");
+        configuration.options().header("This config is used to set all world levels configurations.\n Use -1 to make the plugin disabled on a world");
 
         configuration.addDefault("world", 1);
         configuration.addDefault("world_nether", 15);

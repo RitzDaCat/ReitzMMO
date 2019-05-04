@@ -12,7 +12,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Paul on 7/29/2016.
@@ -63,7 +62,7 @@ public class Party_Commands implements CommandExecutor {
                 //first remove all members
                 Party party_leaders = Party_API.Party_Leaders.get(name);
                 //noinspection unchecked
-                @SuppressWarnings("unchecked") List<String> members = party_leaders.get_MembersList();
+                List<String> members = party_leaders.get_MembersList();
                 System.out.println(party_leaders.get_MembersList());
 
                 for (String people : members)
@@ -121,7 +120,7 @@ public class Party_Commands implements CommandExecutor {
 
             if(args[1].equals(sender.getName()))
             {
-                sender.sendMessage("You cannot invite yourself");
+                sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.YELLOW + " Unable to invite yourself");
 
             }
 
@@ -146,7 +145,7 @@ public class Party_Commands implements CommandExecutor {
             }
             else
             {
-                sender.sendMessage(ChatColor.RED + "You must first create a party and be its leader!");
+                sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.WHITE + " You must first create a party and be its leader!");
 
             }
             //Party party = Party_API.Party_Leaders.get(sender.getName());
@@ -171,13 +170,13 @@ public class Party_Commands implements CommandExecutor {
                     Party_API.inParty.put(sender.getName(), queue.getCreator());
 
                 } else {
-                    sender.sendMessage(ChatColor.RED+"[ERROR]Incorrect passcode!");
+                    sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.WHITE + " Incorrect passcode!");
 
                 }
             }
             else
             {
-                sender.sendMessage(ChatColor.RED+"You /are already in a party!");
+                sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.WHITE + " You /are already in a party!");
 
             }
             //Party party = Party_API.Party_Leaders.get(sender.getName());
@@ -200,7 +199,7 @@ public class Party_Commands implements CommandExecutor {
             }
             else
             {
-                sender.sendMessage(ChatColor.RED+"You can't do that!");
+                sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.WHITE + " You are unable to remove members!");
 
             }
 
@@ -217,7 +216,7 @@ public class Party_Commands implements CommandExecutor {
 
                 Party party = Party_API.Party_Leaders.get(leader);
                  //noinspection unchecked
-                 @SuppressWarnings("unchecked") List<String> members = party.get_MembersList();
+                 List<String> members = party.get_MembersList();
                 System.out.println(party.get_MembersList());
                  party.Remove_Member(name);
                 Party_API.inParty.remove(name);
@@ -234,7 +233,7 @@ public class Party_Commands implements CommandExecutor {
             }
             else
             {
-                sender.sendMessage(ChatColor.RED+"No party to leave!");
+                sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.WHITE + " Not in a party to leave");
 
             }
 

@@ -11,7 +11,7 @@ import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.apache.commons.lang.*;
+
 import java.util.ArrayList;
 
 import static com.paully104.reitzmmo.ConfigFiles.API.plugin;
@@ -77,7 +77,13 @@ public class Menu implements Listener {
                     Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                         if(player.getHealth() >= health)
                         {
-                            player.teleport(player.getBedSpawnLocation()); // Adds dirt
+                            if(null != player.getBedLocation()) {
+                                player.teleport(player.getBedSpawnLocation()); // Adds dirt
+                            }
+                            else
+                            {
+                                player.sendMessage(ChatColor.RED + "No homepoint set!");
+                            }
 
                         }
                         else
