@@ -27,7 +27,8 @@ public class PlayerDefeatsMonster implements Listener {
 
     private final int PartyEXPMaxDistance = API.partyConfig.getInt("PartyEXPMaxDistance");
     private final boolean debug = API.debugConfig.getBoolean("PartyEXP");
-
+    private final boolean debugEnabled = API.debugConfig.getBoolean("PlayerAttackingMonster");
+    private final int combatEXPMultipler = API.playerConfig.getInt("CombatEXP_MULTIPLIER");
     @EventHandler
     public void MonsterDeathCausedByPlayer(EntityDeathEvent e) {
         int worldEnabled = API.worldConfig.getInt(e.getEntity().getLocation().getWorld().getName());
@@ -82,7 +83,9 @@ public class PlayerDefeatsMonster implements Listener {
                         compound.set("AttributeModifiers", modifiers);
                         nmsStack.setTag(compound);
                         ItemStack item = CraftItemStack.asBukkitCopy(nmsStack);
-                        System.out.println("Item drop");
+                        if(debugEnabled == true) {
+                            System.out.println("Item drop");
+                        }
                         e.getEntity().getLocation().getWorld().dropItemNaturally(e.getEntity().getLocation(), item);
 
 
@@ -91,7 +94,9 @@ public class PlayerDefeatsMonster implements Listener {
 
 
                 } catch (ConcurrentModificationException ce) {
-                    System.out.println("CME");
+                    if(debugEnabled) {
+                        System.out.println("CME");
+                    }
 
 
                 }
@@ -102,12 +107,15 @@ public class PlayerDefeatsMonster implements Listener {
 
                     Party party = Party_API.Party_Leaders.get(playerName);
                     @SuppressWarnings("unchecked") List<String> members = party.get_MembersList();
-                    System.out.println(party.get_MembersList());
-
+                    if(debug) {
+                        System.out.println(party.get_MembersList());
+                    }
                     for (String people : members) {
                         Player partyMember = Bukkit.getPlayer(people);
                         if (partyMember == null) {
-                            System.out.println("Player error");
+                            if(debug) {
+                                System.out.println("Player error");
+                            }
 
                         }//player is the killer make sure party member is within 100 blocks
                         if (debug) {
@@ -119,22 +127,25 @@ public class PlayerDefeatsMonster implements Listener {
                             System.out.println(currentexp);
                             String monster_level_from_name = dead.getCustomName().replaceAll("\\D+", "");
                             monster_level = Integer.parseInt(monster_level_from_name);
-                            int new_exp = currentexp + (monster_level * 2);
+                            int new_exp = currentexp + (monster_level * combatEXPMultipler);
                             API.Players.get(people).getData().set("Combat-EXP", new_exp);
                             CheckPlayerCombatLevelUp test = new CheckPlayerCombatLevelUp();
                             test.CheckLevelUp(partyMember);
                         } else {
-                            System.out.println("Player is to far #2");
-                            System.out.println("Player:" + partyMember.getName());
-                            System.out.println("Distance" + dead.getLocation().distance(partyMember.getLocation()));
-                            System.out.println("Location:" + partyMember.getLocation());
+                            if(debug) {
+                                System.out.println("Player is to far #2");
+                                System.out.println("Player:" + partyMember.getName());
+                                System.out.println("Distance" + dead.getLocation().distance(partyMember.getLocation()));
+                                System.out.println("Location:" + partyMember.getLocation());
+                            }
                             //Player is too far for exp!
                         }
 
                     }
                     Hologram hologram = new Hologram();
                     Location monster = dead.getLocation().add(0.0, 0.0, 0.0);
-                    hologram.setHologram((Player) player, player.getWorld(), monster, monster_level * 2);
+                    //This should be combatEXP Multiple
+                    hologram.setHologram((Player) player, player.getWorld(), monster, monster_level * combatEXPMultipler);
 
                 } else if (Party_API.inParty.containsKey(playerName)) {
                     //party member kills mob
@@ -147,25 +158,33 @@ public class PlayerDefeatsMonster implements Listener {
                     for (String people : members) {
 
                         Player partyMember = Bukkit.getPlayer(people);
-                        if (partyMember == null) {
-                            System.out.println("Player error");
+                        if (partyMember == null)
+                        {
+                            if(debug)
+                            {
+                                System.out.println("Player error");
+                            }
 
                         }
-                        if (debug) {
+                        if (debug)
+                        {
                             System.out.println("Distance #1 " + dead.getLocation().distance(partyMember.getLocation()));
                         }
                         //player is the killer make sure party member is within 100 blocks
-                        if (dead.getLocation().distance(partyMember.getLocation()) <= PartyEXPMaxDistance) {
+                        if (dead.getLocation().distance(partyMember.getLocation()) <= PartyEXPMaxDistance)
+                        {
                             System.out.println(people);
                             Integer currentexp = API.Players.get(people).getData().getInt("Combat-EXP");
                             System.out.println(currentexp);
                             String monster_level_from_name = dead.getCustomName().replaceAll("\\D+", "");
                             monster_level = Integer.parseInt(monster_level_from_name);
-                            int new_exp = currentexp + (monster_level * 2);
+                            int new_exp = currentexp + (monster_level * combatEXPMultipler);
                             API.Players.get(people).getData().set("Combat-EXP", new_exp);
                             CheckPlayerCombatLevelUp test = new CheckPlayerCombatLevelUp();
                             test.CheckLevelUp(partyMember);
-                        } else {
+                        }
+                        else
+                            {
                             System.out.println("Player is to far #2");
                             System.out.println("Player:" + partyMember.getName());
                             System.out.println("Distance" + dead.getLocation().distance(partyMember.getLocation()));
@@ -175,32 +194,39 @@ public class PlayerDefeatsMonster implements Listener {
                     }
                     Hologram hologram = new Hologram();
                     Location monster = dead.getLocation().add(0.0, 0.0, 0.0);
-                    hologram.setHologram((Player) player, player.getWorld(), monster, monster_level * 2);
-
-                } else {
-                    String monster_level_from_name = "1";
-                    Integer currentexp = API.Players.get(player.getName()).getData().getInt("Combat-EXP");
-                    try {
-                        monster_level_from_name = dead.getCustomName().replaceAll("\\D+", "");
-                    } catch (NullPointerException ignored) {
-
-                    }
-                    monster_level = Integer.parseInt(monster_level_from_name);
-                    int new_exp = currentexp + (monster_level * 2);
-                    API.Players.get(player.getName()).getData().set("Combat-EXP", new_exp);
-                    CheckPlayerCombatLevelUp test = new CheckPlayerCombatLevelUp();
-                    test.CheckLevelUp((Player) player);
-                    Hologram hologram = new Hologram();
-                    Location monster = dead.getLocation().add(0.0, 0.0, 0.0);
-                    hologram.setHologram((Player) player, player.getWorld(), monster, monster_level * 2);
-                    if (debug) {
-                        System.out.println("Player location: " + player.getLocation());
-                    }
-                    if (debug) {
-                        System.out.println("Headheight location: " + ((Player) player).getEyeLocation());
-                    }
+                    hologram.setHologram((Player) player, player.getWorld(), monster, monster_level * combatEXPMultipler);
 
                 }
+                else
+                    {
+                        String monster_level_from_name = "1";
+                        Integer currentexp = API.Players.get(player.getName()).getData().getInt("Combat-EXP");
+                        try
+                        {
+                            monster_level_from_name = dead.getCustomName().replaceAll("\\D+", "");
+                        }
+                        catch (NullPointerException ignored)
+                        {
+
+                        }
+                        monster_level = Integer.parseInt(monster_level_from_name);
+                        int new_exp = currentexp + (monster_level * combatEXPMultipler);
+                        API.Players.get(player.getName()).getData().set("Combat-EXP", new_exp);
+                        CheckPlayerCombatLevelUp test = new CheckPlayerCombatLevelUp();
+                        test.CheckLevelUp((Player) player);
+                        Hologram hologram = new Hologram();
+                        Location monster = dead.getLocation().add(0.0, 0.0, 0.0);
+                        hologram.setHologram((Player) player, player.getWorld(), monster, monster_level * combatEXPMultipler);
+                        if (debug)
+                        {
+                            System.out.println("Player location: " + player.getLocation());
+                        }
+                        if (debug)
+                        {
+                            System.out.println("Headheight location: " + ((Player) player).getEyeLocation());
+                        }
+
+                    }
                 //Get Experience
                 //Integer currentexp = API.Players.get(player.getName()).getData().getInt("Combat-EXP");
                 //String monster_level_from_name = dead.getCustomName().replaceAll("\\D+", "");

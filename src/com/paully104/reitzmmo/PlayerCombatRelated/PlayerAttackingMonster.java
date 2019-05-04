@@ -64,11 +64,13 @@ public class PlayerAttackingMonster implements Listener {
                             //if the weapon has special stats
                             if (human.getInventory().getItemInMainHand().getItemMeta().hasAttributeModifiers()) {
                                 Collection<AttributeModifier> weaponStats = human.getInventory().getItemInMainHand().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE);
-                                System.out.println(weaponStats.iterator().next().getAmount());
                                 int weaponBonus = (int) weaponStats.iterator().next().getAmount();
                                 weaponDamage = weaponDamage + weaponBonus;
                                 damage_done = damage_done + weaponDamage;
                                 e.setDamage(damage_done);
+                                if(debugEnabled) {
+                                    System.out.println(weaponStats.iterator().next().getAmount());
+                                }
 
                                 //[14:07:39 INFO]: AttributeModifier{uuid=00000000-0000-0b38-0000-0000000da6be, name=generic.attackDamage, operation=ADD_NUMBER, amount=20.0, slot=}
                                 //int weaponBonus = human.getInventory().getItemInMainHand().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE).;
@@ -77,9 +79,13 @@ public class PlayerAttackingMonster implements Listener {
                         }
                     } else {
                         //empty handed
-                        System.out.print("empty hands");
+
                         damage_done = damage_done + weaponDamage;
                         e.setDamage(damage_done);
+                        if(debugEnabled == true)
+                        {
+                            System.out.print("empty hands");
+                        }
                     }
                 } catch (IllegalArgumentException error) {
                     e.setDamage(damage_done);//if not in list
@@ -88,7 +94,9 @@ public class PlayerAttackingMonster implements Listener {
 
             } else if (e.getDamager() instanceof Arrow) {
                 isProjectile = true;
-                System.out.println("Arrow attack event");
+                if(debugEnabled == true) {
+                    System.out.println("Arrow attack event");
+                }
                 Arrow arrow = (Arrow) e.getDamager();
                 Entity shooter = (Entity) arrow.getShooter();
                 if (shooter instanceof Player) {
@@ -98,7 +106,9 @@ public class PlayerAttackingMonster implements Listener {
                     monster_defense = Integer.parseInt(monster_level_from_name);
                     //updated on 5/6/2017 to add new custom bow recipes
                     damage_done = player_attack - monster_defense + Custom_Bows.getBowDamage(((Player) shooter).getInventory().getItemInMainHand());
-                    System.out.println("Damage Done: " + player_attack + " " + monster_defense + " " + Custom_Bows.getBowDamage(((Player) shooter).getInventory().getItemInMainHand()));
+                    if(debugEnabled == true) {
+                        System.out.println("Damage Done: " + player_attack + " " + monster_defense + " " + Custom_Bows.getBowDamage(((Player) shooter).getInventory().getItemInMainHand()));
+                    }
 
                     //custom item logic
 
@@ -124,7 +134,9 @@ public class PlayerAttackingMonster implements Listener {
                         "\n" + " Mob HP: " + "Broken");
 
             }
-            System.out.println(e.getDamage() + "Damage DONE");
+            if(debugEnabled == true) {
+                System.out.println(e.getDamage() + "Damage DONE");
+            }
 
         }
     }

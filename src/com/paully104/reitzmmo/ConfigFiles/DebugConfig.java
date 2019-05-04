@@ -15,10 +15,10 @@ public class DebugConfig {
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         configuration.options().header("This config is used to set all debug options");
 
-        configuration.addDefault("MonsterAttackingPlayer", true);
-        configuration.addDefault("PlayerAttackingMonster", true);
-        configuration.addDefault("PlayerLevelUp", true);
-        configuration.addDefault("PartyEXP", true);
+        configuration.addDefault("MonsterAttackingPlayer", false);
+        configuration.addDefault("PlayerAttackingMonster", false);
+        configuration.addDefault("PlayerLevelUp", false);
+        configuration.addDefault("PartyEXP", false);
 
 
 
