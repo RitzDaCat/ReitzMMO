@@ -14,6 +14,7 @@ public class FileManager
     public static File partyConfig;
     public static File weaponskillConfig;
     public static File customBowConfig;
+    public static File chatConfig;
 
 
 
@@ -27,6 +28,7 @@ public class FileManager
         partyConfig = new File("plugins/ReitzMMO/PartySettings/PartyConfig.yml");
         weaponskillConfig = new File("plugins/ReitzMMO/WeaponSkillSettings/WeaponskillConfig.yml");
         customBowConfig = new File("plugins/ReitzMMO/CustomWeaponSettings/CustomBowConfig.yml");
+        chatConfig = new File("plugins/ReitzMMO/ChatSettings/ChatConfig.yml");
 
 
     }

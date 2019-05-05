@@ -48,6 +48,7 @@ public class Main extends JavaPlugin {
         PartyConfig.Configuration();
         WeaponskillConfig.Configuration();
         CustomBowConfig.Configuration();
+        ChatConfig.Configuration();
 
         //Set API data for quicker config reading
         API.setMonsterConfig();
@@ -57,6 +58,7 @@ public class Main extends JavaPlugin {
         API.setPartyConfig();
         API.setWeaponskillConfig();
         API.setcustombowConfig();
+        API.setChatConfig();
 
         //Main Commands
         this.getCommand("reitz").setExecutor(new ReitzRPGMain());

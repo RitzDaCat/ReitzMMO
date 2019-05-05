@@ -21,6 +21,7 @@ public class API {
     public static FileConfiguration partyConfig;
     public static FileConfiguration weaponskillConfig;
     public static FileConfiguration custombowConfig;
+    public static FileConfiguration chatConfig;
     public static Plugin plugin;
 
     //Start of sets
@@ -35,6 +36,7 @@ public class API {
     }
     public static void setWeaponskillConfig() {weaponskillConfig = YamlConfiguration.loadConfiguration(FileManager.weaponskillConfig);}
     public static void setcustombowConfig() {custombowConfig = YamlConfiguration.loadConfiguration(FileManager.customBowConfig);}
+    public static void setChatConfig() {chatConfig = YamlConfiguration.loadConfiguration(FileManager.chatConfig);}
 
     public static int getPlayerDataFromAPI(Player p, String requestedStat)
     {

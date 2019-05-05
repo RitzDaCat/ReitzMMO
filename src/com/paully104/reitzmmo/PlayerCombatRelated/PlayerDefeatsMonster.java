@@ -9,6 +9,7 @@ import net.minecraft.server.v1_14_R1.NBTTagInt;
 import net.minecraft.server.v1_14_R1.NBTTagList;
 import net.minecraft.server.v1_14_R1.NBTTagString;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
@@ -29,6 +30,8 @@ public class PlayerDefeatsMonster implements Listener {
     private final boolean debug = API.debugConfig.getBoolean("PartyEXP");
     private final boolean debugEnabled = API.debugConfig.getBoolean("PlayerAttackingMonster");
     private final int combatEXPMultipler = API.playerConfig.getInt("CombatEXP_MULTIPLIER");
+    private final boolean expHologramEnabled = API.chatConfig.getBoolean("expHologramsEnabled");
+    private final boolean expChatEnabled = API.chatConfig.getBoolean("expChatEnabled");
     @EventHandler
     public void MonsterDeathCausedByPlayer(EntityDeathEvent e) {
         int worldEnabled = API.worldConfig.getInt(e.getEntity().getLocation().getWorld().getName());
@@ -145,7 +148,14 @@ public class PlayerDefeatsMonster implements Listener {
                     Hologram hologram = new Hologram();
                     Location monster = dead.getLocation().add(0.0, 0.0, 0.0);
                     //This should be combatEXP Multiple
-                    hologram.setHologram((Player) player, player.getWorld(), monster, monster_level * combatEXPMultipler);
+                    int expGained = monster_level * combatEXPMultipler;
+                    if(expHologramEnabled) {
+                        hologram.setHologram((Player) player, player.getWorld(), monster, expGained);
+                    }
+                    if(expChatEnabled)
+                    {
+                        player.sendMessage(ChatColor.WHITE + "You gained: " + ChatColor.GREEN + expGained + " [EXP]");
+                    }
 
                 } else if (Party_API.inParty.containsKey(playerName)) {
                     //party member kills mob
@@ -194,7 +204,14 @@ public class PlayerDefeatsMonster implements Listener {
                     }
                     Hologram hologram = new Hologram();
                     Location monster = dead.getLocation().add(0.0, 0.0, 0.0);
-                    hologram.setHologram((Player) player, player.getWorld(), monster, monster_level * combatEXPMultipler);
+                    int expGained = monster_level * combatEXPMultipler;
+                    if(expHologramEnabled) {
+                        hologram.setHologram((Player) player, player.getWorld(), monster, expGained);
+                    }
+                    if(expChatEnabled)
+                    {
+                        player.sendMessage(ChatColor.WHITE + "You gained: " + ChatColor.GREEN + expGained + " [EXP]");
+                    }
 
                 }
                 else
@@ -216,7 +233,14 @@ public class PlayerDefeatsMonster implements Listener {
                         test.CheckLevelUp((Player) player);
                         Hologram hologram = new Hologram();
                         Location monster = dead.getLocation().add(0.0, 0.0, 0.0);
-                        hologram.setHologram((Player) player, player.getWorld(), monster, monster_level * combatEXPMultipler);
+                        int expGained = combatEXPMultipler * monster_level;
+                        if(expHologramEnabled) {
+                            hologram.setHologram((Player) player, player.getWorld(), monster, expGained);
+                        }
+                        if(expChatEnabled)
+                        {
+                            player.sendMessage(ChatColor.WHITE + "You gained: " + ChatColor.GREEN + expGained + " [EXP]");
+                        }
                         if (debug)
                         {
                             System.out.println("Player location: " + player.getLocation());
