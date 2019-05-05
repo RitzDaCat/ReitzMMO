@@ -39,7 +39,7 @@ public class Menu implements Listener {
         createDisplay(Material.MAP, 1, "Stats","Get your combat stats!");
         //createDisplay(Material.SPECTRAL_ARROW, 3, "Fix Health","If your health is bugged fix it");
         createDisplay(Material.PLAYER_HEAD, 2, "Party","Get the party commands!");
-        //createDisplay(Material.SPECTRAL_ARROW, 5, "Weaponskills","Apply weaponskills");
+        //createDisplay(Material.SPECTRAL_ARROW, 3, "Weaponskills","Apply weaponskills");
         //createDisplay(Material.ARMOR_STAND, 6, "Fix EXP","Fix floating EXP");
         //createDisplay(Material.MAP, 7, "Town Menu","Teleport to a town");
         //GUI_MENU.setItem(0, new ItemStack(Material.DIRT, 3));
@@ -77,12 +77,13 @@ public class Menu implements Listener {
                     Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                         if(player.getHealth() >= health)
                         {
-                            if(null != player.getBedLocation()) {
+                            if(null != player.getBedSpawnLocation()) {
                                 player.teleport(player.getBedSpawnLocation()); // Adds dirt
                             }
                             else
                             {
-                                player.sendMessage(ChatColor.RED + "No homepoint set!");
+                                player.teleport(player.getWorld().getSpawnLocation());
+                                //player.sendMessage(ChatColor.RED + "No homepoint set!");
                             }
 
                         }

@@ -1,8 +1,8 @@
 name: ReitzMMO
-version: 1.0
+version: 1.03
 author: Paully104
 main: com.paully104.reitzmmo.Main
-api-version: 1.13
+api-version: 1.14
 commands:
         reitz:
                      description: Main ReitzRPGMMO command listings

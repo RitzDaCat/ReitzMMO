@@ -77,7 +77,8 @@ import java.util.Map;
                 System.out.println(weaponIsSkillable);
                 if(weaponIsSkillable)
                 {
-                    if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Spin Attack") && level >= spinAttackLevel) {
+                    if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Spin Attack") && level >= spinAttackLevel)
+                    {
                         event.setCancelled(true);
                         player.closeInventory();
                         //Need to set the lore of the item
@@ -117,7 +118,8 @@ import java.util.Map;
                         player.openInventory(Menu.GUI_MENU);
 
                     }
-                    else {
+                    else
+                        {
                         event.setCancelled(true);
 
                     }
