@@ -138,6 +138,18 @@ public class MonsterConfig {
         configuration.addDefault("PILLAGER_BASE_HP", 8);
         configuration.addDefault("PILLAGER_BASE_ATTACK", 4);
 
+        configuration.addDefault("ILLUSIONER", true);
+        configuration.addDefault("ILLUSIONER_BASE_HP", 8);
+        configuration.addDefault("ILLUSIONER_BASE_ATTACK", 4);
+
+        configuration.addDefault("EVOKER", true);
+        configuration.addDefault("EVOKER_BASE_HP", 8);
+        configuration.addDefault("EVOKER_BASE_ATTACK", 4);
+
+        configuration.addDefault("RAVAGER", true);
+        configuration.addDefault("RAVAGER_BASE_HP", 8);
+        configuration.addDefault("RAVAGER_BASE_ATTACK", 4);
+
 
 
         configuration.options().copyDefaults(true);

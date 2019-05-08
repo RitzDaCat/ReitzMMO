@@ -11,6 +11,7 @@ import net.minecraft.server.v1_14_R1.NBTTagString;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -38,12 +39,27 @@ public class PlayerDefeatsMonster implements Listener {
         if (worldEnabled != -1) {
 
 
-            if (e.getEntity().getKiller() instanceof Player) {
+            if (e.getEntity().getKiller() instanceof Player)
+            {
                 //Get Entities
                 Entity dead = e.getEntity();
                 Entity player = e.getEntity().getKiller();
                 String playerName = player.getName();
-                int monster_level = 0;
+                String monster_level_from_name = dead.getCustomName().replaceAll("\\D+", "");
+                int monster_level = Integer.parseInt(monster_level_from_name);
+                String lootConfigItem = API.lootConfig.getString(monster_level_from_name+".item");
+                int lootConfigChance = API.lootConfig.getInt(monster_level_from_name+".chance");
+
+                Random randomLoot = new Random();
+                //random.nextInt(max - min + 1) + min, Generally speaking, if you need to generate numbers from min to max (including both), you write
+                int randomLootChance = randomLoot.nextInt(100 - 1 + 1) + 1; //chance between 1 and 10
+                if (randomLootChance <= lootConfigChance) {
+
+
+                    e.getDrops().add(new ItemStack(Material.getMaterial(lootConfigItem)));
+
+                }
+
                 if (debug) {
                     System.out.println("PARTYEXPDISTANCE: " + PartyEXPMaxDistance);
                 }
@@ -64,8 +80,6 @@ public class PlayerDefeatsMonster implements Listener {
                         damage.set("Name", new NBTTagString("generic.attackDamage"));
 
                         //need the mobs level
-                        String monster_level_from_name = dead.getCustomName().replaceAll("\\D+", "");
-                        monster_level = Integer.parseInt(monster_level_from_name);
 
                         //This is where we can effect the % chance of the item dropped
                         Random random = new Random();
@@ -128,8 +142,6 @@ public class PlayerDefeatsMonster implements Listener {
                             System.out.println(people);
                             Integer currentexp = API.Players.get(people).getData().getInt("Combat-EXP");
                             System.out.println(currentexp);
-                            String monster_level_from_name = dead.getCustomName().replaceAll("\\D+", "");
-                            monster_level = Integer.parseInt(monster_level_from_name);
                             int new_exp = currentexp + (monster_level * combatEXPMultipler);
                             API.Players.get(people).getData().set("Combat-EXP", new_exp);
                             CheckPlayerCombatLevelUp test = new CheckPlayerCombatLevelUp();
@@ -186,8 +198,6 @@ public class PlayerDefeatsMonster implements Listener {
                             System.out.println(people);
                             Integer currentexp = API.Players.get(people).getData().getInt("Combat-EXP");
                             System.out.println(currentexp);
-                            String monster_level_from_name = dead.getCustomName().replaceAll("\\D+", "");
-                            monster_level = Integer.parseInt(monster_level_from_name);
                             int new_exp = currentexp + (monster_level * combatEXPMultipler);
                             API.Players.get(people).getData().set("Combat-EXP", new_exp);
                             CheckPlayerCombatLevelUp test = new CheckPlayerCombatLevelUp();
@@ -216,7 +226,7 @@ public class PlayerDefeatsMonster implements Listener {
                 }
                 else
                     {
-                        String monster_level_from_name = "1";
+                        monster_level_from_name = "1";
                         Integer currentexp = API.Players.get(player.getName()).getData().getInt("Combat-EXP");
                         try
                         {

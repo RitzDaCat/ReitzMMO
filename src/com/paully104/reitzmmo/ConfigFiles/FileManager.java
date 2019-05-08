@@ -15,6 +15,8 @@ public class FileManager
     public static File weaponskillConfig;
     public static File customBowConfig;
     public static File chatConfig;
+    public static File specialMonsterConfig;
+    public static File lootConfig;
 
 
 
@@ -29,6 +31,8 @@ public class FileManager
         weaponskillConfig = new File("plugins/ReitzMMO/WeaponSkillSettings/WeaponskillConfig.yml");
         customBowConfig = new File("plugins/ReitzMMO/CustomWeaponSettings/CustomBowConfig.yml");
         chatConfig = new File("plugins/ReitzMMO/ChatSettings/ChatConfig.yml");
+        specialMonsterConfig = new File("plugins/ReitzMMO/MonsterSettings/SpecialMonsterConfig.yml");
+        lootConfig = new File("plugins/ReitzMMO/LootSettings/LootConfig.yml");
 
 
     }

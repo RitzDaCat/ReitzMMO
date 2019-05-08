@@ -42,7 +42,9 @@ public class MonsterLevelsDamage implements Listener {
     private final int witherSkeletonBaseAttack = API.monsterConfig.getInt("WITHERSKELETON_BASE_ATTACK");
     private final int shulkerBaseAttack = API.monsterConfig.getInt("SHULKER_BASE_ATTACK");
     private final int pillagerBaseAttack = API.monsterConfig.getInt("PILLAGER_BASE_ATTACK");
-    
+    private final int illusionerBaseAttack = API.monsterConfig.getInt("ILLUSIONER_BASE_ATTACK");
+    private final int evokerBaseAttack = API.monsterConfig.getInt("EVOKER_BASE_ATTACK");
+    private final int ravagerBaseAttack = API.monsterConfig.getInt("RAVAGER_BASE_ATTACK");
     //debug section
     private final boolean debugEnabled = API.debugConfig.getBoolean("MonsterAttackingPlayer");
 
@@ -397,6 +399,58 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * blazeBaseAttack;
+                                damage_done = monster_attack - player_defense;
+                                if (damage_done < 1) {
+                                    damage_done = 1;
+                                }
+                                e.setDamage(damage_done);
+                                if (debugEnabled) {
+                                    System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
+                                }
+                                break;
+                            case PILLAGER:
+                                player_defense = pd.getData().getInt("Level");
+                                monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
+                                monster_attack = Integer.parseInt(monster_level_from_name) * pillagerBaseAttack;
+                                damage_done = monster_attack - player_defense;
+                                if (damage_done < 1) {
+                                    damage_done = 1;
+                                }
+                                e.setDamage(damage_done);
+                                if (debugEnabled) {
+                                    System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
+                                }
+                                break;
+                            case ILLUSIONER:
+                                player_defense = pd.getData().getInt("Level");
+                                monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
+                                monster_attack = Integer.parseInt(monster_level_from_name) * illusionerBaseAttack;
+                                damage_done = monster_attack - player_defense;
+                                if (damage_done < 1) {
+                                    damage_done = 1;
+                                }
+                                e.setDamage(damage_done);
+                                if (debugEnabled) {
+                                    System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
+                                }
+                                break;
+                            case EVOKER:
+                            player_defense = pd.getData().getInt("Level");
+                            monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
+                            monster_attack = Integer.parseInt(monster_level_from_name) * evokerBaseAttack;
+                            damage_done = monster_attack - player_defense;
+                            if (damage_done < 1) {
+                                damage_done = 1;
+                            }
+                            e.setDamage(damage_done);
+                            if (debugEnabled) {
+                                System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
+                            }
+                            break;
+                            case RAVAGER:
+                                player_defense = pd.getData().getInt("Level");
+                                monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
+                                monster_attack = Integer.parseInt(monster_level_from_name) * ravagerBaseAttack;
                                 damage_done = monster_attack - player_defense;
                                 if (damage_done < 1) {
                                     damage_done = 1;

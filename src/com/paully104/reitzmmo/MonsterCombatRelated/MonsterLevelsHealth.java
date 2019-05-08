@@ -20,6 +20,24 @@ import java.util.Random;
  */
 public class MonsterLevelsHealth implements Listener {
 
+    //SpecialMobs Enabled Section
+    private final boolean kingMobsEnabled = API.specialMonsterConfig.getBoolean("kingMobsEnabled");
+    private final boolean notoriousMobsEnabled = API.specialMonsterConfig.getBoolean("notoriusMobsEnabled");
+    private final boolean devilishMobsEnabled = API.specialMonsterConfig.getBoolean("devilishMobsEnabled");
+    private final boolean dumbMobsEnabled = API.specialMonsterConfig.getBoolean("dumbMobsEnabled");
+
+    //SpecialMobs LV Section
+    private final int kingMobsLV = API.specialMonsterConfig.getInt("kingMobsLVDifference");
+    private final int notoriousMobsLV = API.specialMonsterConfig.getInt("notoriousMobsLVDifference");
+    private final int devilishMobsLV = API.specialMonsterConfig.getInt("devilishMobsLVDifference");
+    private final int dumbMobsLV = API.specialMonsterConfig.getInt("dumbMobsLVDifference");
+
+    //SpecialMobsSpecialStuff
+    private final boolean specialMobGlowingEnabled = API.specialMonsterConfig.getBoolean("specialMonsterGlowEnabled");
+    private final boolean specialMobSilentEnabled = API.specialMonsterConfig.getBoolean("specialMonsterSilentEnabled");
+
+
+    //MONSTER HP SECTION
     private final int blocksPerMobLevel = API.monsterConfig.getInt("BLOCKS-PER-MOB-LEVEL");
     private final int zombieBaseHP = API.monsterConfig.getInt("ZOMBIE_BASE_HP");
     private final int wolfBaseHP = API.monsterConfig.getInt("WOLF_BASE_HP");
@@ -50,7 +68,10 @@ public class MonsterLevelsHealth implements Listener {
     private final int witchBaseHP = API.monsterConfig.getInt("WITCH_BASE_HP");
     private final int witherSkeletonBaseHP = API.monsterConfig.getInt("WITHERSKELETON_BASE_HP");
     private final int shulkerSkeletonBaseHP = API.monsterConfig.getInt("SHULKER_BASE_HP");
-    private final int pillagerSkeletonBaseHP = API.monsterConfig.getInt("PILLAGER_BASE_HP");
+    private final int pillagerBaseHP = API.monsterConfig.getInt("PILLAGER_BASE_HP");
+    private final int illusionerBaseHP = API.monsterConfig.getInt("ILLUSIONER_BASE_HP");
+    private final int evokerBaseHP = API.monsterConfig.getInt("EVOKER_BASE_HP");
+    private final int ravagerBaseHP = API.monsterConfig.getInt("RAVAGER_BASE_HP");
 
     private int calculateDistanceFromSpawn(Location worldSpawn, Location monsterSpawn)
     {
@@ -74,7 +95,8 @@ public class MonsterLevelsHealth implements Listener {
 
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void applyMonsterLevelOnSpawn(CreatureSpawnEvent e) {
+    public void applyMonsterLevelOnSpawn(CreatureSpawnEvent e)
+    {
         int worldEnabled = API.worldConfig.getInt(e.getLocation().getWorld().getName());
         if(worldEnabled != -1)
         {
@@ -91,41 +113,79 @@ public class MonsterLevelsHealth implements Listener {
             int high = 100;
             int result = r.nextInt(high - low) + low;
             String mobName = e.getEntityType().toString().substring(0, 1).toUpperCase() + e.getEntityType().toString().toLowerCase().substring(1);
-            if (result >= 98 && e.getEntity() instanceof Monster) {
-                distance = distance + 25;
+            if ((result >= 98 && e.getEntity() instanceof Monster) && kingMobsEnabled)
+            {
+                distance = distance + kingMobsLV;
+                if(distance <1)
+                {
+                    distance = 1;
+                }
                 String levelColor = ChatColor.YELLOW + "[" + distance + "]";
                 e.getEntity().setCustomName("King " + mobName + levelColor);
-                e.getEntity().setGlowing(true);
+                if(specialMobGlowingEnabled) {
+                    e.getEntity().setGlowing(true);
+                }
+                if(specialMobSilentEnabled){
+                    e.getEntity().setSilent(true);
+                }
 
-            } else if (result >= 90 && e.getEntity() instanceof Monster) {
-                distance = distance + 10;
+            }
+            else if ((result >= 90 && e.getEntity() instanceof Monster) && notoriousMobsEnabled)
+            {
+                distance = distance + notoriousMobsLV;
+                if(distance <1)
+                {
+                    distance = 1;
+                }
                 String levelColor = ChatColor.YELLOW + "[" + distance + "]";
                 e.getEntity().setCustomName("Notorious " + mobName + levelColor);
-                e.getEntity().setGlowing(true);
+                if(specialMobGlowingEnabled) {
+                    e.getEntity().setGlowing(true);
+                }
+                if(specialMobSilentEnabled){
+                    e.getEntity().setSilent(true);
+                }
 
-            } else if (result == 66 && e.getEntity() instanceof Monster) {
-                distance = distance + 6;
+            }
+            else if ((result == 66 && e.getEntity() instanceof Monster) && devilishMobsEnabled)
+            {
+                distance = distance + devilishMobsLV;
+                if(distance <1)
+                {
+                    distance = 1;
+                }
                 String levelColor = ChatColor.YELLOW + "[" + distance + "]";
                 e.getEntity().setCustomName("Devilish " + mobName + levelColor);
-                e.getEntity().setSilent(true);
-                e.getEntity().setGlowing(false);
-            } else if (result <= 1 && e.getEntity() instanceof Monster) {
-                if (distance > 1) {
-                    distance = distance - 1;
-                    String levelColor = ChatColor.YELLOW + "[" + distance + "]";
-                    e.getEntity().setCustomName("Dumb " + mobName + levelColor);
-                    e.getEntity().setGlowing(false);
-                    e.getEntity().getEquipment().setHelmet(new ItemStack(Material.BUCKET, 1));
-                } else {
-                    String levelColor = ChatColor.YELLOW + "[" + distance + "]";
-                    e.getEntity().setCustomName("Dumb " + mobName + levelColor);
-                    e.getEntity().setGlowing(false);
-                    e.getEntity().getEquipment().setHelmet(new ItemStack(Material.BUCKET, 1));
+                if(specialMobGlowingEnabled) {
+                    e.getEntity().setGlowing(true);
                 }
-            } else {
+                if(specialMobSilentEnabled){
+                    e.getEntity().setSilent(true);
+                }
+            }
+            else if ((result <= 1 && e.getEntity() instanceof Monster) && dumbMobsEnabled)
+            {
+
+                    distance = distance + dumbMobsLV;
+                    if(distance <1)
+                    {
+                        distance = 1;
+                    }
+                    String levelColor = ChatColor.YELLOW + "[" + distance + "]";
+                    e.getEntity().setCustomName("Dumb " + mobName + levelColor);
+                    if(specialMobGlowingEnabled) {
+                        e.getEntity().setGlowing(true);
+                    }
+                    if(specialMobSilentEnabled){
+                        e.getEntity().setSilent(true);
+                    }
+                    e.getEntity().getEquipment().setHelmet(new ItemStack(Material.BUCKET, 1));
+            }
+            else
+                {
                 String levelColor = ChatColor.YELLOW + "[" + distance + "]";
                 e.getEntity().setCustomName(mobName + levelColor);
-            }
+                }
             //updated on 5/7 for bad boys
             e.getEntity().setCustomNameVisible(true);
 
@@ -288,9 +348,22 @@ public class MonsterLevelsHealth implements Listener {
                     e.getEntity().setHealth(distance * shulkerSkeletonBaseHP);
                     break;
                 case PILLAGER:
-                    e.getEntity().setMaxHealth(distance * pillagerSkeletonBaseHP);
-                    e.getEntity().setHealth(distance * pillagerSkeletonBaseHP);
+                    e.getEntity().setMaxHealth(distance * pillagerBaseHP);
+                    e.getEntity().setHealth(distance * pillagerBaseHP);
                     break;
+                case ILLUSIONER:
+                    e.getEntity().setMaxHealth(distance * illusionerBaseHP);
+                    e.getEntity().setHealth(distance * illusionerBaseHP);
+                    break;
+                case EVOKER:
+                    e.getEntity().setMaxHealth(distance * evokerBaseHP);
+                    e.getEntity().setHealth(distance * evokerBaseHP);
+                    break;
+                case RAVAGER:
+                    e.getEntity().setMaxHealth(distance * ravagerBaseHP);
+                    e.getEntity().setHealth(distance * ravagerBaseHP);
+                    break;
+
 
             }
 
