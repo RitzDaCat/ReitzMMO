@@ -24,6 +24,7 @@ public class API {
     public static FileConfiguration chatConfig;
     public static FileConfiguration specialMonsterConfig;
     public static FileConfiguration lootConfig;
+    public static FileConfiguration menuConfig;
     public static Plugin plugin;
 
     //Start of sets
@@ -41,6 +42,7 @@ public class API {
     public static void setChatConfig() {chatConfig = YamlConfiguration.loadConfiguration(FileManager.chatConfig);}
     public static void setSpecialMonsterConfig() {specialMonsterConfig = YamlConfiguration.loadConfiguration(FileManager.specialMonsterConfig);}
     public static void setLootConfig() {lootConfig = YamlConfiguration.loadConfiguration(FileManager.lootConfig);}
+    public static void setMenuConfig() {menuConfig = YamlConfiguration.loadConfiguration(FileManager.menuConfig);}
 
     public static int getPlayerDataFromAPI(Player p, String requestedStat)
     {

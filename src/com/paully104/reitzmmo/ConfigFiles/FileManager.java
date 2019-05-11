@@ -17,6 +17,7 @@ public class FileManager
     public static File chatConfig;
     public static File specialMonsterConfig;
     public static File lootConfig;
+    public static File menuConfig;
 
 
 
@@ -33,6 +34,7 @@ public class FileManager
         chatConfig = new File("plugins/ReitzMMO/ChatSettings/ChatConfig.yml");
         specialMonsterConfig = new File("plugins/ReitzMMO/MonsterSettings/SpecialMonsterConfig.yml");
         lootConfig = new File("plugins/ReitzMMO/LootSettings/LootConfig.yml");
+        menuConfig = new File("plugins/ReitzMMO/MenuSettings/MenuConfig.yml");
 
 
     }

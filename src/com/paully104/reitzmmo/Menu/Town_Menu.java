@@ -60,57 +60,55 @@ public class Town_Menu implements Listener {
         Inventory inventory = event.getInventory(); // The inventory that was clicked in
         if (inventory.toString().equals(TOWN_MENU.toString()))
         {
-            if(clicked.hasItemMeta())
-            {
-                if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Starting Fort")) { // The item that the player clicked it dirt
-                    event.setCancelled(true); // Make it so the dirt is back in its original spot
-                    player.closeInventory(); // Closes there inventory
-                    player.sendMessage(ChatColor.YELLOW + "Teleporting in 5 seconds");
-                    player.sendMessage(ChatColor.YELLOW + "Teleport will cancel if health is lost!");
-                    //Make the character wait 5 seconds of no damage
-                    double health = player.getHealth();
-                    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(API.plugin, () -> {
-                        if(player.getHealth() >= health)
-                        {
-                            player.teleport(new Location(Bukkit.getWorld("world"),-291.624,76,313.300));
+            if(null != clicked) {
+                if (clicked.hasItemMeta()) {
+                    if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Starting Fort")) { // The item that the player clicked it dirt
+                        event.setCancelled(true); // Make it so the dirt is back in its original spot
+                        player.closeInventory(); // Closes there inventory
+                        player.sendMessage(ChatColor.YELLOW + "Teleporting in 5 seconds");
+                        player.sendMessage(ChatColor.YELLOW + "Teleport will cancel if health is lost!");
+                        //Make the character wait 5 seconds of no damage
+                        double health = player.getHealth();
+                        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(API.plugin, () -> {
+                            if (player.getHealth() >= health) {
+                                player.teleport(new Location(Bukkit.getWorld("world"), -291.624, 76, 313.300));
 
-                        }
-                        else
-                        {
-                            player.sendMessage(ChatColor.RED + "Can't teleport while in combat!");
-                        }
-                        //YOUR MESSAGE TO SAY AFTER THEY SAY STUFF
-                    }, 100); //5000 MEANS WAIT 5 SECCONDS BEFORE RUNNING THE CODE ABOVE
+                            } else {
+                                player.sendMessage(ChatColor.RED + "Can't teleport while in combat!");
+                            }
+                            //YOUR MESSAGE TO SAY AFTER THEY SAY STUFF
+                        }, 100); //5000 MEANS WAIT 5 SECCONDS BEFORE RUNNING THE CODE ABOVE
+
+                    }
+                    else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Friend Zone")) { // The item that the player clicked it dirt
+                        event.setCancelled(true); // Make it so the dirt is back in its original spot
+                        player.closeInventory(); // Closes there inventory
+                        player.sendMessage(ChatColor.YELLOW + "Teleporting in 5 seconds");
+                        player.sendMessage(ChatColor.YELLOW + "Teleport will cancel if health is lost!");
+                        double health = player.getHealth();
+                        //wait 5 seconds
+                        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(API.plugin, () -> {
+                            if (player.getHealth() >= health) {
+                                player.teleport(new Location(Bukkit.getWorld("world"), -136.302, 63, 193.659)); // Adds dirt
+
+                            } else {
+                                player.sendMessage(ChatColor.RED + "Can't teleport while in combat!");
+                            }
+                            //YOUR MESSAGE TO SAY AFTER THEY SAY STUFF
+                        }, 100); //5000 MEANS WAIT 5 SECCONDS BEFORE RUNNING THE CODE ABOVE
+
+
+                    }
+                    else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Return To Menu")) {
+                        player.performCommand("Reitz");
+
+                    }
+                    else {
+                        event.setCancelled(true);
+
+                    }
 
                 }
-                else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Friend Zone")) { // The item that the player clicked it dirt
-                    event.setCancelled(true); // Make it so the dirt is back in its original spot
-                    player.closeInventory(); // Closes there inventory
-                    player.sendMessage(ChatColor.YELLOW + "Teleporting in 5 seconds");
-                    player.sendMessage(ChatColor.YELLOW + "Teleport will cancel if health is lost!");
-                    double health = player.getHealth();
-                    //wait 5 seconds
-                    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(API.plugin, () -> {
-                        if(player.getHealth() >= health)
-                        {
-                            player.teleport(new Location(Bukkit.getWorld("world"),-136.302,63,193.659)); // Adds dirt
-
-                        }
-                        else
-                        {
-                            player.sendMessage(ChatColor.RED + "Can't teleport while in combat!");
-                        }
-                        //YOUR MESSAGE TO SAY AFTER THEY SAY STUFF
-                    }, 100); //5000 MEANS WAIT 5 SECCONDS BEFORE RUNNING THE CODE ABOVE
-
-
-                }
-                else if(clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Return To Menu"))
-                {
-                    player.performCommand("Reitz");
-
-                }
-
             }
         }
     }

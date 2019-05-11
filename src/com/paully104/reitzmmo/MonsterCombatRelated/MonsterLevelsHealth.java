@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Random;
@@ -97,6 +98,7 @@ public class MonsterLevelsHealth implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void applyMonsterLevelOnSpawn(CreatureSpawnEvent e)
     {
+        e.getEntity().setCustomNameVisible(true);
         int worldEnabled = API.worldConfig.getInt(e.getLocation().getWorld().getName());
         if(worldEnabled != -1)
         {
@@ -187,7 +189,6 @@ public class MonsterLevelsHealth implements Listener {
                 e.getEntity().setCustomName(mobName + levelColor);
                 }
             //updated on 5/7 for bad boys
-            e.getEntity().setCustomNameVisible(true);
 
             //configure health per mob
 

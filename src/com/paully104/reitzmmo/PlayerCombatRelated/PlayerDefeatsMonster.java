@@ -36,7 +36,8 @@ public class PlayerDefeatsMonster implements Listener {
     @EventHandler
     public void MonsterDeathCausedByPlayer(EntityDeathEvent e) {
         int worldEnabled = API.worldConfig.getInt(e.getEntity().getLocation().getWorld().getName());
-        if (worldEnabled != -1) {
+        if (worldEnabled != -1)
+        {
 
 
             if (e.getEntity().getKiller() instanceof Player)
@@ -47,8 +48,8 @@ public class PlayerDefeatsMonster implements Listener {
                 String playerName = player.getName();
                 String monster_level_from_name = dead.getCustomName().replaceAll("\\D+", "");
                 int monster_level = Integer.parseInt(monster_level_from_name);
-                String lootConfigItem = API.lootConfig.getString(monster_level_from_name+".item");
-                int lootConfigChance = API.lootConfig.getInt(monster_level_from_name+".chance");
+                String lootConfigItem = API.lootConfig.getString(monster_level_from_name+"."+e.getEntity().getType()+".item");
+                int lootConfigChance = API.lootConfig.getInt(monster_level_from_name+"."+e.getEntity().getType()+".chance");
 
                 Random randomLoot = new Random();
                 //random.nextInt(max - min + 1) + min, Generally speaking, if you need to generate numbers from min to max (including both), you write

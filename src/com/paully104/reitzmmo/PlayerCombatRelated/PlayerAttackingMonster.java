@@ -4,6 +4,7 @@ import com.paully104.reitzmmo.ConfigFiles.API;
 import com.paully104.reitzmmo.Custom_Recipes.Custom_Bows;
 import com.paully104.reitzmmo.Enum.Weapon_Damage;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
+import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.*;
@@ -40,8 +41,9 @@ public class PlayerAttackingMonster implements Listener {
                 try {
                     monster_level_from_name = defender.getCustomName().replaceAll("\\D+", "");
                 } catch (NullPointerException error) {
+                    String levelColor = ChatColor.YELLOW + "[" + 1 + "]";
+                    defender.setCustomName(e.getEntityType() + levelColor);
                     monster_level_from_name = "1";
-                    defender.setCustomName("Lv 1");
                     defender.setCustomNameVisible(true);
                 }
                 monster_defense = Integer.parseInt(monster_level_from_name);

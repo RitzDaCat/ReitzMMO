@@ -51,6 +51,7 @@ public class Main extends JavaPlugin {
         ChatConfig.Configuration();
         SpecialMonsterConfig.Configuration();
         LootConfig.Configuration();
+        MenuConfig.Configuration();
 
         //Set API data for quicker config reading
         API.setMonsterConfig();
@@ -63,6 +64,7 @@ public class Main extends JavaPlugin {
         API.setChatConfig();
         API.setSpecialMonsterConfig();
         API.setLootConfig();
+        API.setMenuConfig();
 
         //Main Commands
         this.getCommand("reitz").setExecutor(new ReitzRPGMain());
