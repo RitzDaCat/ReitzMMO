@@ -17,6 +17,7 @@ public class MonsterConfig {
         configuration.addDefault("BLOCKS-PER-MOB-LEVEL", 100);
         configuration.addDefault("ATTACK-GAIN-PER-LEVEL", 1);
         configuration.addDefault("HEALTH-GAIN-PER-LEVEL", 1);
+        configuration.addDefault("NAMEPLATES_ENABLED", true);
 
         configuration.addDefault("APPLY-ON-SPAWNER-SPAWNS", true);
 

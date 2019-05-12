@@ -73,6 +73,7 @@ public class MonsterLevelsHealth implements Listener {
     private final int illusionerBaseHP = API.monsterConfig.getInt("ILLUSIONER_BASE_HP");
     private final int evokerBaseHP = API.monsterConfig.getInt("EVOKER_BASE_HP");
     private final int ravagerBaseHP = API.monsterConfig.getInt("RAVAGER_BASE_HP");
+    private final boolean monsterNameplatesEnabled = API.monsterConfig.getBoolean("NAMEPLATES_ENABLED");
 
     private int calculateDistanceFromSpawn(Location worldSpawn, Location monsterSpawn)
     {
@@ -98,7 +99,9 @@ public class MonsterLevelsHealth implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void applyMonsterLevelOnSpawn(CreatureSpawnEvent e)
     {
-        e.getEntity().setCustomNameVisible(true);
+        if(monsterNameplatesEnabled) {
+            e.getEntity().setCustomNameVisible(true);
+        }
         int worldEnabled = API.worldConfig.getInt(e.getLocation().getWorld().getName());
         if(worldEnabled != -1)
         {

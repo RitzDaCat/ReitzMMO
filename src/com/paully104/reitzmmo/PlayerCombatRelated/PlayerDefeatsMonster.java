@@ -14,6 +14,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -40,7 +41,7 @@ public class PlayerDefeatsMonster implements Listener {
         {
 
 
-            if (e.getEntity().getKiller() instanceof Player)
+            if (e.getEntity().getKiller() instanceof Player && !(e.getEntity() instanceof  Player))
             {
                 //Get Entities
                 Entity dead = e.getEntity();
@@ -67,56 +68,58 @@ public class PlayerDefeatsMonster implements Listener {
 
                 //lets handle mob custom drops here
                 //dont iteriate while the thread is modifying
-                try {
-                    for (ItemStack eachItem : e.getDrops()) {
+                if(e.getEntity() instanceof Monster) {
+                    try {
+                        for (ItemStack eachItem : e.getDrops()) {
 
-                        //apply to each item
+                            //apply to each item
 
 
-                        net.minecraft.server.v1_14_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(eachItem);
-                        NBTTagCompound compound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
-                        NBTTagList modifiers = new NBTTagList();
-                        NBTTagCompound damage = new NBTTagCompound();
-                        damage.set("AttributeName", new NBTTagString("generic.attackDamage"));
-                        damage.set("Name", new NBTTagString("generic.attackDamage"));
+                            net.minecraft.server.v1_14_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(eachItem);
+                            NBTTagCompound compound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
+                            NBTTagList modifiers = new NBTTagList();
+                            NBTTagCompound damage = new NBTTagCompound();
+                            damage.set("AttributeName", new NBTTagString("generic.attackDamage"));
+                            damage.set("Name", new NBTTagString("generic.attackDamage"));
 
-                        //need the mobs level
+                            //need the mobs level
 
-                        //This is where we can effect the % chance of the item dropped
-                        Random random = new Random();
-                        //random.nextInt(max - min + 1) + min, Generally speaking, if you need to generate numbers from min to max (including both), you write
-                        int randomChance = random.nextInt(10 - 1 + 1) + 1; //chance between 1 and 10
-                        if (randomChance >= 9) {
+                            //This is where we can effect the % chance of the item dropped
+                            Random random = new Random();
+                            //random.nextInt(max - min + 1) + min, Generally speaking, if you need to generate numbers from min to max (including both), you write
+                            int randomChance = random.nextInt(10 - 1 + 1) + 1; //chance between 1 and 10
+                            if (randomChance >= 9) {
 
-                            monster_level = monster_level + 1;
+                                monster_level = monster_level + 1;
+                            }
+
+                            damage.set("Amount", new NBTTagInt(monster_level));
+                            damage.set("Operation", new NBTTagInt(0));
+                            damage.set("UUIDLeast", new NBTTagInt(894654));
+                            damage.set("UUIDMost", new NBTTagInt(2872));
+                            damage.set("Slot", new NBTTagString("mainhand"));
+
+                            modifiers.add(damage);
+                            compound.set("AttributeModifiers", modifiers);
+                            nmsStack.setTag(compound);
+                            ItemStack item = CraftItemStack.asBukkitCopy(nmsStack);
+                            if (debugEnabled == true) {
+                                System.out.println("Item drop");
+                            }
+                            e.getEntity().getLocation().getWorld().dropItemNaturally(e.getEntity().getLocation(), item);
+
+
                         }
+                        e.getDrops().clear();
 
-                        damage.set("Amount", new NBTTagInt(monster_level));
-                        damage.set("Operation", new NBTTagInt(0));
-                        damage.set("UUIDLeast", new NBTTagInt(894654));
-                        damage.set("UUIDMost", new NBTTagInt(2872));
-                        damage.set("Slot", new NBTTagString("mainhand"));
 
-                        modifiers.add(damage);
-                        compound.set("AttributeModifiers", modifiers);
-                        nmsStack.setTag(compound);
-                        ItemStack item = CraftItemStack.asBukkitCopy(nmsStack);
-                        if(debugEnabled == true) {
-                            System.out.println("Item drop");
+                    } catch (ConcurrentModificationException ce) {
+                        if (debugEnabled) {
+                            System.out.println("CME");
                         }
-                        e.getEntity().getLocation().getWorld().dropItemNaturally(e.getEntity().getLocation(), item);
 
 
                     }
-                    e.getDrops().clear();
-
-
-                } catch (ConcurrentModificationException ce) {
-                    if(debugEnabled) {
-                        System.out.println("CME");
-                    }
-
-
                 }
 
 

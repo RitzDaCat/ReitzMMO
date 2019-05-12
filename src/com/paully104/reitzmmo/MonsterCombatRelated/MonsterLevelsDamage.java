@@ -1,11 +1,16 @@
 package com.paully104.reitzmmo.MonsterCombatRelated;
 
 import com.paully104.reitzmmo.ConfigFiles.API;
+import com.paully104.reitzmmo.Enum.Weapon_Damage;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+
+import java.util.Collection;
 
 /**
  * Created by Paul on 3/22/2016.
@@ -69,6 +74,108 @@ public class MonsterLevelsDamage implements Listener {
                 PlayerData pd = API.Players.get(defender.getName());
                 switch(attackerType)
                         {
+                            case PLAYER:
+                                //PVP stuff
+                                player_defense = pd.getData().getInt("Level");
+                                PlayerData personAttacking =  API.Players.get(attacker.getName());
+                                int personAttacking_Attack = personAttacking.getData().getInt("Attack");
+                                int weaponDamage = 0;
+
+                                //Lets check for their weapon
+                                try
+                                {
+                                        //if in list
+                                        Player human = (Player) attacker;
+                                        if (!(human.getInventory().getItemInMainHand().toString().contains("AIR")))
+                                        {
+
+                                            try
+                                            {
+                                                weaponDamage = (Weapon_Damage.Weapon_Damages.valueOf(human.getInventory().getItemInMainHand().getType().toString().toUpperCase()).getValue());
+
+                                            }
+                                            catch (IllegalArgumentException error)
+                                            {
+                                                weaponDamage = 0;
+                                                if (debugEnabled == true) {
+                                                    System.out.println("weapon damaged set to 0");
+
+                                                }
+
+                                            }
+                                            finally
+                                            {
+
+
+                                                if (debugEnabled) {
+                                                    System.out.println("Finally statement happening");
+
+                                                }
+                                                //if the weapon has special stats
+                                                if (human.getInventory().getItemInMainHand().getItemMeta().hasAttributeModifiers()) {
+                                                    if (debugEnabled) {
+                                                        System.out.println("Item has bonus stats for main attack");
+                                                    }
+                                                    Collection<AttributeModifier> weaponStats = human.getInventory().getItemInMainHand().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE);
+                                                    int weaponBonus = (int) weaponStats.iterator().next().getAmount();
+                                                    //should be like 0+1
+                                                    weaponDamage = weaponDamage + weaponBonus;
+
+
+                                                    //[14:07:39 INFO]: AttributeModifier{uuid=00000000-0000-0b38-0000-0000000da6be, name=generic.attackDamage, operation=ADD_NUMBER, amount=20.0, slot=}
+                                                    //int weaponBonus = human.getInventory().getItemInMainHand().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE).;
+                                                    //weaponDamage = weaponDamage + weaponBonus;
+                                                }
+
+
+                                            }
+
+                                            //after the finally lets set the damage done once
+                                            //should be like 2 damage for lv 1 + 1 weapon damage - 1 for defense so 2 damage
+
+
+
+                                        }
+                                        else
+                                            {
+                                            //empty handed
+
+                                                if (debugEnabled == true)
+                                                {
+                                                    System.out.print("empty hands");
+                                                }
+                                            }
+                                }
+                                catch (IllegalArgumentException error)
+                                {
+                                    //trying to get main hand fails for whatever reason
+                                    if(debugEnabled) {
+                                        System.out.println(error);
+                                    }
+
+                                }
+
+                                damage_done = (personAttacking_Attack + weaponDamage) - player_defense;//if not in list
+                                if (damage_done < 1)
+                                {
+                                    damage_done = 1;
+                                    if(debugEnabled) {
+                                        System.out.println("Cant do less then 1 damage!");
+                                    }
+
+
+                                }
+                                e.setDamage((personAttacking_Attack + weaponDamage) - player_defense);
+
+                                if (debugEnabled) {
+                                    System.out.println("Personattacking_Attack: " + personAttacking_Attack);
+                                    System.out.println("WeaponDamage: " + weaponDamage);
+                                    System.out.println("[PVP]: " + attacker.getName() + " " + (personAttacking_Attack + weaponDamage)+
+                                            " -> " + defender.getName() + " " + player_defense);
+                                }
+                                break;
+
+
                             case ZOMBIE:
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
