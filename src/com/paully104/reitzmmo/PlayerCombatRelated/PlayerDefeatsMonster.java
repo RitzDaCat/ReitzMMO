@@ -12,6 +12,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
@@ -34,6 +36,7 @@ public class PlayerDefeatsMonster implements Listener {
     private final int combatEXPMultipler = API.playerConfig.getInt("CombatEXP_MULTIPLIER");
     private final boolean expHologramEnabled = API.chatConfig.getBoolean("expHologramsEnabled");
     private final boolean expChatEnabled = API.chatConfig.getBoolean("expChatEnabled");
+    private final boolean mobsDropAttackUpItems = API.lootConfig.getBoolean("MOBSDROPATTACKUP");
     @EventHandler
     public void MonsterDeathCausedByPlayer(EntityDeathEvent e) {
         int worldEnabled = API.worldConfig.getInt(e.getEntity().getLocation().getWorld().getName());
@@ -68,11 +71,20 @@ public class PlayerDefeatsMonster implements Listener {
 
                 //lets handle mob custom drops here
                 //dont iteriate while the thread is modifying
-                if(e.getEntity() instanceof Monster) {
+                if(e.getEntity() instanceof Monster && mobsDropAttackUpItems == true) {
                     try {
-                        for (ItemStack eachItem : e.getDrops()) {
+                        for (ItemStack eachItem : e.getDrops())
+                        {
 
                             //apply to each item
+                            int itemDamage = 0;
+                            int itemDefense = 0;
+                            //check to see if it already has an attack modifier
+                            if (!(eachItem.getItemMeta().hasAttributeModifiers()))
+                            {
+                                //does not have a modifier so we can add
+
+
 
 
                             net.minecraft.server.v1_14_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(eachItem);
@@ -93,7 +105,7 @@ public class PlayerDefeatsMonster implements Listener {
                                 monster_level = monster_level + 1;
                             }
 
-                            damage.set("Amount", new NBTTagInt(monster_level));
+                            damage.set("Amount", new NBTTagInt(monster_level + itemDamage));
                             damage.set("Operation", new NBTTagInt(0));
                             damage.set("UUIDLeast", new NBTTagInt(894654));
                             damage.set("UUIDMost", new NBTTagInt(2872));
@@ -113,15 +125,18 @@ public class PlayerDefeatsMonster implements Listener {
                         e.getDrops().clear();
 
 
-                    } catch (ConcurrentModificationException ce) {
+                    }
+                        }
+                    catch (ConcurrentModificationException ce)
+                    {
                         if (debugEnabled) {
                             System.out.println("CME");
                         }
 
 
                     }
-                }
 
+}
 
                 if (Party_API.Party_Leaders.containsKey(playerName)) {
                     //Party leader kills the mob

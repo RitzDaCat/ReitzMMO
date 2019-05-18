@@ -99,12 +99,14 @@ public class MonsterLevelsHealth implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void applyMonsterLevelOnSpawn(CreatureSpawnEvent e)
     {
-        if(monsterNameplatesEnabled) {
-            e.getEntity().setCustomNameVisible(true);
-        }
+
         int worldEnabled = API.worldConfig.getInt(e.getLocation().getWorld().getName());
         if(worldEnabled != -1)
         {
+            if(monsterNameplatesEnabled) {
+                e.getEntity().setCustomNameVisible(true);
+            }
+
             Location worldSpawn = e.getLocation().getWorld().getSpawnLocation();
             Location monsterSpawn = e.getLocation();
             if (null == monsterSpawn) return;//if there's a problem
