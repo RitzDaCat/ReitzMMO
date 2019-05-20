@@ -26,7 +26,7 @@ class CheckPlayerCombatLevelUp {
             API.Players.get(p.getName()).getData().set("Level", level);
 
             /* message sent to players for leveling u */
-            Bukkit.broadcastMessage(ChatColor.GREEN + "[LEVEL UP] " + ChatColor.WHITE +  p.getName().toUpperCase().charAt(0) + " reached level: " + level);
+            p.sendMessage(ChatColor.GREEN + "[ReitzMMO]" + ChatColor.WHITE + " You have leveled up to: " + ChatColor.YELLOW +  level);
 
             API.Players.get(p.getName()).getData().set("Attack", (level * API.playerConfig.getInt("AttackScale")));
             API.Players.get(p.getName()).getData().set("Health", (18 + (level * API.playerConfig.getInt("HealthScale"))));

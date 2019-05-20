@@ -50,6 +50,7 @@ public class MonsterLevelsDamage implements Listener {
     private final int illusionerBaseAttack = API.monsterConfig.getInt("ILLUSIONER_BASE_ATTACK");
     private final int evokerBaseAttack = API.monsterConfig.getInt("EVOKER_BASE_ATTACK");
     private final int ravagerBaseAttack = API.monsterConfig.getInt("RAVAGER_BASE_ATTACK");
+    private final int batBaseAttack = API.monsterConfig.getInt("BAT_BASE_ATTACK");
     //debug section
     private final boolean debugEnabled = API.debugConfig.getBoolean("MonsterAttackingPlayer");
 
@@ -554,6 +555,19 @@ public class MonsterLevelsDamage implements Listener {
                                 System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
                             }
                             break;
+                            case BAT:
+                                player_defense = pd.getData().getInt("Level");
+                                monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
+                                monster_attack = Integer.parseInt(monster_level_from_name) * batBaseAttack;
+                                damage_done = monster_attack - player_defense;
+                                if (damage_done < 1) {
+                                    damage_done = 1;
+                                }
+                                e.setDamage(damage_done);
+                                if (debugEnabled) {
+                                    System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
+                                }
+                                break;
                             case RAVAGER:
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
@@ -588,11 +602,11 @@ public class MonsterLevelsDamage implements Listener {
                                 }
                                 break;
                             case SPLASH_POTION:
-                                arrow = (Arrow) attacker;
-                                if (arrow.getShooter() instanceof Witch)
+                                SplashPotion potion = (SplashPotion) attacker;
+                                if (potion.getShooter() instanceof Witch)
                                 {
                                     player_defense = pd.getData().getInt("Level");
-                                    monster_level_from_name = ((Witch) arrow.getShooter()).getCustomName().replaceAll("\\D+", "");
+                                    monster_level_from_name = ((Witch) potion.getShooter()).getCustomName().replaceAll("\\D+", "");
                                     monster_attack = Integer.parseInt(monster_level_from_name) * witchBaseAttack;
                                     damage_done = monster_attack - player_defense;
                                     if (damage_done < 1) {

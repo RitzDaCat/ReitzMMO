@@ -76,7 +76,6 @@ public class PlayerDefeatsMonster implements Listener {
                         for (ItemStack eachItem : e.getDrops())
                         {
 
-                            //apply to each item
                             int itemDamage = 0;
                             int itemDefense = 0;
                             //check to see if it already has an attack modifier
