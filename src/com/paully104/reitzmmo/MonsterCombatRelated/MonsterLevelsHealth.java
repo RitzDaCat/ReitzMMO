@@ -75,7 +75,48 @@ public class MonsterLevelsHealth implements Listener {
     private final int ravagerBaseHP = API.monsterConfig.getInt("RAVAGER_BASE_HP");
     private final int batBaseHP = API.monsterConfig.getInt("BAT_BASE_HP");
     private final int drownedBaseHP = API.monsterConfig.getInt("DROWNED_BASE_HP");
+    
+    
+    //NAMEPLATE SECTION
     private final boolean monsterNameplatesEnabled = API.monsterConfig.getBoolean("NAMEPLATES_ENABLED");
+
+    private final boolean zombieNameplate = API.monsterConfig.getBoolean("ZOMBIE_NAMEPLATES_ENABLED");
+    private final boolean wolfNameplate = API.monsterConfig.getBoolean("WOLF_NAMEPLATES_ENABLED");
+    private final boolean villagerNameplate = API.monsterConfig.getBoolean("VILLAGER_NAMEPLATES_ENABLED");
+    private final boolean squidNameplate = API.monsterConfig.getBoolean("SQUID_NAMEPLATES_ENABLED");
+    private final boolean spiderNameplate = API.monsterConfig.getBoolean("SPIDER_NAMEPLATES_ENABLED");
+    private final boolean snowmanNameplate = API.monsterConfig.getBoolean("SNOWMAN_NAMEPLATES_ENABLED");
+    private final boolean slimeNameplate = API.monsterConfig.getBoolean("SLIME_NAMEPLATES_ENABLED");
+    private final boolean skeletonNameplate = API.monsterConfig.getBoolean("SKELETON_NAMEPLATES_ENABLED");
+    private final boolean silverfishNameplate = API.monsterConfig.getBoolean("SILVERFISH_NAMEPLATES_ENABLED");
+    private final boolean sheepNameplate = API.monsterConfig.getBoolean("SHEEP_NAMEPLATES_ENABLED");
+    private final boolean rabbitNameplate = API.monsterConfig.getBoolean("RABBIT_NAMEPLATES_ENABLED");
+    private final boolean pigzombieNameplate = API.monsterConfig.getBoolean("PIGZOMBIE_NAMEPLATES_ENABLED");
+    private final boolean pigNameplate = API.monsterConfig.getBoolean("PIG_NAMEPLATES_ENABLED");
+    private final boolean mushroomcowNameplate = API.monsterConfig.getBoolean("MUSHROOMCOW_NAMEPLATES_ENABLED");
+    private final boolean magmacubeNameplate = API.monsterConfig.getBoolean("MAGMACUBE_NAMEPLATES_ENABLED");
+    private final boolean guardianNameplate = API.monsterConfig.getBoolean("GUARDIAN_NAMEPLATES_ENABLED");
+    private final boolean giantNameplate = API.monsterConfig.getBoolean("GIANT_NAMEPLATES_ENABLED");
+    private final boolean ghastNameplate = API.monsterConfig.getBoolean("GHAST_NAMEPLATES_ENABLED");
+    private final boolean endermiteNameplate = API.monsterConfig.getBoolean("ENDERMITE_NAMEPLATES_ENABLED");
+    private final boolean endermanNameplate = API.monsterConfig.getBoolean("ENDERMAN_NAMEPLATES_ENABLED");
+    private final boolean enderdragonNameplate = API.monsterConfig.getBoolean("ENDERDRAGON_NAMEPLATES_ENABLED");
+    private final boolean creeperNameplate = API.monsterConfig.getBoolean("CREEPER_NAMEPLATES_ENABLED");
+    private final boolean cowNameplate = API.monsterConfig.getBoolean("COW_NAMEPLATES_ENABLED");
+    private final boolean chickenNameplate = API.monsterConfig.getBoolean("CHICKEN_NAMEPLATES_ENABLED");
+    private final boolean cavespiderNameplate = API.monsterConfig.getBoolean("CAVESPIDER_NAMEPLATES_ENABLED");
+    private final boolean blazeNameplate = API.monsterConfig.getBoolean("BLAZE_NAMEPLATES_ENABLED");
+    private final boolean witchNameplate = API.monsterConfig.getBoolean("WITCH_NAMEPLATES_ENABLED");
+    private final boolean witherSkeletonNameplate = API.monsterConfig.getBoolean("WITHERSKELETON_NAMEPLATES_ENABLED");
+    private final boolean shulkerSkeletonNameplate = API.monsterConfig.getBoolean("SHULKER_NAMEPLATES_ENABLED");
+    private final boolean pillagerNameplate = API.monsterConfig.getBoolean("PILLAGER_NAMEPLATES_ENABLED");
+    private final boolean illusionerNameplate = API.monsterConfig.getBoolean("ILLUSIONER_NAMEPLATES_ENABLED");
+    private final boolean evokerNameplate = API.monsterConfig.getBoolean("EVOKER_NAMEPLATES_ENABLED");
+    private final boolean ravagerNameplate = API.monsterConfig.getBoolean("RAVAGER_NAMEPLATES_ENABLED");
+    private final boolean batNameplate = API.monsterConfig.getBoolean("BAT_NAMEPLATES_ENABLED");
+    private final boolean drownedNameplate = API.monsterConfig.getBoolean("DROWNED_NAMEPLATES_ENABLED");
+    
+    
 
     private int calculateDistanceFromSpawn(Location worldSpawn, Location monsterSpawn)
     {
@@ -105,10 +146,6 @@ public class MonsterLevelsHealth implements Listener {
         int worldEnabled = API.worldConfig.getInt(e.getLocation().getWorld().getName());
         if(worldEnabled != -1)
         {
-            if(monsterNameplatesEnabled) {
-                e.getEntity().setCustomNameVisible(true);
-            }
-
             Location worldSpawn = e.getLocation().getWorld().getSpawnLocation();
             Location monsterSpawn = e.getLocation();
             if (null == monsterSpawn) return;//if there's a problem
@@ -211,6 +248,14 @@ public class MonsterLevelsHealth implements Listener {
                         e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).getValue() * 2.00);
                         //updated on 4/26/2017 to increase the chance of getting tons of zombies :)
                         e.getEntity().getAttribute(Attribute.ZOMBIE_SPAWN_REINFORCEMENTS).setBaseValue(e.getEntity().getAttribute(Attribute.ZOMBIE_SPAWN_REINFORCEMENTS).getValue() + 0.2);
+
+                        if(monsterNameplatesEnabled && zombieNameplate) {
+
+
+                            e.getEntity().setCustomNameVisible(true);
+                        }
+                        
+                        
                     } else {
                         e.getEntity().setMaxHealth(distance * zombieBaseHP);
                         e.getEntity().setHealth(distance * zombieBaseHP);
@@ -221,6 +266,12 @@ public class MonsterLevelsHealth implements Listener {
                         //updated on 4/26/2017 to increase the chance of getting tons of zombies :)
                         e.getEntity().getAttribute(Attribute.ZOMBIE_SPAWN_REINFORCEMENTS).setBaseValue(e.getEntity().getAttribute(Attribute.ZOMBIE_SPAWN_REINFORCEMENTS).getValue() + 0.20);
 
+                        if(monsterNameplatesEnabled && zombieNameplate) {
+
+
+                            e.getEntity().setCustomNameVisible(true);
+                        }
+
                     }
                     break;
                 case WOLF:
@@ -228,26 +279,50 @@ public class MonsterLevelsHealth implements Listener {
                     e.getEntity().setHealth(distance * wolfBaseHP);
                     e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).getValue() * 2.00);
                     e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * 1.25);
+                    if(monsterNameplatesEnabled && wolfNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case VILLAGER:
                     e.getEntity().setMaxHealth(distance * villagerBaseHP);
                     e.getEntity().setHealth(distance * villagerBaseHP);
+                    if(monsterNameplatesEnabled && villagerNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case SQUID:
                     e.getEntity().setMaxHealth(distance * squidBaseHP);
                     e.getEntity().setHealth(distance * squidBaseHP);
+                    if(monsterNameplatesEnabled && squidNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case SPIDER:
                     e.getEntity().setMaxHealth(distance * spiderBaseHP);
                     e.getEntity().setHealth(distance * spiderBaseHP);
+                    if(monsterNameplatesEnabled && spiderNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case SNOWMAN:
                     e.getEntity().setMaxHealth(distance * snowmanBaseHP);
                     e.getEntity().setHealth(distance * snowmanBaseHP);
+                    if(monsterNameplatesEnabled && snowmanNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case SLIME:
                     e.getEntity().setMaxHealth(distance * slimeBaseHP);
                     e.getEntity().setHealth(distance * slimeBaseHP);
+                    if(monsterNameplatesEnabled && slimeNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case SKELETON:
                     e.getEntity().setMaxHealth(distance * skeletonBaseHP);
@@ -255,68 +330,128 @@ public class MonsterLevelsHealth implements Listener {
                     //slower Skellies because they suck
                     e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * .80);
                     e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).getValue() * 2.00);
+                    if(monsterNameplatesEnabled && skeletonNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     //Lets slow down the skeleton firing rate to make it more fair UPDATE: Not an accessible trait!
                     break;
                 case SILVERFISH:
                     e.getEntity().setMaxHealth(distance * silverfishBaseHP);
                     e.getEntity().setHealth(distance * silverfishBaseHP);
+                    if(monsterNameplatesEnabled && silverfishNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case SHEEP:
                     e.getEntity().setMaxHealth(distance * sheepBaseHP);
                     e.getEntity().setHealth(distance * sheepBaseHP);
+                    if(monsterNameplatesEnabled && sheepNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case RABBIT:
                     e.getEntity().setMaxHealth(distance * rabbitBaseHP);
                     e.getEntity().setHealth(distance * rabbitBaseHP);
+                    if(monsterNameplatesEnabled && rabbitNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case PIG_ZOMBIE:
                     e.getEntity().setMaxHealth(distance * pigzombieBaseHP);
                     e.getEntity().setHealth(distance * pigzombieBaseHP);
                     //superfast
                     e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * 1.25);
+                    if(monsterNameplatesEnabled && pigzombieNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case PIG:
                     e.getEntity().setMaxHealth(distance * pigBaseHP);
                     e.getEntity().setHealth(distance * pigBaseHP);
+                    if(monsterNameplatesEnabled && pigNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case MUSHROOM_COW:
                     e.getEntity().setMaxHealth(distance * mushroomcowBaseHP);
                     e.getEntity().setHealth(distance * mushroomcowBaseHP);
+                    if(monsterNameplatesEnabled && mushroomcowNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case MAGMA_CUBE:
                     e.getEntity().setMaxHealth(distance * magmacubeBaseHP);
                     e.getEntity().setHealth(distance * magmacubeBaseHP);
+                    if(monsterNameplatesEnabled && magmacubeNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case GUARDIAN:
                     e.getEntity().setMaxHealth(distance * guardianBaseHP);
                     e.getEntity().setHealth(distance * guardianBaseHP);
+                    if(monsterNameplatesEnabled && guardianNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case ELDER_GUARDIAN:
                     e.getEntity().setMaxHealth(distance * guardianBaseHP);
                     e.getEntity().setHealth(distance * guardianBaseHP);
+                    if(monsterNameplatesEnabled && guardianNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case GIANT:
                     e.getEntity().setMaxHealth(distance * giantBaseHP);
                     e.getEntity().setHealth(distance * giantBaseHP);
+                    if(monsterNameplatesEnabled && giantNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case GHAST:
                     e.getEntity().setMaxHealth(distance * ghastBaseHP);
                     e.getEntity().setHealth(distance * ghastBaseHP);
                     //Slow them down
                     e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * .85);
+                    if(monsterNameplatesEnabled && ghastNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case ENDERMITE:
                     e.getEntity().setMaxHealth(distance * endermiteBaseHP);
                     e.getEntity().setHealth(distance * endermiteBaseHP);
+                    if(monsterNameplatesEnabled && endermanNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case ENDERMAN:
                     e.getEntity().setMaxHealth(distance * endermanBaseHP);
                     e.getEntity().setHealth(distance * endermanBaseHP);
+                    if(monsterNameplatesEnabled && endermanNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case ENDER_DRAGON:
                     distance = 250;
                     e.getEntity().setMaxHealth(distance * enderdragonBaseHP);
                     e.getEntity().setHealth(distance * enderdragonBaseHP);
+                    if(monsterNameplatesEnabled && enderdragonNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case CREEPER:
                     e.getEntity().setMaxHealth(distance * creeperBaseHP);
@@ -326,59 +461,115 @@ public class MonsterLevelsHealth implements Listener {
                     //this is paul being reasonable
                     e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * 1.4);
                     e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_FOLLOW_RANGE).getValue() * 1.75);
+                    if(monsterNameplatesEnabled && creeperNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case COW:
                     e.getEntity().setMaxHealth(distance * cowBaseHP);
                     e.getEntity().setHealth(distance * cowBaseHP);
+                    if(monsterNameplatesEnabled && cowNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case CHICKEN:
                     e.getEntity().setMaxHealth(distance * chickenBaseHP);
                     e.getEntity().setHealth(distance * chickenBaseHP);
+                    if(monsterNameplatesEnabled && chickenNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case CAVE_SPIDER:
                     e.getEntity().setMaxHealth(distance * cavespiderBaseHP);
                     e.getEntity().setHealth(distance * cavespiderBaseHP);
+                    if(monsterNameplatesEnabled && cavespiderNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case BLAZE:
                     e.getEntity().setMaxHealth(distance * blazeBaseHP);
                     e.getEntity().setHealth(distance * blazeBaseHP);
+                    if(monsterNameplatesEnabled && blazeNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case WITCH:
                     e.getEntity().setMaxHealth(distance * witchBaseHP);
                     e.getEntity().setHealth(distance * witchBaseHP);
+                    if(monsterNameplatesEnabled && witchNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case WITHER_SKELETON:
                     e.getEntity().setMaxHealth(distance * witherSkeletonBaseHP);
                     e.getEntity().setHealth(distance * witherSkeletonBaseHP);
+                    if(monsterNameplatesEnabled && witherSkeletonNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case SHULKER:
                     e.getEntity().setMaxHealth(distance * shulkerSkeletonBaseHP);
                     e.getEntity().setHealth(distance * shulkerSkeletonBaseHP);
+                    if(monsterNameplatesEnabled && shulkerSkeletonNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case PILLAGER:
                     e.getEntity().setMaxHealth(distance * pillagerBaseHP);
                     e.getEntity().setHealth(distance * pillagerBaseHP);
+                    if(monsterNameplatesEnabled && pillagerNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case ILLUSIONER:
                     e.getEntity().setMaxHealth(distance * illusionerBaseHP);
                     e.getEntity().setHealth(distance * illusionerBaseHP);
+                    if(monsterNameplatesEnabled && illusionerNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case EVOKER:
                     e.getEntity().setMaxHealth(distance * evokerBaseHP);
                     e.getEntity().setHealth(distance * evokerBaseHP);
+                    if(monsterNameplatesEnabled && evokerNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case RAVAGER:
                     e.getEntity().setMaxHealth(distance * ravagerBaseHP);
                     e.getEntity().setHealth(distance * ravagerBaseHP);
+                    if(monsterNameplatesEnabled && ravagerNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
 
                 case BAT:
                     e.getEntity().setMaxHealth(distance *batBaseHP);
                     e.getEntity().setHealth(distance * batBaseHP);
+                    if(monsterNameplatesEnabled && batNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
                 case DROWNED:
                     e.getEntity().setMaxHealth(distance *drownedBaseHP);
                     e.getEntity().setHealth(distance * drownedBaseHP);
+                    if(monsterNameplatesEnabled && drownedNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
                     break;
 
 
