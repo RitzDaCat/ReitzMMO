@@ -76,68 +76,71 @@ public class Menu implements Listener {
         if (inventory == GUI_MENU) {
             if(null != clicked) {
                 if (clicked.hasItemMeta()) {
-                    if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Home")) { // The item that the player clicked it dirt
-                        event.setCancelled(true); // Make it so the dirt is back in its original spot
-                        player.closeInventory(); // Closes there inventory
-                        double health = player.getHealth();
-                        player.sendMessage(ChatColor.YELLOW + "Teleporting in 5 seconds");
-                        player.sendMessage(ChatColor.YELLOW + "Teleport will cancel if health is lost!");
-                        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                            if (player.getHealth() >= health) {
-                                if (null != player.getBedSpawnLocation()) {
-                                    player.teleport(player.getBedSpawnLocation()); // Adds dirt
+                    switch(clicked.getItemMeta().getDisplayName()) {
+
+                        case "Home":
+                            event.setCancelled(true); // Make it so the dirt is back in its original spot
+                            player.closeInventory(); // Closes there inventory
+                            double health = player.getHealth();
+                            player.sendMessage(ChatColor.YELLOW + "Teleporting in 5 seconds");
+                            player.sendMessage(ChatColor.YELLOW + "Teleport will cancel if health is lost!");
+                            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                                if (player.getHealth() >= health) {
+                                    if (null != player.getBedSpawnLocation()) {
+                                        player.teleport(player.getBedSpawnLocation()); // Adds dirt
+                                    } else {
+                                        player.teleport(player.getWorld().getSpawnLocation());
+                                        //player.sendMessage(ChatColor.RED + "No homepoint set!");
+                                    }
+
                                 } else {
-                                    player.teleport(player.getWorld().getSpawnLocation());
-                                    //player.sendMessage(ChatColor.RED + "No homepoint set!");
+                                    player.sendMessage(ChatColor.RED + "Can't teleport while in combat!");
                                 }
-
-                            } else {
-                                player.sendMessage(ChatColor.RED + "Can't teleport while in combat!");
-                            }
-                            //YOUR MESSAGE TO SAY AFTER THEY SAY STUFF
-                        }, 100); //5000 MEANS WAIT 5 SECCONDS BEFORE RUNNING THE CODE ABOVE
+                                //YOUR MESSAGE TO SAY AFTER THEY SAY STUFF
+                            }, 100); //5000 MEANS WAIT 5 SECCONDS BEFORE RUNNING THE CODE ABOVE
+                            break;
 
 
-                    }
-                    else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Stats")) { // The item that the player clicked it dirt
-                        event.setCancelled(true); // Make it so the dirt is back in its original spot
-                        player.closeInventory(); // Closes there inventory
-                        player.performCommand("Reitz Stats"); // Adds dirt
+                        case "Stats":  // The item that the player clicked it dirt
+                            event.setCancelled(true); // Make it so the dirt is back in its original spot
+                            player.closeInventory(); // Closes there inventory
+                            player.performCommand("Reitz Stats"); // Adds dirt
+                            break;
 
-                    }
-                    else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Fix Health")) { // The item that the player clicked it dirt
-                        event.setCancelled(true); // Make it so the dirt is back in its original spot
-                        player.closeInventory(); // Closes there inventory
-                        player.performCommand("Reitz FixHealth"); // Adds dirt
 
-                    }
-                    else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Party")) { // The item that the player clicked it dirt
-                        event.setCancelled(true); // Make it so the dirt is back in its original spot
-                        player.closeInventory(); // Closes there inventory
-                        player.performCommand("RParty"); // Adds dirt
+                        case "Fix Health": // The item that the player clicked it dirt
+                            event.setCancelled(true); // Make it so the dirt is back in its original spot
+                            player.closeInventory(); // Closes there inventory
+                            player.performCommand("Reitz FixHealth"); // Adds dirt
+                            break;
 
-                    }
-                    else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Weaponskills")) { // The item that the player clicked it dirt
-                        event.setCancelled(true); // Make it so the dirt is back in its original spot
-                        player.closeInventory(); // Closes there inventory
-                        player.openInventory(Weaponskill_Menu.WEAPONSKILL_MENU); // Adds dirt
 
-                    }
-                  else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Fix EXP")) { // The item that the player clicked it dirt
-                        event.setCancelled(true); // Make it so the dirt is back in its original spot
-                        player.closeInventory(); // Closes there inventory
-                        player.performCommand("Reitz FixEXP"); // Adds dirt
+                        case "Party":  // The item that the player clicked it dirt
+                            event.setCancelled(true); // Make it so the dirt is back in its original spot
+                            player.closeInventory(); // Closes there inventory
+                            player.performCommand("RParty"); // Adds dirt
+                            break;
 
-                    }
-                    else if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Town Menu")) { // The item that the player clicked it dirt
-                        event.setCancelled(true); // Make it so the dirt is back in its original spot
-                        player.closeInventory(); // Closes there inventory
-                        player.openInventory(Town_Menu.TOWN_MENU); // Adds dirt
 
-                    } else {
-                        event.setCancelled(true);
+                        case "Fix EXP": // The item that the player clicked it dirt
+                            event.setCancelled(true); // Make it so the dirt is back in its original spot
+                            player.closeInventory(); // Closes there inventory
+                            player.performCommand("Reitz FixEXP"); // Adds dirt
+                            break;
+
+
+                        case "Town Menu":  // The item that the player clicked it dirt
+                            event.setCancelled(true); // Make it so the dirt is back in its original spot
+                            player.closeInventory(); // Closes there inventory
+                            player.openInventory(Town_Menu.TOWN_MENU); // Adds dirt
+                            break;
+
+
+
 
                     }
+                    //outside the switch
+                    event.setCancelled(true);
                 }
             }
 
