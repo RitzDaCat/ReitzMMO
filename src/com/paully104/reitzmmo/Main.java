@@ -12,6 +12,8 @@ import com.paully104.reitzmmo.MonsterCombatRelated.MonsterLevelsDamage;
 import com.paully104.reitzmmo.MonsterCombatRelated.MonsterLevelsHealth;
 import com.paully104.reitzmmo.OnPlayerEvents.OnPlayerExitStatSave;
 import com.paully104.reitzmmo.OnPlayerEvents.OnPlayerJoinStatSetup;
+import com.paully104.reitzmmo.Party_System.EntityDamageEvent;
+import com.paully104.reitzmmo.Party_System.EntityRegainHealthEvent;
 import com.paully104.reitzmmo.Party_System.Scoreboard_Custom;
 import com.paully104.reitzmmo.PlayerCombatRelated.PlayerAttackingMonster;
 import com.paully104.reitzmmo.PlayerCombatRelated.PlayerDefeatsMonster;
@@ -85,7 +87,7 @@ public class Main extends JavaPlugin {
         //removed weaponskills and weaponskill menu
         registerEvents(this,new OnPlayerJoinStatSetup(), new MonsterLevelsHealth(), new OnPlayerExitStatSave(),
         new MonsterLevelsDamage(), new PlayerAttackingMonster(),new PlayerDefeatsMonster(), new Menu(), new Party_Menu(),
-                new Scoreboard_Custom());
+                new Scoreboard_Custom(), new EntityRegainHealthEvent(), new EntityDamageEvent());
 
         //SetCustomItems
         Custom_Arrows.setCustomArrow();

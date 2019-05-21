@@ -137,7 +137,8 @@ public class PlayerDefeatsMonster implements Listener {
 
 }
 
-                if (Party_API.Party_Leaders.containsKey(playerName)) {
+                if (Party_API.Party_Leaders.containsKey(playerName))
+                {
                     //Party leader kills the mob
 
                     Party party = Party_API.Party_Leaders.get(playerName);
@@ -187,7 +188,9 @@ public class PlayerDefeatsMonster implements Listener {
                         player.sendMessage(ChatColor.WHITE + "You gained: " + ChatColor.GREEN + expGained + " [EXP]");
                     }
 
-                } else if (Party_API.inParty.containsKey(playerName)) {
+                }
+                else if (Party_API.inParty.containsKey(playerName))
+                {
                     //party member kills mob
                     String leader = Party_API.inParty.get(playerName);
 

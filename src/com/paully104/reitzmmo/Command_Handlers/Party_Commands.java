@@ -4,12 +4,16 @@ import com.paully104.reitzmmo.Menu.Party_Menu;
 import com.paully104.reitzmmo.Party_System.Party;
 import com.paully104.reitzmmo.Party_System.Party_API;
 import com.paully104.reitzmmo.Party_System.Party_Queue;
+import com.paully104.reitzmmo.Party_System.Scoreboard_Party;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.List;
 
@@ -75,6 +79,19 @@ public class Party_Commands implements CommandExecutor {
                     {
                         Party_API.inParty.remove(people);
                         Bukkit.getPlayer(people).sendMessage(ChatColor.YELLOW + "Party has been disbanded!");
+                        try {
+                            Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
+
+                            Objective objective = sb.registerNewObjective("showhealth", "health");
+                            objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
+                            objective.setDisplayName(ChatColor.RED + "❤");
+                            Bukkit.getPlayer(people).setScoreboard(sb);
+                            Bukkit.getPlayer(people).setHealth(Bukkit.getPlayer(people).getHealth());
+                        }
+                        catch (NullPointerException e)
+                        {
+
+                        }
 
                     }
 
@@ -82,6 +99,21 @@ public class Party_Commands implements CommandExecutor {
                 //after all the players are safely removed then we can remove the leader
                 sender.sendMessage(ChatColor.YELLOW + "disbanding party...");
                 Party_API.Party_Leaders.remove(name);
+
+                try {
+                    Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
+
+                    Objective objective = sb.registerNewObjective("showhealth", "health");
+                    objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
+                    objective.setDisplayName(ChatColor.RED + "❤");
+                    Bukkit.getPlayer(sender.getName()).setScoreboard(sb);
+                    Bukkit.getPlayer(sender.getName()).setHealth(Bukkit.getPlayer(sender.getName()).getHealth());
+                }
+                catch (NullPointerException e)
+                {
+
+                }
+
             }
             else
             {
@@ -168,6 +200,10 @@ public class Party_Commands implements CommandExecutor {
                     Bukkit.getPlayer(queue.getCreator()).sendMessage(ChatColor.GREEN+sender.getName() + " has joined your party!");
                     Party_API.Password_Queue.remove(sender.getName());
                     Party_API.inParty.put(sender.getName(), queue.getCreator());
+
+                    //setup Scoreboard with party members and leader
+                    Scoreboard_Party scoreboard_party = new Scoreboard_Party();
+                    scoreboard_party.Scoreboard_PartySetup(Bukkit.getPlayer(sender.getName()));
 
                 } else {
                     sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.WHITE + " Incorrect passcode!");
