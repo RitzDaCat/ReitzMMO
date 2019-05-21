@@ -155,6 +155,10 @@ public class MonsterConfig {
         configuration.addDefault("BAT_BASE_HP", 4);
         configuration.addDefault("BAT_BASE_ATTACK", 2);
 
+        configuration.addDefault("DROWNED", true);
+        configuration.addDefault("DROWNED_BASE_HP", 4);
+        configuration.addDefault("DROWNED_BASE_ATTACK", 4);
+
 
 
         configuration.options().copyDefaults(true);

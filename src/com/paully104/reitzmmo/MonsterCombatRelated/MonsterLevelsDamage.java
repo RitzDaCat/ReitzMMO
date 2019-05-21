@@ -1,6 +1,7 @@
 package com.paully104.reitzmmo.MonsterCombatRelated;
 
 import com.paully104.reitzmmo.ConfigFiles.API;
+import com.paully104.reitzmmo.Enum.Armor_Defense;
 import com.paully104.reitzmmo.Enum.Weapon_Damage;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
 import org.bukkit.attribute.Attribute;
@@ -51,6 +52,7 @@ public class MonsterLevelsDamage implements Listener {
     private final int evokerBaseAttack = API.monsterConfig.getInt("EVOKER_BASE_ATTACK");
     private final int ravagerBaseAttack = API.monsterConfig.getInt("RAVAGER_BASE_ATTACK");
     private final int batBaseAttack = API.monsterConfig.getInt("BAT_BASE_ATTACK");
+    private final int drownedBaseAttack = API.monsterConfig.getInt("DROWNED_BASE_ATTACK");
     //debug section
     private final boolean debugEnabled = API.debugConfig.getBoolean("MonsterAttackingPlayer");
 
@@ -73,6 +75,12 @@ public class MonsterLevelsDamage implements Listener {
             EntityType defenderType = defender.getType();
             if (defenderType == EntityType.PLAYER) {
                 PlayerData pd = API.Players.get(defender.getName());
+                Player defendingPlayer = (Player) defender;
+                int helmet;
+                int chestplate;
+                int leggings;
+                int boots;
+                int armorTotal;
                 switch(attackerType)
                         {
                             case PLAYER:
@@ -181,7 +189,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * zombieBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -195,7 +224,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * wolfBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -208,7 +258,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * villagerBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -221,7 +292,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * squidBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -234,7 +326,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * snowmanBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -247,7 +360,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * slimeBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -260,7 +394,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * silverfishBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -273,7 +428,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * sheepBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -286,7 +462,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * rabbitBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -299,7 +496,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * pigzombieBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -312,7 +530,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * pigBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -325,7 +564,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * mushroomcowBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -338,7 +598,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * magmacubeBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -351,7 +632,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * guardianBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -364,7 +666,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * giantBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -377,7 +700,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * ghastBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -390,7 +734,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * endermiteBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -403,7 +768,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * endermanBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -416,7 +802,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * enderdragonBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -429,7 +836,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * creeperBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -442,7 +870,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * cowBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -455,7 +904,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * chickenBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -468,7 +938,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * cavespiderBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -481,7 +972,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * spiderBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -494,7 +1006,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * witherSkeletonBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -507,7 +1040,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * blazeBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -520,7 +1074,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * pillagerBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -533,7 +1108,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * illusionerBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -546,7 +1142,28 @@ public class MonsterLevelsDamage implements Listener {
                             player_defense = pd.getData().getInt("Level");
                             monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                             monster_attack = Integer.parseInt(monster_level_from_name) * evokerBaseAttack;
-                            damage_done = monster_attack - player_defense;
+                                                            try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                             if (damage_done < 1) {
                                 damage_done = 1;
                             }
@@ -559,7 +1176,28 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * batBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -572,7 +1210,62 @@ public class MonsterLevelsDamage implements Listener {
                                 player_defense = pd.getData().getInt("Level");
                                 monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                                 monster_attack = Integer.parseInt(monster_level_from_name) * ravagerBaseAttack;
-                                damage_done = monster_attack - player_defense;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
+                                if (damage_done < 1) {
+                                    damage_done = 1;
+                                }
+                                e.setDamage(damage_done);
+                                if (debugEnabled) {
+                                    System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
+                                }
+                                break;
+                            case DROWNED:
+                                player_defense = pd.getData().getInt("Level");
+                                monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
+                                monster_attack = Integer.parseInt(monster_level_from_name) * drownedBaseAttack;
+                                                                try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                 if (damage_done < 1) {
                                     damage_done = 1;
                                 }
@@ -588,7 +1281,28 @@ public class MonsterLevelsDamage implements Listener {
                                     player_defense = pd.getData().getInt("Level");
                                     monster_level_from_name = ((Skeleton) arrow.getShooter()).getCustomName().replaceAll("\\D+", "");
                                     monster_attack = Integer.parseInt(monster_level_from_name) * skeletonBaseAttack;
-                                    damage_done = monster_attack - player_defense;
+                                                                    try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                     if (damage_done < 1) {
                                         damage_done = 1;
                                     }
@@ -608,7 +1322,28 @@ public class MonsterLevelsDamage implements Listener {
                                     player_defense = pd.getData().getInt("Level");
                                     monster_level_from_name = ((Witch) potion.getShooter()).getCustomName().replaceAll("\\D+", "");
                                     monster_attack = Integer.parseInt(monster_level_from_name) * witchBaseAttack;
-                                    damage_done = monster_attack - player_defense;
+                                                                    try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                     if (damage_done < 1) {
                                         damage_done = 1;
                                     }
@@ -625,7 +1360,28 @@ public class MonsterLevelsDamage implements Listener {
                                     player_defense = pd.getData().getInt("Level");
                                     monster_level_from_name = ((Witch) arrow.getShooter()).getCustomName().replaceAll("\\D+", "");
                                     monster_attack = Integer.parseInt(monster_level_from_name) * shulkerBaseAttack;
-                                    damage_done = monster_attack - player_defense;
+                                                                    try {
+                                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    helmet = 0;
+                                }
+                                try {
+                                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    chestplate = 0;
+                                }
+                                try {
+                                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    leggings = 0;
+                                }
+                                try {
+                                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                                } catch (NullPointerException error) {
+                                    boots = 0;
+                                }
+                                armorTotal = helmet + chestplate + leggings + boots;
+                                damage_done = monster_attack - (player_defense + armorTotal);;
                                     if (damage_done < 1) {
                                         damage_done = 1;
                                     }

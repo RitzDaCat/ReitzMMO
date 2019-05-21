@@ -74,6 +74,7 @@ public class MonsterLevelsHealth implements Listener {
     private final int evokerBaseHP = API.monsterConfig.getInt("EVOKER_BASE_HP");
     private final int ravagerBaseHP = API.monsterConfig.getInt("RAVAGER_BASE_HP");
     private final int batBaseHP = API.monsterConfig.getInt("BAT_BASE_HP");
+    private final int drownedBaseHP = API.monsterConfig.getInt("DROWNED_BASE_HP");
     private final boolean monsterNameplatesEnabled = API.monsterConfig.getBoolean("NAMEPLATES_ENABLED");
 
     private int calculateDistanceFromSpawn(Location worldSpawn, Location monsterSpawn)
@@ -375,6 +376,11 @@ public class MonsterLevelsHealth implements Listener {
                     e.getEntity().setMaxHealth(distance *batBaseHP);
                     e.getEntity().setHealth(distance * batBaseHP);
                     break;
+                case DROWNED:
+                    e.getEntity().setMaxHealth(distance *drownedBaseHP);
+                    e.getEntity().setHealth(distance * drownedBaseHP);
+                    break;
+
 
 
             }
