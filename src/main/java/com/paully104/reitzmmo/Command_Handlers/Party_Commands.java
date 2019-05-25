@@ -5,6 +5,7 @@ import com.paully104.reitzmmo.Party_System.Party;
 import com.paully104.reitzmmo.Party_System.Party_API;
 import com.paully104.reitzmmo.Party_System.Party_Queue;
 import com.paully104.reitzmmo.Party_System.Scoreboard_Party;
+import net.md_5.bungee.api.chat.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -82,7 +83,7 @@ public class Party_Commands implements CommandExecutor {
                         try {
                             Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
 
-                            Objective objective = sb.registerNewObjective("showhealth", "health");
+                            Objective objective = sb.registerNewObjective("showhealth1", "health");
                             objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
                             objective.setDisplayName(ChatColor.RED + "❤");
                             Bukkit.getPlayer(people).setScoreboard(sb);
@@ -103,7 +104,7 @@ public class Party_Commands implements CommandExecutor {
                 try {
                     Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
 
-                    Objective objective = sb.registerNewObjective("showhealth", "health");
+                    Objective objective = sb.registerNewObjective("showhealth2", "health");
                     objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
                     objective.setDisplayName(ChatColor.RED + "❤");
                     Bukkit.getPlayer(sender.getName()).setScoreboard(sb);
@@ -170,14 +171,32 @@ public class Party_Commands implements CommandExecutor {
                 String uuid = invitedPlayer.getUniqueId().toString();
 
                 Party_Queue queue = new Party_Queue(sender.getName(), Bukkit.getPlayer(args[1]).getName(), uuid);
-                Bukkit.getPlayer(args[1]).sendMessage(ChatColor.GREEN + "Party invite from: " + sender.getName());
+
+                //new invite system
+                Bukkit.getPlayer(args[1]).sendMessage(ChatColor.YELLOW+ "[PARTY]" + ChatColor.GREEN + "Party invite from: " + sender.getName());
+                TextComponent component = new TextComponent();
+                component.setBold(true);
+                component.setText("Click " + ChatColor.YELLOW+"[HERE]" + ChatColor.WHITE+ " to accept the party invite.");
+                component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("From: " + sender.getName()).create()));
+                component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rparty join"));
+                Bukkit.getPlayer(args[1]).spigot().sendMessage(component);
+
+                //Bukkit.getPlayer(args[1]).sendMessage(ChatColor.GREEN + "Party invite from: " + sender.getName());
                 //Bukkit.getPlayer(args[1]).sendMessage(ChatColor.WHITE + "Passcode: " + passcode);
-                Bukkit.getPlayer(args[1]).sendMessage(ChatColor.WHITE + "Use /rparty join to join!");
+                //Bukkit.getPlayer(args[1]).sendMessage(ChatColor.WHITE + "Use /rparty join to join!");
                 Party_API.Password_Queue.put(Bukkit.getPlayer(args[1]).getName(), queue);
             }
             else
             {
                 sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.WHITE + " You must first create a party and be its leader!");
+
+                TextComponent component = new TextComponent();
+                component.setBold(true);
+                component.setText("Click " + ChatColor.YELLOW+"[HERE]" + ChatColor.WHITE+ " to create a party!");
+                component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("From: " + sender.getName()).create()));
+                component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rparty create"));
+                sender.spigot().sendMessage(component);
+
 
             }
             //Party party = Party_API.Party_Leaders.get(sender.getName());
@@ -191,11 +210,10 @@ public class Party_Commands implements CommandExecutor {
                 args[0].equalsIgnoreCase("join")) {
             if(!(Party_API.inParty.containsKey(sender.getName())))
             {
-                sender.sendMessage(ChatColor.YELLOW + "~Attempting to join party~");
                 Party_Queue queue = Party_API.Password_Queue.get(sender.getName());
                 String passcode = queue.getPasscode();
                 if (Bukkit.getPlayer(sender.getName()).getUniqueId().toString().equalsIgnoreCase(passcode)) {
-                    sender.sendMessage(ChatColor.GREEN+"Passcode was correct joining " + queue.getCreator() + "'s" +  " party");
+                    sender.sendMessage(ChatColor.GREEN+"Joining... " + queue.getCreator() + "'s" +  " party");
                     Party_API.Party_Leaders.get(queue.getCreator()).set_Member(sender.getName());
                     Bukkit.getPlayer(queue.getCreator()).sendMessage(ChatColor.GREEN+sender.getName() + " has joined your party!");
                     Party_API.Password_Queue.remove(sender.getName());

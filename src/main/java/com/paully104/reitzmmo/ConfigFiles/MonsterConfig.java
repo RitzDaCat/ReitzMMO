@@ -268,6 +268,19 @@ public class MonsterConfig {
         configuration.addDefault("DROWNED_MIN_LEVEL", 3);
         configuration.addDefault("DROWNED_NAMEPLATES_ENABLED", true);
 
+        configuration.addDefault("ZOMBIEVILLAGER", true);
+        configuration.addDefault("ZOMBIEVILLAGER_BASE_HP", 4);
+        configuration.addDefault("ZOMBIEVILLAGER_BASE_ATTACK", 4);
+        configuration.addDefault("ZOMBIEVILLAGER_SPEED", 1);
+        configuration.addDefault("ZOMBIEVILLAGER_MIN_LEVEL", 3);
+        configuration.addDefault("ZOMBIEVILLAGER_NAMEPLATES_ENABLED", true);
+
+        configuration.addDefault("POLARBEAR", true);
+        configuration.addDefault("POLARBEAR_BASE_HP", 4);
+        configuration.addDefault("POLARBEAR_BASE_ATTACK", 4);
+        configuration.addDefault("POLARBEAR_SPEED", 1);
+        configuration.addDefault("POLARBEAR_MIN_LEVEL", 3);
+        configuration.addDefault("POLARBEAR_NAMEPLATES_ENABLED", true);
 
 
         configuration.options().copyDefaults(true);
