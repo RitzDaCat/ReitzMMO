@@ -11,11 +11,9 @@ public class EntityDamageEvent implements Listener {
 
         if(e.getEntity() instanceof Player)
         {
-            System.out.println("EntityDamageEvent");
             Player p = (Player)e.getEntity();
             if (Party_API.Party_Leaders.containsKey((p.getName())))
             {
-                System.out.println("Leader");
                 Scoreboard_Party scoreboard = new Scoreboard_Party();
                 scoreboard.Scoreboard_PartySetup(p);
             }
@@ -24,7 +22,6 @@ public class EntityDamageEvent implements Listener {
 
             }
             if (Party_API.inParty.containsKey(p.getName())) {
-                System.out.println("InParty");
                 Scoreboard_Party scoreboard = new Scoreboard_Party();
                 scoreboard.Scoreboard_PartySetup(p);
             }
