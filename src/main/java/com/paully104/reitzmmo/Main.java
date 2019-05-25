@@ -7,7 +7,7 @@ import com.paully104.reitzmmo.Custom_Recipes.Custom_Arrows;
 import com.paully104.reitzmmo.Custom_Recipes.Custom_Bows;
 import com.paully104.reitzmmo.Menu.Menu;
 import com.paully104.reitzmmo.Menu.Party_Menu;
-import com.paully104.reitzmmo.Metrics.MetricsLite;
+import com.paully104.reitzmmo.Metrics.Metrics;
 import com.paully104.reitzmmo.MonsterCombatRelated.MonsterLevelsDamage;
 import com.paully104.reitzmmo.MonsterCombatRelated.MonsterLevelsHealth;
 import com.paully104.reitzmmo.OnPlayerEvents.OnPlayerExitStatSave;
@@ -36,13 +36,12 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable(){
 
-        try {
-            MetricsLite metrics = new MetricsLite(this);
-            metrics.start();
-        } catch (IOException e) {
-            System.out.print("Failed to start metrics...");
-            // Failed to submit the stats :-(
-        }
+        Metrics metrics = new Metrics(this);
+
+        // Optional: Add custom charts
+        metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));
+
+
         //Fired when the server enables the plugin
         getLogger().info("ReitzRPGMMO is now enabled");
         API.plugin = this;

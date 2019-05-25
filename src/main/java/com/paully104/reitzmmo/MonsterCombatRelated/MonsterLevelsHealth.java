@@ -77,7 +77,10 @@ public class MonsterLevelsHealth implements Listener {
     private final int drownedBaseHP = API.monsterConfig.getInt("DROWNED_BASE_HP");
     private final int zombievillagerBaseHP = API.monsterConfig.getInt("ZOMBIEVILLAGER_BASE_HP");
     private final int polarBearBaseHP = API.monsterConfig.getInt("POLARBEAR_BASE_HP");
-    
+    private final int wanderingTraderBaseHP = API.monsterConfig.getInt("WANDERINGTRADER_BASE_HP");
+    private final int donkeyBaseHP = API.monsterConfig.getInt("DONKEY_BASE_HP");
+    private final int llamaBaseHP = API.monsterConfig.getInt("LLAMA_BASE_HP");
+
     //NAMEPLATE SECTION
     private final boolean monsterNameplatesEnabled = API.monsterConfig.getBoolean("NAMEPLATES_ENABLED");
 
@@ -118,6 +121,10 @@ public class MonsterLevelsHealth implements Listener {
     private final boolean drownedNameplate = API.monsterConfig.getBoolean("DROWNED_NAMEPLATES_ENABLED");
     private final boolean zombievillagerNameplate = API.monsterConfig.getBoolean("ZOMBIEVILLAGER_NAMEPLATES_ENABLED");
     private final boolean polarBearNameplate = API.monsterConfig.getBoolean("POLARBEAR_NAMEPLATES_ENABLED");
+    private final boolean wanderingTraderNameplate = API.monsterConfig.getBoolean("WANDERINGTRADER_NAMEPLATES_ENABLED");
+    private final boolean donkeyNameplate = API.monsterConfig.getBoolean("DONKEY_NAMEPLATES_ENABLED");
+    private final boolean llamaNameplate = API.monsterConfig.getBoolean("LLAMA_NAMEPLATES_ENABLED");
+
     //Monster SPEED SECTION
     private final int zombieSpeed = API.monsterConfig.getInt("ZOMBIE_SPEED");
     private final int wolfSpeed = API.monsterConfig.getInt("WOLF_SPEED");
@@ -156,7 +163,9 @@ public class MonsterLevelsHealth implements Listener {
     private final int drownedSpeed = API.monsterConfig.getInt("DROWNED_SPEED");
     private final int zombievillagerSpeed = API.monsterConfig.getInt("ZOMBIEVILLAGER_SPEED");
     private final int polarBearSpeed = API.monsterConfig.getInt("POLARBEAR_SPEED");
-
+    private final int wanderingTraderSpeed = API.monsterConfig.getInt("WANDERINGTRADER_SPEED");
+    private final int donkeySpeed = API.monsterConfig.getInt("DONKEY_SPEED");
+    private final int llamaSpeed = API.monsterConfig.getInt("LLAMA_SPEED");
 
     //Monster MINIMUM SECTION
     private final int zombieMinLevel = API.monsterConfig.getInt("ZOMBIE_MIN_LEVEL");
@@ -196,6 +205,9 @@ public class MonsterLevelsHealth implements Listener {
     private final int drownedMinLevel = API.monsterConfig.getInt("DROWNED_MIN_LEVEL");
     private final int zombievillagerMinLevel = API.monsterConfig.getInt("ZOMBIEVILLAGER_MIN_LEVEL");
     private final int polarBearMinLevel = API.monsterConfig.getInt("POLARBEAR_MIN_LEVEL");
+    private final int wanderingTraderMinLevel = API.monsterConfig.getInt("WANDERINGTRADER_MIN_LEVEL");
+    private final int donkeyMinLevel = API.monsterConfig.getInt("DONKEY_MIN_LEVEL");
+    private final int llamaMinLevel = API.monsterConfig.getInt("LLAMA_MIN_LEVEL");
 
 
     private int calculateDistanceFromSpawn(Location worldSpawn, Location monsterSpawn)
@@ -744,12 +756,11 @@ public class MonsterLevelsHealth implements Listener {
                         distance = endermanMinLevel;
                     }
                     e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
-                                            e.getEntity().setHealth(hp);
+                    e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
-                        if(e.getEntity().getCustomName() != null) {
-                                                    if(e.getEntity().getCustomName() == null) {
+                        if(e.getEntity().getCustomName() != null)
+                        {
                             e.getEntity().setCustomName(mobName + levelColor);
-                        }
                         }
                     e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * endermanSpeed);
                     if(monsterNameplatesEnabled && endermanNameplate)
@@ -1060,7 +1071,7 @@ public class MonsterLevelsHealth implements Listener {
                         e.getEntity().setCustomName(mobName + levelColor);
                     }
                     e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * zombievillagerSpeed);
-                    if(monsterNameplatesEnabled && drownedNameplate)
+                    if(monsterNameplatesEnabled && zombievillagerNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
                     }
@@ -1079,7 +1090,64 @@ public class MonsterLevelsHealth implements Listener {
                         e.getEntity().setCustomName(mobName + levelColor);
                     }
                     e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * polarBearSpeed);
-                    if(monsterNameplatesEnabled && drownedNameplate)
+                    if(monsterNameplatesEnabled && polarBearNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
+                    break;
+                case WANDERING_TRADER:
+                    hp = distance * wanderingTraderBaseHP;
+                    if(hp < wanderingTraderMinLevel * wanderingTraderBaseHP)
+                    {
+                        hp = wanderingTraderMinLevel * wanderingTraderBaseHP;
+                        distance = wanderingTraderMinLevel;
+                    }
+                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    e.getEntity().setHealth(hp);
+                    levelColor = ChatColor.YELLOW + "[" + distance + "]";
+                    if(e.getEntity().getCustomName() == null) {
+                        e.getEntity().setCustomName(mobName + levelColor);
+                    }
+                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * wanderingTraderSpeed);
+                    if(monsterNameplatesEnabled && wanderingTraderNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
+                    break;
+                case DONKEY:
+                    hp = distance * donkeyBaseHP;
+                    if(hp < donkeyMinLevel * donkeyBaseHP)
+                    {
+                        hp = donkeyMinLevel * donkeyBaseHP;
+                        distance = donkeyMinLevel;
+                    }
+                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    e.getEntity().setHealth(hp);
+                    levelColor = ChatColor.YELLOW + "[" + distance + "]";
+                    if(e.getEntity().getCustomName() == null) {
+                        e.getEntity().setCustomName(mobName + levelColor);
+                    }
+                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * donkeySpeed);
+                    if(monsterNameplatesEnabled && donkeyNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
+                    break;
+                case LLAMA:
+                    hp = distance * llamaBaseHP;
+                    if(hp < llamaMinLevel * llamaBaseHP)
+                    {
+                        hp = llamaMinLevel * llamaBaseHP;
+                        distance = llamaMinLevel;
+                    }
+                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    e.getEntity().setHealth(hp);
+                    levelColor = ChatColor.YELLOW + "[" + distance + "]";
+                    if(e.getEntity().getCustomName() == null) {
+                        e.getEntity().setCustomName(mobName + levelColor);
+                    }
+                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * llamaSpeed);
+                    if(monsterNameplatesEnabled && llamaNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
                     }

@@ -282,6 +282,27 @@ public class MonsterConfig {
         configuration.addDefault("POLARBEAR_MIN_LEVEL", 3);
         configuration.addDefault("POLARBEAR_NAMEPLATES_ENABLED", true);
 
+        configuration.addDefault("WANDERINGTRADER", true);
+        configuration.addDefault("WANDERINGTRADER_BASE_HP", 20);
+        configuration.addDefault("WANDERINGTRADER_BASE_ATTACK", 4);
+        configuration.addDefault("WANDERINGTRADER_SPEED", 1);
+        configuration.addDefault("WANDERINGTRADER_MIN_LEVEL", 20);
+        configuration.addDefault("WANDERINGTRADER_NAMEPLATES_ENABLED", true);
+
+        configuration.addDefault("DONKEY", true);
+        configuration.addDefault("DONKEY_BASE_HP", 4);
+        configuration.addDefault("DONKEY_BASE_ATTACK", 4);
+        configuration.addDefault("DONKEY_SPEED", 1);
+        configuration.addDefault("DONKEY_MIN_LEVEL", 20);
+        configuration.addDefault("DONKEY_NAMEPLATES_ENABLED", true);
+
+        configuration.addDefault("LLAMA", true);
+        configuration.addDefault("LLAMA_BASE_HP", 4);
+        configuration.addDefault("LLAMA_BASE_ATTACK", 4);
+        configuration.addDefault("LLAMA_SPEED", 1);
+        configuration.addDefault("LLAMA_MIN_LEVEL", 1);
+        configuration.addDefault("LLAMA_NAMEPLATES_ENABLED", true);
+
 
         configuration.options().copyDefaults(true);
 

@@ -27,6 +27,8 @@ class CheckPlayerCombatLevelUp {
 
             /* message sent to players for leveling u */
             p.sendMessage(ChatColor.GREEN + "[ReitzMMO]" + ChatColor.WHITE + " You have leveled up to: " + ChatColor.YELLOW +  level);
+            String levelMessage = ChatColor.YELLOW + Integer.toString(level);
+            p.sendTitle(levelMessage,"Congratulations, you have leveled up!",10,70,10);
 
             API.Players.get(p.getName()).getData().set("Attack", (level * API.playerConfig.getInt("AttackScale")));
             API.Players.get(p.getName()).getData().set("Health", (18 + (level * API.playerConfig.getInt("HealthScale"))));

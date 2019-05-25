@@ -1,5 +1,6 @@
 package com.paully104.reitzmmo.Party_System;
 
+import net.minecraft.server.v1_14_R1.ChatComponentScore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -17,14 +18,6 @@ public class Scoreboard_Party{
         Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
         try {
 
-            Objective objective = sb.registerNewObjective("scoreboard2", "dummy2");
-            objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-            objective.setDisplayName(ChatColor.RED + "Party");
-
-            Score first;
-            Score second;
-            Score third;
-            Score fourth;
 
             //Lets get all the players in their party and add to the board
             if(Party_API.Party_Leaders.containsKey(p.getName()))
@@ -33,6 +26,17 @@ public class Scoreboard_Party{
                 //this currently works
                 Party party = Party_API.Party_Leaders.get(p.getName());
                 @SuppressWarnings("unchecked") List<String> members = party.get_MembersList();
+
+
+                Objective objective = sb.registerNewObjective(p.getDisplayName(), "dummy");
+                objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+                objective.setDisplayName(ChatColor.RED + "Party");
+
+                Score first;
+                Score second;
+                Score third;
+                Score fourth;
+
 
                     first=objective.getScore(p.getName());
                     first.setScore((int)(Bukkit.getPlayer(p.getName()).getHealth()));
@@ -68,6 +72,17 @@ public class Scoreboard_Party{
                 Party party = Party_API.Party_Leaders.get(leader);
                 @SuppressWarnings("unchecked") List<String> members = party.get_MembersList();
                 //leader first
+
+                Objective objective = sb.registerNewObjective(leader, "dummy");
+                objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+                objective.setDisplayName(ChatColor.RED + "Party");
+
+                Score first;
+                Score second;
+                Score third;
+                Score fourth;
+
+
                 first=objective.getScore(leader);
                 first.setScore((int)(Bukkit.getPlayer(leader).getHealth()));
 

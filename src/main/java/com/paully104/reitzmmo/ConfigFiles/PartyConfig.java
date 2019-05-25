@@ -15,7 +15,9 @@ public class PartyConfig {
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         configuration.options().header("This config is used to set all party configurations");
 
+        configuration.addDefault("Parties_Enabled", true);
         configuration.addDefault("PartyEXPMaxDistance", 100);
+
 
 
 
