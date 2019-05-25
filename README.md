@@ -1,9 +1,13 @@
-## ReitzMMO - RPG Plugin for Minecraft 
+![alt text](https://i.imgur.com/kiIBb46.jpg)
 
+![alt text](https://cdn2.iconfinder.com/data/icons/fatcow/32x32/sword.png) ReitzMMO makes it so the further you travel the more difficulty the monsters become! Start at level 1 defeat monsters, gain gear and explore.
 
-![O  noooo](https://i.imgur.com/LqcOnAi.png)
+![alt text](https://www.spigotmc.org/attachments/upload_2019-5-21_11-42-30-png.425789/)
 
-Spigot Version: 1.14
-Java: 11
+ ![alt text](http://www.download82.com/images/produse/iconuri/minecraft.png)ReitzMMO consists of various reconfigurable files so that you can customize your experience! Located in the ReitzMMO plugin folder.
+ 
+ ![alt text](https://static.planetminecraft.com/files/avatar/616882.png)ReitzMMO allows you to party up with your friends and share experience! Try using the /rparty command to access or use /reitz to access the GUI.
+ 
+![alt text](https://static.planetminecraft.com/files/avatar/86237.png)ReitzMMO has a accessible GUI that is opened by using /reitz.Use these to teleport home, check your stats, or get your party commands.
 
-The further you travel the tougher the mobs
+![alt text](https://www.spigotmc.org/attachments/upload_2019-5-21_11-50-35-png.425796/)
