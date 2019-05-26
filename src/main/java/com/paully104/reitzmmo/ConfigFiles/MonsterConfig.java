@@ -197,11 +197,11 @@ public class MonsterConfig {
         configuration.addDefault("Wolf.nameplates_enabled", true);
 
         configuration.addDefault("Zombie", null);
-        configuration.addDefault("Zombie_base_hp", 3);
-        configuration.addDefault("Zombie_base_attack", 2);
-        configuration.addDefault("Zombie_speed", 1);
-        configuration.addDefault("Zombie_min_level", 1);
-        configuration.addDefault("Zombie_nameplates_enableD", true);
+        configuration.addDefault("Zombie.base_hp", 3);
+        configuration.addDefault("Zombie.base_attack", 2);
+        configuration.addDefault("Zombie.speed", 1);
+        configuration.addDefault("Zombie.min_level", 1);
+        configuration.addDefault("Zombie.nameplates_enableD", true);
 
         configuration.addDefault("Witch", null);
         configuration.addDefault("Witch.base_hp", 4);

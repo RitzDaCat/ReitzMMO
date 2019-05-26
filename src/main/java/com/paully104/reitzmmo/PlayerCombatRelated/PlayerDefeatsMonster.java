@@ -338,6 +338,7 @@ public class PlayerDefeatsMonster implements Listener {
 
 
             }
+            /*
             else if((e.getEntity().getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.FIRE) || e.getEntity().getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.FIRE_TICK)
             {
                 if(e.getEntity().getLastDamageCause().getEntity() instanceof  Player)
@@ -623,6 +624,8 @@ public class PlayerDefeatsMonster implements Listener {
                 }
 
             }
+
+             */
 
         }
     }

@@ -20,7 +20,7 @@ import java.util.Collection;
 public class PlayerAttackingMonster implements Listener {
 
     private final boolean debugEnabled = API.debugConfig.getBoolean("PlayerAttackingMonster");
-    private final boolean namePlatesEnabled = API.monsterConfig.getBoolean("NAMEPLATES_ENABLED");
+    private final boolean namePlatesEnabled = API.monsterConfig.getBoolean("General.nameplates-enabled");
 
     @EventHandler
     public void playerAttackingMonster(EntityDamageByEntityEvent e) {
