@@ -19,6 +19,8 @@ import com.paully104.reitzmmo.PlayerCombatRelated.PlayerAttackingMonster;
 import com.paully104.reitzmmo.PlayerCombatRelated.PlayerDefeatsMonster;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -134,6 +136,19 @@ public class Main extends JavaPlugin {
             }
             pd.save();
             API.Players.put(p.getName(), pd); //this loads the player data into the API
+
+        }
+
+        for(World world : Bukkit.getWorlds())
+        {
+            for(ArmorStand stand : world.getEntitiesByClass(ArmorStand.class))
+            {
+                if(!(stand.isVisible()))
+                {
+                    //its invisible probably left over EXP modifier
+                    stand.remove();
+                }
+            }
 
         }
 
