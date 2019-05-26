@@ -80,6 +80,7 @@ public class MonsterLevelsHealth implements Listener {
     private final int wanderingTraderBaseHP = API.monsterConfig.getInt("WANDERINGTRADER_BASE_HP");
     private final int donkeyBaseHP = API.monsterConfig.getInt("DONKEY_BASE_HP");
     private final int llamaBaseHP = API.monsterConfig.getInt("LLAMA_BASE_HP");
+    private final int salmonBaseHP = API.monsterConfig.getInt("SALMON_BASE_HP");
 
     //NAMEPLATE SECTION
     private final boolean monsterNameplatesEnabled = API.monsterConfig.getBoolean("NAMEPLATES_ENABLED");
@@ -124,6 +125,7 @@ public class MonsterLevelsHealth implements Listener {
     private final boolean wanderingTraderNameplate = API.monsterConfig.getBoolean("WANDERINGTRADER_NAMEPLATES_ENABLED");
     private final boolean donkeyNameplate = API.monsterConfig.getBoolean("DONKEY_NAMEPLATES_ENABLED");
     private final boolean llamaNameplate = API.monsterConfig.getBoolean("LLAMA_NAMEPLATES_ENABLED");
+    private final boolean salmonNameplate = API.monsterConfig.getBoolean("SALMON_NAMEPLATES_ENABLED");
 
     //Monster SPEED SECTION
     private final int zombieSpeed = API.monsterConfig.getInt("ZOMBIE_SPEED");
@@ -166,6 +168,7 @@ public class MonsterLevelsHealth implements Listener {
     private final int wanderingTraderSpeed = API.monsterConfig.getInt("WANDERINGTRADER_SPEED");
     private final int donkeySpeed = API.monsterConfig.getInt("DONKEY_SPEED");
     private final int llamaSpeed = API.monsterConfig.getInt("LLAMA_SPEED");
+    private final int salmonSpeed = API.monsterConfig.getInt("SALMON_SPEED");
 
     //Monster MINIMUM SECTION
     private final int zombieMinLevel = API.monsterConfig.getInt("ZOMBIE_MIN_LEVEL");
@@ -208,6 +211,7 @@ public class MonsterLevelsHealth implements Listener {
     private final int wanderingTraderMinLevel = API.monsterConfig.getInt("WANDERINGTRADER_MIN_LEVEL");
     private final int donkeyMinLevel = API.monsterConfig.getInt("DONKEY_MIN_LEVEL");
     private final int llamaMinLevel = API.monsterConfig.getInt("LLAMA_MIN_LEVEL");
+    private final int salmonMinLevel = API.monsterConfig.getInt("SALMON_MIN_LEVEL");
 
 
     private int calculateDistanceFromSpawn(Location worldSpawn, Location monsterSpawn)
@@ -743,7 +747,7 @@ public class MonsterLevelsHealth implements Listener {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
                     e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * endermiteSpeed);
-                    if(monsterNameplatesEnabled && endermanNameplate)
+                    if(monsterNameplatesEnabled && endermiteNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
                     }
@@ -778,10 +782,10 @@ public class MonsterLevelsHealth implements Listener {
                     e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
-                                                if(e.getEntity().getCustomName() == null) {
+                        if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * enderdragonBaseHP);
+                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * enderdragonSpeed);
                     if(monsterNameplatesEnabled && enderdragonNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -860,7 +864,7 @@ public class MonsterLevelsHealth implements Listener {
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * cavespiderBaseHP);
+                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * cavespiderSpeed);
                     if(monsterNameplatesEnabled && cavespiderNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -1148,6 +1152,25 @@ public class MonsterLevelsHealth implements Listener {
                     }
                     e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * llamaSpeed);
                     if(monsterNameplatesEnabled && llamaNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
+                    break;
+                case SALMON:
+                    hp = distance * salmonBaseHP;
+                    if(hp < salmonMinLevel * salmonBaseHP)
+                    {
+                        hp = salmonMinLevel * salmonBaseHP;
+                        distance = salmonMinLevel;
+                    }
+                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    e.getEntity().setHealth(hp);
+                    levelColor = ChatColor.YELLOW + "[" + distance + "]";
+                    if(e.getEntity().getCustomName() == null) {
+                        e.getEntity().setCustomName(mobName + levelColor);
+                    }
+                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * salmonSpeed);
+                    if(monsterNameplatesEnabled && salmonNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
                     }
