@@ -30,41 +30,42 @@ If the attribute modifier is equal to the default value on the item it won't det
  */
 public class MonsterLevelsDamage implements Listener {
 
-    private final int zombieBaseAttack = API.monsterConfig.getInt("ZOMBIE_BASE_ATTACK");
-    private final int wolfBaseAttack  = API.monsterConfig.getInt("WOLF_BASE_ATTACK");
-    private final int villagerBaseAttack  = API.monsterConfig.getInt("VILLAGER_BASE_ATTACK");
-    private final int squidBaseAttack  = API.monsterConfig.getInt("SQUID_BASE_ATTACK");
-    private final int spiderBaseAttack = API.monsterConfig.getInt("SPIDER_BASE_ATTACK");
-    private final int snowmanBaseAttack  = API.monsterConfig.getInt("SNOWMAN_BASE_ATTACK");
-    private final int slimeBaseAttack = API.monsterConfig.getInt("SLIME_BASE_ATTACK");
-    private final int skeletonBaseAttack  = API.monsterConfig.getInt("SKELETON_BASE_ATTACK");
-    private final int silverfishBaseAttack  = API.monsterConfig.getInt("SILVERFISH_BASE_ATTACK");
-    private final int sheepBaseAttack = API.monsterConfig.getInt("SHEEP_BASE_ATTACK");
-    private final int rabbitBaseAttack  = API.monsterConfig.getInt("RABBIT_BASE_ATTACK");
-    private final int pigzombieBaseAttack  = API.monsterConfig.getInt("PIGZOMBIE_BASE_ATTACK");
-    private final int pigBaseAttack  = API.monsterConfig.getInt("PIG_BASE_ATTACK");
-    private final int mushroomcowBaseAttack  = API.monsterConfig.getInt("MUSHROOMCOW_BASE_ATTACK");
-    private final int magmacubeBaseAttack  = API.monsterConfig.getInt("MAGMACUBE_BASE_ATTACK");
-    private final int guardianBaseAttack  = API.monsterConfig.getInt("GUARDIAN_BASE_ATTACK");
-    private final int giantBaseAttack  = API.monsterConfig.getInt("GIANT_BASE_ATTACK");
-    private final int ghastBaseAttack = API.monsterConfig.getInt("GHAST_BASE_ATTACK");
-    private final int endermiteBaseAttack  = API.monsterConfig.getInt("ENDERMITE_BASE_ATTACK");
-    private final int endermanBaseAttack = API.monsterConfig.getInt("ENDERMAN_BASE_ATTACK");
-    private final int enderdragonBaseAttack = API.monsterConfig.getInt("ENDERDRAGON_BASE_ATTACK");
-    private final int creeperBaseAttack  = API.monsterConfig.getInt("CREEPER_BASE_ATTACK");
-    private final int cowBaseAttack  = API.monsterConfig.getInt("COW_BASE_ATTACK");
-    private final int chickenBaseAttack  = API.monsterConfig.getInt("CHICKEN_BASE_ATTACK");
-    private final int cavespiderBaseAttack = API.monsterConfig.getInt("CAVESPIDER_BASE_ATTACK");
-    private final int blazeBaseAttack  = API.monsterConfig.getInt("BLAZE_BASE_ATTACK");
-    private final int witchBaseAttack  = API.monsterConfig.getInt("WITCH_BASE_ATTACK");
-    private final int witherSkeletonBaseAttack = API.monsterConfig.getInt("WITHERSKELETON_BASE_ATTACK");
-    private final int shulkerBaseAttack = API.monsterConfig.getInt("SHULKER_BASE_ATTACK");
-    private final int pillagerBaseAttack = API.monsterConfig.getInt("PILLAGER_BASE_ATTACK");
-    private final int illusionerBaseAttack = API.monsterConfig.getInt("ILLUSIONER_BASE_ATTACK");
-    private final int evokerBaseAttack = API.monsterConfig.getInt("EVOKER_BASE_ATTACK");
-    private final int ravagerBaseAttack = API.monsterConfig.getInt("RAVAGER_BASE_ATTACK");
-    private final int batBaseAttack = API.monsterConfig.getInt("BAT_BASE_ATTACK");
-    private final int drownedBaseAttack = API.monsterConfig.getInt("DROWNED_BASE_ATTACK");
+    private final int zombieBaseAttack = API.monsterConfig.getInt("zombie.base_attack");
+    private final int wolfBaseAttack  = API.monsterConfig.getInt("Wolf.base_attack");
+    private final int villagerBaseAttack  = API.monsterConfig.getInt("Villager.base_attack");
+    private final int squidBaseAttack  = API.monsterConfig.getInt("Squid.base_attack");
+    private final int spiderBaseAttack = API.monsterConfig.getInt("Spider.base_attack");
+    private final int snowmanBaseAttack  = API.monsterConfig.getInt("Snowman.base_attack");
+    private final int slimeBaseAttack = API.monsterConfig.getInt("Slime.base_attack");
+    private final int skeletonBaseAttack  = API.monsterConfig.getInt("Skeleton.base_attack");
+    private final int silverfishBaseAttack  = API.monsterConfig.getInt("silverfish_base_attack");
+    private final int sheepBaseAttack = API.monsterConfig.getInt("sheep.base_attack");
+    private final int rabbitBaseAttack  = API.monsterConfig.getInt("rabbit.base_attack");
+    private final int pigzombieBaseAttack  = API.monsterConfig.getInt("Pigzombie.base_attack");
+    private final int pigBaseAttack  = API.monsterConfig.getInt("Pig.base_attack");
+    private final int mushroomcowBaseAttack  = API.monsterConfig.getInt("Mushroomcow.base_attack");
+    private final int magmacubeBaseAttack  = API.monsterConfig.getInt("Magmacube.base_attack");
+    private final int guardianBaseAttack  = API.monsterConfig.getInt("Guardian.base_attack");
+    private final int giantBaseAttack  = API.monsterConfig.getInt("Giant.base_attack");
+    private final int ghastBaseAttack = API.monsterConfig.getInt("Ghast.base_attack");
+    private final int endermiteBaseAttack  = API.monsterConfig.getInt("Endermite.base_attack");
+    private final int endermanBaseAttack = API.monsterConfig.getInt("Enderman.base_attack");
+    private final int enderdragonBaseAttack = API.monsterConfig.getInt("Enderdragon.base_attack");
+    private final int creeperBaseAttack  = API.monsterConfig.getInt("Creeper.base_attack");
+    private final int cowBaseAttack  = API.monsterConfig.getInt("Cow.base_attack");
+    private final int chickenBaseAttack  = API.monsterConfig.getInt("Chicken.base_attack");
+    private final int cavespiderBaseAttack = API.monsterConfig.getInt("Cavespider.base_attack");
+    private final int blazeBaseAttack  = API.monsterConfig.getInt("Blaze.base_attack");
+    private final int witchBaseAttack  = API.monsterConfig.getInt("Witch.base_attack");
+    private final int witherSkeletonBaseAttack = API.monsterConfig.getInt("Witherskeleton.base_attack");
+    private final int shulkerBaseAttack = API.monsterConfig.getInt("Shulker.base_attack");
+    private final int pillagerBaseAttack = API.monsterConfig.getInt("Pillager.base_attack");
+    private final int illusionerBaseAttack = API.monsterConfig.getInt("Illusioner.base_attack");
+    private final int evokerBaseAttack = API.monsterConfig.getInt("Evoker.base_attack");
+    private final int ravagerBaseAttack = API.monsterConfig.getInt("Ravager.base_attack");
+    private final int batBaseAttack = API.monsterConfig.getInt("Bat.base_attack");
+    private final int drownedBaseAttack = API.monsterConfig.getInt("Drowned.base_attack");
+
     //debug section
     private final boolean debugEnabled = API.debugConfig.getBoolean("MonsterAttackingPlayer");
 

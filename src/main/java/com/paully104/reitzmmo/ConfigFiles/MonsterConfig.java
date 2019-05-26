@@ -17,8 +17,6 @@ public class MonsterConfig {
 
         configuration.addDefault("General", null);
         configuration.addDefault("General.blocks-per-mob-level", 100);
-        configuration.addDefault("General.attack-gain-per-level", 1);
-        configuration.addDefault("General.health-gain-per-level", 1);
         configuration.addDefault("General.nameplates-enabled", true);
         configuration.addDefault("General.apply-on-spawner-spawns", true);
 
