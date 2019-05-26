@@ -145,8 +145,10 @@ public class Main extends JavaPlugin {
             {
                 if(!(stand.isVisible()))
                 {
-                    //its invisible probably left over EXP modifier
-                    stand.remove();
+                    if(stand.getCustomName().contains("+EXP:")) {
+                        //its invisible probably left over EXP modifier
+                        stand.remove();
+                    }
                 }
             }
 

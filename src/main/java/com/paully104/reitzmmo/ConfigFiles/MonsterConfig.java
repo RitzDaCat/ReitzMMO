@@ -23,9 +23,9 @@ public class MonsterConfig {
         configuration.addDefault("Blaze", null);
         configuration.addDefault("Blaze.base_hp", 3);
         configuration.addDefault("Blaze.base_attack", 3);
-        configuration.addDefault("blaze.speed", 1);
-        configuration.addDefault("blaze.min_level", 1);
-        configuration.addDefault("blaze.nameplates_enabled", true);
+        configuration.addDefault("Blaze.speed", 1);
+        configuration.addDefault("Blaze.min_level", 1);
+        configuration.addDefault("Blaze.nameplates_enabled", true);
 
         configuration.addDefault("Cavespider", null);
         configuration.addDefault("Cavespider.base_hp", 3);
