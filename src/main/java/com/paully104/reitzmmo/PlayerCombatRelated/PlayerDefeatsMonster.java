@@ -190,8 +190,14 @@ public class PlayerDefeatsMonster implements Listener {
                     {
                         Player p = (Player) player;
                         TextComponent component = new TextComponent();
+
+                        int level = API.Players.get(p.getName()).getData().getInt("Level");
+                        int combatexpNeeded = level * (API.playerConfig.getInt("CombatEXP") * API.playerConfig.getInt("CombatEXP_MULTIPLIER"));
+                        int combatexpCurrent = API.Players.get(p.getName()).getData().getInt("Combat-EXP");
+                        int expNeededToLevel = combatexpNeeded - combatexpCurrent;
                         component.setText(ChatColor.WHITE + "+ " + ChatColor.GREEN + expGained + " [EXP]");
-                        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Integer.toString(expGained)).create()));
+                        String toNextLevel = "You need: " + expNeededToLevel + " [EXP] to level up!";
+                        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(toNextLevel).create()));
 
                         player.spigot().sendMessage(component);
 
@@ -253,12 +259,16 @@ public class PlayerDefeatsMonster implements Listener {
                     {
                         Player p = (Player) player;
                         TextComponent component = new TextComponent();
+
+                        int level = API.Players.get(p.getName()).getData().getInt("Level");
+                        int combatexpNeeded = level * (API.playerConfig.getInt("CombatEXP") * API.playerConfig.getInt("CombatEXP_MULTIPLIER"));
+                        int combatexpCurrent = API.Players.get(p.getName()).getData().getInt("Combat-EXP");
+                        int expNeededToLevel = combatexpNeeded - combatexpCurrent;
                         component.setText(ChatColor.WHITE + "+ " + ChatColor.GREEN + expGained + " [EXP]");
-                        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Integer.toString(expGained)).create()));
+                        String toNextLevel = "You need: " + expNeededToLevel + " [EXP] to level up!";
+                        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(toNextLevel).create()));
 
                         player.spigot().sendMessage(component);
-
-                        //player.sendMessage(ChatColor.WHITE + "You gained: " + ChatColor.GREEN + expGained + " [EXP]");
                     }
 
                 }
@@ -289,8 +299,14 @@ public class PlayerDefeatsMonster implements Listener {
                         {
                             Player p = (Player) player;
                             TextComponent component = new TextComponent();
+
+                            int level = API.Players.get(p.getName()).getData().getInt("Level");
+                            int combatexpNeeded = level * (API.playerConfig.getInt("CombatEXP") * API.playerConfig.getInt("CombatEXP_MULTIPLIER"));
+                            int combatexpCurrent = API.Players.get(p.getName()).getData().getInt("Combat-EXP");
+                            int expNeededToLevel = combatexpNeeded - combatexpCurrent;
                             component.setText(ChatColor.WHITE + "+ " + ChatColor.GREEN + expGained + " [EXP]");
-                            component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Integer.toString(expGained)).create()));
+                            String toNextLevel = "You need: " + expNeededToLevel + " [EXP] to level up!";
+                            component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(toNextLevel).create()));
 
                             player.spigot().sendMessage(component);
 
@@ -469,11 +485,16 @@ public class PlayerDefeatsMonster implements Listener {
                         {
                             Player p = (Player) player;
                             TextComponent component = new TextComponent();
+
+                            int level = API.Players.get(p.getName()).getData().getInt("Level");
+                            int combatexpNeeded = level * (API.playerConfig.getInt("CombatEXP") * API.playerConfig.getInt("CombatEXP_MULTIPLIER"));
+                            int combatexpCurrent = API.Players.get(p.getName()).getData().getInt("Combat-EXP");
+                            int expNeededToLevel = combatexpNeeded - combatexpCurrent;
                             component.setText(ChatColor.WHITE + "+ " + ChatColor.GREEN + expGained + " [EXP]");
-                            component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Integer.toString(expGained)).create()));
+                            String toNextLevel = "You need: " + expNeededToLevel + " [EXP] to level up!";
+                            component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(toNextLevel).create()));
 
                             player.spigot().sendMessage(component);
-                            //player.sendMessage(ChatColor.WHITE + "+ " + ChatColor.GREEN + expGained + " [EXP]");
                         }
 
                     }
@@ -531,8 +552,14 @@ public class PlayerDefeatsMonster implements Listener {
                         {
                             Player p = (Player) player;
                             TextComponent component = new TextComponent();
+
+                            int level = API.Players.get(p.getName()).getData().getInt("Level");
+                            int combatexpNeeded = level * (API.playerConfig.getInt("CombatEXP") * API.playerConfig.getInt("CombatEXP_MULTIPLIER"));
+                            int combatexpCurrent = API.Players.get(p.getName()).getData().getInt("Combat-EXP");
+                            int expNeededToLevel = combatexpNeeded - combatexpCurrent;
                             component.setText(ChatColor.WHITE + "+ " + ChatColor.GREEN + expGained + " [EXP]");
-                            component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Integer.toString(expGained)).create()));
+                            String toNextLevel = "You need: " + expNeededToLevel + " [EXP] to level up!";
+                            component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(toNextLevel).create()));
 
                             player.spigot().sendMessage(component);
 
@@ -568,8 +595,14 @@ public class PlayerDefeatsMonster implements Listener {
                         {
                             Player p = (Player) player;
                             TextComponent component = new TextComponent();
+
+                            int level = API.Players.get(p.getName()).getData().getInt("Level");
+                            int combatexpNeeded = level * (API.playerConfig.getInt("CombatEXP") * API.playerConfig.getInt("CombatEXP_MULTIPLIER"));
+                            int combatexpCurrent = API.Players.get(p.getName()).getData().getInt("Combat-EXP");
+                            int expNeededToLevel = combatexpNeeded - combatexpCurrent;
                             component.setText(ChatColor.WHITE + "+ " + ChatColor.GREEN + expGained + " [EXP]");
-                            component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Integer.toString(expGained)).create()));
+                            String toNextLevel = "You need: " + expNeededToLevel + " [EXP] to level up!";
+                            component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(toNextLevel).create()));
 
                             player.spigot().sendMessage(component);
 
