@@ -14,301 +14,301 @@ public class MonsterConfig {
         File file = FileManager.monsterHPConfig;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         configuration.options().header("This config is used to set all monster related configurations");
-        configuration.addDefault("BLOCKS-PER-MOB-LEVEL", 100);
-        configuration.addDefault("ATTACK-GAIN-PER-LEVEL", 1);
-        configuration.addDefault("HEALTH-GAIN-PER-LEVEL", 1);
-        configuration.addDefault("NAMEPLATES_ENABLED", true);
 
-        configuration.addDefault("APPLY-ON-SPAWNER-SPAWNS", true);
+        configuration.addDefault("General", null);
+        configuration.addDefault("General.blocks-per-mob-level", 100);
+        configuration.addDefault("General.attack-gain-per-level", 1);
+        configuration.addDefault("General.health-gain-per-level", 1);
+        configuration.addDefault("General.nameplates-enabled", true);
+        configuration.addDefault("General.apply-on-spawner-spawns", true);
 
-        configuration.addDefault("BLAZE", true);
-        configuration.addDefault("BLAZE_BASE_HP", 3);
-        configuration.addDefault("BLAZE_BASE_ATTACK", 3);
-        configuration.addDefault("BLAZE_SPEED", 1);
-        configuration.addDefault("BLAZE_MIN_LEVEL", 1);
-        configuration.addDefault("BLAZE_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Blaze", null);
+        configuration.addDefault("Blaze.base_hp", 3);
+        configuration.addDefault("Blaze.base_attack", 3);
+        configuration.addDefault("blaze.speed", 1);
+        configuration.addDefault("blaze.min_level", 1);
+        configuration.addDefault("blaze.nameplates_enabled", true);
 
-        configuration.addDefault("CAVESPIDER", true);
-        configuration.addDefault("CAVESPIDER_BASE_HP", 3);
-        configuration.addDefault("CAVESPIDER_BASE_ATTACK", 3);
-        configuration.addDefault("CAVESPIDER_SPEED", 1);
-        configuration.addDefault("CAVESPIDER_MIN_LEVEL", 1);
-        configuration.addDefault("CAVESPIDER_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Cavespider", null);
+        configuration.addDefault("Cavespider.base_hp", 3);
+        configuration.addDefault("Cavespider.base_attack", 3);
+        configuration.addDefault("Cavespider.speed", 1);
+        configuration.addDefault("Cavespider.min_level", 1);
+        configuration.addDefault("Cavespider.nameplates_enabled", true);
 
-        configuration.addDefault("CHICKEN", true);
-        configuration.addDefault("CHICKEN_BASE_HP", 1);
-        configuration.addDefault("CHICKEN_SPEED", 1);
-        configuration.addDefault("CHICKEN_MIN_LEVEL", 1);
-        configuration.addDefault("CHICKEN_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Chicken", null);
+        configuration.addDefault("Chicken.base_hp", 1);
+        configuration.addDefault("Chicken.speed", 1);
+        configuration.addDefault("Chicken.min_level", 1);
+        configuration.addDefault("Chicken.nameplates_enabled", true);
 
-        configuration.addDefault("COW", true);
-        configuration.addDefault("COW_BASE_HP", 1);
-        configuration.addDefault("COW_SPEED", 1);
-        configuration.addDefault("COW_MIN_LEVEL", 1);
+        configuration.addDefault("Cow", null);
+        configuration.addDefault("Cow.base_hp", 1);
+        configuration.addDefault("Cow.speed", 1);
+        configuration.addDefault("Cow.min_level", 1);
+        configuration.addDefault("Cow.nameplates_enabled", true);
 
-        configuration.addDefault("COW_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Creeper", null);
+        configuration.addDefault("Creeper.base_attack", 4);
+        configuration.addDefault("Creeper.base_hp", 7);
+        configuration.addDefault("Creeper.speed", 1.2);
+        configuration.addDefault("Creeper.min_level", 1);
+        configuration.addDefault("Creeper.nameplates_enabled", true);
 
-        configuration.addDefault("CREEPER", true);
-        configuration.addDefault("CREEPER_BASE_ATTACK", 4);
-        configuration.addDefault("CREEPER_BASE_HP", 7);
-        configuration.addDefault("CREEPER_SPEED", 1.2);
-        configuration.addDefault("CREEPER_MIN_LEVEL", 1);
-        configuration.addDefault("CREEPER_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Enderdragon", null);
+        configuration.addDefault("Enderdragon.base_hp", 5);
+        configuration.addDefault("Enderdragon.base_attack", 3);
+        configuration.addDefault("Enderdragon.speed", 1.2);
+        configuration.addDefault("Enderdragon.min_level", 50);
+        configuration.addDefault("Enderdragon.nameplates_enabled", true);
 
-        configuration.addDefault("ENDERDRAGON", true);
-        configuration.addDefault("ENDERDRAGON_BASE_HP", 5);
-        configuration.addDefault("ENDERDRAGON_BASE_ATTACK", 3);
-        configuration.addDefault("ENDERDRAGON_SPEED", 1.2);
-        configuration.addDefault("ENDERDRAGON_MIN_LEVEL", 50);
-        configuration.addDefault("ENDERDRAGON_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Enderman", null);
+        configuration.addDefault("Enderman.base_hp", 4);
+        configuration.addDefault("Enderman.base_attack", 3);
+        configuration.addDefault("Enderman.speed", 1);
+        configuration.addDefault("Enderman.min_level", 10);
+        configuration.addDefault("Enderman.nameplates_enabled", true);
 
-        configuration.addDefault("ENDERMAN", true);
-        configuration.addDefault("ENDERMAN_BASE_HP", 4);
-        configuration.addDefault("ENDERMAN_BASE_ATTACK", 3);
-        configuration.addDefault("ENDERMAN_SPEED", 1);
-        configuration.addDefault("ENDERMAN_MIN_LEVEL", 10);
-        configuration.addDefault("ENDERMAN_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Endermite", null);
+        configuration.addDefault("Endermite.base_hp", 3);
+        configuration.addDefault("Endermite.base_attack", 3);
+        configuration.addDefault("Endermite.speed", 1);
+        configuration.addDefault("Endermite.min_level", 5);
+        configuration.addDefault("Enbdermite.nameplates_enabled", true);
 
-        configuration.addDefault("ENDERMITE", true);
-        configuration.addDefault("ENDERMITE_BASE_HP", 3);
-        configuration.addDefault("ENDERMITE_BASE_ATTACK", 3);
-        configuration.addDefault("ENDERMITE_SPEED", 1);
-        configuration.addDefault("ENDERMITE_MIN_LEVEL", 5);
-        configuration.addDefault("ENBDERMITE_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Ghast", null);
+        configuration.addDefault("Ghast.base_hp", 4);
+        configuration.addDefault("Ghast.base_attacK", 3);
+        configuration.addDefault("Ghast.speed", 1);
+        configuration.addDefault("Ghast.min_level", 25);
+        configuration.addDefault("Ghast.nameplates_enabled", true);
 
-        configuration.addDefault("GHAST", true);
-        configuration.addDefault("GHAST_BASE_HP", 4);
-        configuration.addDefault("GHAST_BASE_ATTACK", 3);
-        configuration.addDefault("GHAST_SPEED", 1);
-        configuration.addDefault("GHAST_MIN_LEVEL", 25);
-        configuration.addDefault("GHAST_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Giant", null);
+        configuration.addDefault("Giant.base_hp", 4);
+        configuration.addDefault("Giant.base_attack", 3);
+        configuration.addDefault("Giant.speed", 1);
+        configuration.addDefault("Giant.min_level", 10);
+        configuration.addDefault("Giant.nameplates_enableD", true);
 
-        configuration.addDefault("GIANT", true);
-        configuration.addDefault("GIANT_BASE_HP", 4);
-        configuration.addDefault("GIANT_BASE_ATTACK", 3);
-        configuration.addDefault("GIANT_SPEED", 1);
-        configuration.addDefault("GIANT_MIN_LEVEL", 10);
-        configuration.addDefault("GIANT_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Golem", null);
+        configuration.addDefault("Golem.base_hp", 80);
+        configuration.addDefault("Golem.base_attack", 10);
+        configuration.addDefault("Golem.speed", 1);
+        configuration.addDefault("Golem.min_leveL", 10);
+        configuration.addDefault("Golem.nameplates_enabled", true);
 
-        configuration.addDefault("GOLEM", true);
-        configuration.addDefault("GOLEM_BASE_HP", 80);
-        configuration.addDefault("GOLEM_BASE_ATTACK", 10);
-        configuration.addDefault("GOLEM_SPEED", 1);
-        configuration.addDefault("GOLEM_MIN_LEVEL", 10);
-        configuration.addDefault("GOLEM_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Guardian", null);
+        configuration.addDefault("Guardian.base_hp", 4);
+        configuration.addDefault("Guardian.base_attack", 3);
+        configuration.addDefault("Guardian.speed", 1);
+        configuration.addDefault("Guardian.min_level", 12);
+        configuration.addDefault("Guardian.nameplates_enabled", true);
 
-        configuration.addDefault("GUARDIAN", true);
-        configuration.addDefault("GUARDIAN_BASE_HP", 4);
-        configuration.addDefault("GUARDIAN_BASE_ATTACK", 3);
-        configuration.addDefault("GUARDIAN_SPEED", 1);
-        configuration.addDefault("GUARDIAN_MIN_LEVEL", 12);
-        configuration.addDefault("GUARDIAN_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Magmacube", null);
+        configuration.addDefault("Magmacube.base_hp", 4);
+        configuration.addDefault("Magmacube.base_attack", 3);
+        configuration.addDefault("Magmacube.speed", 1);
+        configuration.addDefault("Magmacube.min_level", 5);
+        configuration.addDefault("Magmacube.nameplates_enabled", true);
 
-        configuration.addDefault("MAGMACUBE", true);
-        configuration.addDefault("MAGMACUBE_BASE_HP", 4);
-        configuration.addDefault("MAGMACUBE_BASE_ATTACK", 3);
-        configuration.addDefault("MAGMACUBE_SPEED", 1);
-        configuration.addDefault("MAGMACUBE_MIN_LEVEL", 5);
-        configuration.addDefault("MAGMACUBE_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Mushroomcow", null);
+        configuration.addDefault("Mushroomcow.base_hp", 2);
+        configuration.addDefault("Mushroomcow.speed", 1);
+        configuration.addDefault("Mushroomcow.min_level", 1);
+        configuration.addDefault("Mushroomcow.nameplates_enabled", true);
 
-        configuration.addDefault("MUSHROOMCOW", true);
-        configuration.addDefault("MUSHROOMCOW_BASE_HP", 2);
-        configuration.addDefault("MUSHROOMCOW_SPEED", 1);
-        configuration.addDefault("MUSHROOMCOW_MIN_LEVEL", 1);
-        configuration.addDefault("MUSHROOMCOW_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Pig", null);
+        configuration.addDefault("Pig.base_hp", 2);
+        configuration.addDefault("Pig.speed", 1);
+        configuration.addDefault("Pig.min_level", 1);
+        configuration.addDefault("Pig.nameplates_enabled", true);
 
-        configuration.addDefault("PIG", true);
-        configuration.addDefault("PIG_BASE_HP", 2);
-        configuration.addDefault("PIG_SPEED", 1);
-        configuration.addDefault("PIG_MIN_LEVEL", 1);
-        configuration.addDefault("PIG_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Pigzombie", null);
+        configuration.addDefault("Pigzombie.base_hp", 4);
+        configuration.addDefault("Pigzombie.base_attack", 3);
+        configuration.addDefault("Pigzombie.speed", 1);
+        configuration.addDefault("Pigzombie.min_level", 8);
+        configuration.addDefault("Pigzombie.nameplates_enabled", true);
 
-        configuration.addDefault("PIGZOMBIE", true);
-        configuration.addDefault("PIGZOMBIE_BASE_HP", 4);
-        configuration.addDefault("PIGZOMBIE_BASE_ATTACK", 3);
-        configuration.addDefault("PIGZOMBIE_SPEED", 1);
-        configuration.addDefault("PIGZOMBIE_MIN_LEVEL", 8);
-        configuration.addDefault("PIGZOMBIE_NAMEPLATES_ENABLED", true);
-
-        configuration.addDefault("RABBIT", false);
-        configuration.addDefault("RABBIT_BASE_HP", 2);
-        configuration.addDefault("RABBIT_SPEED", 1);
-        configuration.addDefault("RABBIT_MIN_LEVEL", 1);
-        configuration.addDefault("RABBIT_NAMEPLATES_ENABLED", true);
-
-
-        configuration.addDefault("SHEEP", true);
-        configuration.addDefault("SHEEP_BASE_HP", 2);
-        configuration.addDefault("SHEEP_SPEED", 1);
-        configuration.addDefault("SHEEP_MIN_LEVEL", 1);
-        configuration.addDefault("SHEEP_NAMEPLATES_ENABLED", true);
-
-        configuration.addDefault("SILVERFISH", true);
-        configuration.addDefault("SILVERFISH_BASE_HP", 2);
-        configuration.addDefault("SILVERFISH_BASE_ATTACK", 3);
-        configuration.addDefault("SILVERFISH_SPEED", 1);
-        configuration.addDefault("SILVERFISH_MIN_LEVEL", 1);
-        configuration.addDefault("SILVERFISH_NAMEPLATES_ENABLED", true);
-
-        configuration.addDefault("SKELETON", true);
-        configuration.addDefault("SKELETON_BASE_HP", 3);
-        configuration.addDefault("SKELETON_BASE_ATTACK", 1);
-        configuration.addDefault("SKELETON_SPEED", 1);
-        configuration.addDefault("SKELETON_MIN_LEVEL", 2);
-        configuration.addDefault("SKELETON_NAMEPLATES_ENABLED", true);
-
-        configuration.addDefault("SLIME", true);
-        configuration.addDefault("SLIME_BASE_HP", 4);
-        configuration.addDefault("SLIME_BASE_ATTACK", 3);
-        configuration.addDefault("SLIME_SPEED", 1);
-        configuration.addDefault("SLIME_MIN_LEVEL", 3);
-        configuration.addDefault("SLIME_NAMEPLATES_ENABLED", true);
-
-        configuration.addDefault("SNOWMAN", false);
-        configuration.addDefault("SNOWMAN_BASE_HP", 4);
-        configuration.addDefault("SNOWMAN_BASE_ATTACK", 4);
-        configuration.addDefault("SNOWMAN_SPEED", 1);
-        configuration.addDefault("SNOWMAN_MIN_LEVEL", 5);
-        configuration.addDefault("SNOWMAN_NAMEPLATES_ENABLED", true);
-
-        configuration.addDefault("SPIDER", true);
-        configuration.addDefault("SPIDER_BASE_HP", 3);
-        configuration.addDefault("SPIDER_BASE_ATTACK", 3);
-        configuration.addDefault("SPIDER_SPEED", 1.2);
-        configuration.addDefault("SPIDER_MIN_LEVEL", 1);
-        configuration.addDefault("SPIDER_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Rabbit", null);
+        configuration.addDefault("Rabbit.base_hp", 2);
+        configuration.addDefault("Rabbit.speed", 1);
+        configuration.addDefault("Rabbit.min_level", 1);
+        configuration.addDefault("Rabbit.nameplates_enabled", true);
 
 
-        configuration.addDefault("SQUID", true);
-        configuration.addDefault("SQUID_BASE_HP", 2);
-        configuration.addDefault("SQUID_SPEED", 1);
-        configuration.addDefault("SQUID_MIN_LEVEL", 1);
-        configuration.addDefault("SQUID_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Sheep", null);
+        configuration.addDefault("Sheep.base_hp", 2);
+        configuration.addDefault("Sheep.speed", 1);
+        configuration.addDefault("Sheep.min_level", 1);
+        configuration.addDefault("Sheep.nameplates_enabled", true);
 
-        configuration.addDefault("VILLAGER", false);
-        configuration.addDefault("VILLAGER_BASE_HP", 4);
-        configuration.addDefault("VILLAGER_SPEED", 1);
-        configuration.addDefault("VILLAGER_MIN_LEVEL", 1);
-        configuration.addDefault("VILLAGER_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Silverfish", null);
+        configuration.addDefault("Silverfish.base_hp", 2);
+        configuration.addDefault("Silverfish.base_attack", 3);
+        configuration.addDefault("Silverfish.speed", 1);
+        configuration.addDefault("Silverfish.min_level", 1);
+        configuration.addDefault("Silverfish.nameplates_enabled", true);
 
-        configuration.addDefault("WOLF", true);
-        configuration.addDefault("WOLF_BASE_HP", 3);
-        configuration.addDefault("WOLF_BASE_ATTACK", 3);
-        configuration.addDefault("WOLF_SPEED", 1);
-        configuration.addDefault("WOLF_MIN_LEVEL", 1);
-        configuration.addDefault("WOLF_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Skeleton", null);
+        configuration.addDefault("Skeleton.base_hp", 3);
+        configuration.addDefault("Skeleton.base_attack", 1);
+        configuration.addDefault("Skeleton.speed", 1);
+        configuration.addDefault("Skeleton.min_level", 2);
+        configuration.addDefault("Skeleton.nameplates_enabled", true);
 
-        configuration.addDefault("ZOMBIE", true);
-        configuration.addDefault("ZOMBIE_BASE_HP", 3);
-        configuration.addDefault("ZOMBIE_BASE_ATTACK", 2);
-        configuration.addDefault("ZOMBIE_SPEED", 1);
-        configuration.addDefault("ZOMBIE_MIN_LEVEL", 1);
-        configuration.addDefault("ZOMBIE_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Slime", null);
+        configuration.addDefault("Slime.base_hp", 4);
+        configuration.addDefault("Slime.base_attack", 3);
+        configuration.addDefault("Slime.speed", 1);
+        configuration.addDefault("Slime.min_level", 3);
+        configuration.addDefault("Slime.nameplates_enabled", true);
 
-        configuration.addDefault("WITCH", true);
-        configuration.addDefault("WITCH_BASE_HP", 4);
-        configuration.addDefault("WITCH_BASE_ATTACK", 3);
-        configuration.addDefault("WTICH_SPEED", 1);
-        configuration.addDefault("WITCH_MIN_LEVEL", 8);
-        configuration.addDefault("WITCH_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Snowman", null);
+        configuration.addDefault("Snowman.base_hp", 4);
+        configuration.addDefault("Snowman.base_attack", 4);
+        configuration.addDefault("Snowman.speed", 1);
+        configuration.addDefault("Snowman.min_level", 5);
+        configuration.addDefault("Snowman.nameplates_enabled", true);
 
-        configuration.addDefault("WITHERSKELETON", true);
-        configuration.addDefault("WITHERSKELETON_BASE_HP", 6);
-        configuration.addDefault("WITHERSKELETON_BASE_ATTACK", 3);
-        configuration.addDefault("WITHERSKELETON_SPEED", 1);
-        configuration.addDefault("WITHERSKELETON_MIN_LEVEL", 11);
-        configuration.addDefault("WITHERSKELETON_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Spider", null);
+        configuration.addDefault("Spider.base_hp", 3);
+        configuration.addDefault("Spider.base_attack", 3);
+        configuration.addDefault("Spider.speed", 1.2);
+        configuration.addDefault("Spider.min_leveL", 1);
+        configuration.addDefault("Spider.nameplates_enabled", true);
 
-        configuration.addDefault("SHULKER", true);
-        configuration.addDefault("SHULKER_BASE_HP", 6);
-        configuration.addDefault("SHULKER_BASE_ATTACK", 3);
-        configuration.addDefault("SHULKER_SPEED", 1);
-        configuration.addDefault("SHULKER_MIN_LEVEL", 15);
-        configuration.addDefault("SHULKER_NAMEPLATES_ENABLED", true);
 
-        configuration.addDefault("PILLAGER", true);
-        configuration.addDefault("PILLAGER_BASE_HP", 5);
-        configuration.addDefault("PILLAGER_BASE_ATTACK", 4);
-        configuration.addDefault("PILLAGER_SPEED", 1);
-        configuration.addDefault("PILLAGER_MIN_LEVEL", 8);
-        configuration.addDefault("PILLAGER_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Squid", null);
+        configuration.addDefault("Squid.base_hp", 2);
+        configuration.addDefault("Squid.speed", 1);
+        configuration.addDefault("Squid.min_level", 1);
+        configuration.addDefault("Squid.nameplates_enabled", true);
 
-        configuration.addDefault("ILLUSIONER", true);
-        configuration.addDefault("ILLUSIONER_BASE_HP", 5);
-        configuration.addDefault("ILLUSIONER_BASE_ATTACK", 4);
-        configuration.addDefault("ILLUSIONER_SPEED", 1);
-        configuration.addDefault("ILLUSIONER_MIN_LEVEL", 7);
-        configuration.addDefault("ILLUSIONER_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Villager", null);
+        configuration.addDefault("Villager.base_hp", 4);
+        configuration.addDefault("Villager.speed", 1);
+        configuration.addDefault("Villager.min_level", 1);
+        configuration.addDefault("Villager.nameplates_enabled", true);
 
-        configuration.addDefault("EVOKER", true);
-        configuration.addDefault("EVOKER_BASE_HP", 5);
-        configuration.addDefault("EVOKER_BASE_ATTACK", 4);
-        configuration.addDefault("EVOKER_SPEED", 1);
-        configuration.addDefault("EVOKER_MIN_LEVEL", 10);
-        configuration.addDefault("EVOKER_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Wolf", null);
+        configuration.addDefault("Wolf.base_hp", 3);
+        configuration.addDefault("Wolf.base_attack", 3);
+        configuration.addDefault("Wolf.speed", 1);
+        configuration.addDefault("Wolf.min_level", 1);
+        configuration.addDefault("Wolf.nameplates_enabled", true);
 
-        configuration.addDefault("RAVAGER", true);
-        configuration.addDefault("RAVAGER_BASE_HP", 5);
-        configuration.addDefault("RAVAGER_BASE_ATTACK", 5);
-        configuration.addDefault("RAVAGER_SPEED", 1);
-        configuration.addDefault("RAVAGER_MIN_LEVEL", 1);
-        configuration.addDefault("RAVAGER_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Zombie", null);
+        configuration.addDefault("Zombie_base_hp", 3);
+        configuration.addDefault("Zombie_base_attack", 2);
+        configuration.addDefault("Zombie_speed", 1);
+        configuration.addDefault("Zombie_min_level", 1);
+        configuration.addDefault("Zombie_nameplates_enableD", true);
 
-        configuration.addDefault("BAT", true);
-        configuration.addDefault("BAT_BASE_HP", 3);
-        configuration.addDefault("BAT_BASE_ATTACK", 3);
-        configuration.addDefault("BAT_SPEED", 1);
-        configuration.addDefault("BAT_MIN_LEVEL", 1);
-        configuration.addDefault("BAT_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Witch", null);
+        configuration.addDefault("Witch.base_hp", 4);
+        configuration.addDefault("Witch.base_attack", 3);
+        configuration.addDefault("Witch.speed", 1);
+        configuration.addDefault("Witch.min_level", 8);
+        configuration.addDefault("Witch.nameplates_enabled", true);
 
-        configuration.addDefault("DROWNED", true);
-        configuration.addDefault("DROWNED_BASE_HP", 3);
-        configuration.addDefault("DROWNED_BASE_ATTACK", 2);
-        configuration.addDefault("DROWNED_SPEED", 1);
-        configuration.addDefault("DROWNED_MIN_LEVEL", 3);
-        configuration.addDefault("DROWNED_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Witherskeleton", null);
+        configuration.addDefault("Witherskeleton.base_hp", 6);
+        configuration.addDefault("Witherskeleton.base_attack", 3);
+        configuration.addDefault("Witherskeleton.speed", 1);
+        configuration.addDefault("Witherskeleton.min_level", 11);
+        configuration.addDefault("Witherskeleton.nameplates_enabled", true);
 
-        configuration.addDefault("ZOMBIEVILLAGER", true);
-        configuration.addDefault("ZOMBIEVILLAGER_BASE_HP", 3);
-        configuration.addDefault("ZOMBIEVILLAGER_BASE_ATTACK", 2);
-        configuration.addDefault("ZOMBIEVILLAGER_SPEED", 1);
-        configuration.addDefault("ZOMBIEVILLAGER_MIN_LEVEL", 3);
-        configuration.addDefault("ZOMBIEVILLAGER_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Shulker", null);
+        configuration.addDefault("Shulker.base_hp", 6);
+        configuration.addDefault("Shulker.base_attack", 3);
+        configuration.addDefault("Shulker.speed", 1);
+        configuration.addDefault("Shulker.min_level", 15);
+        configuration.addDefault("Shulker.nameplates_enabled", true);
 
-        configuration.addDefault("POLARBEAR", true);
-        configuration.addDefault("POLARBEAR_BASE_HP", 4);
-        configuration.addDefault("POLARBEAR_BASE_ATTACK", 4);
-        configuration.addDefault("POLARBEAR_SPEED", 1);
-        configuration.addDefault("POLARBEAR_MIN_LEVEL", 3);
-        configuration.addDefault("POLARBEAR_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Pillager", null);
+        configuration.addDefault("Pillager.base_hp", 5);
+        configuration.addDefault("Pillager.base_attack", 4);
+        configuration.addDefault("Pillager.speed", 1);
+        configuration.addDefault("Pillager.min_level", 8);
+        configuration.addDefault("Pillager.nameplates_enabled", true);
 
-        configuration.addDefault("WANDERINGTRADER", true);
-        configuration.addDefault("WANDERINGTRADER_BASE_HP", 20);
-        configuration.addDefault("WANDERINGTRADER_BASE_ATTACK", 4);
-        configuration.addDefault("WANDERINGTRADER_SPEED", 1);
-        configuration.addDefault("WANDERINGTRADER_MIN_LEVEL", 20);
-        configuration.addDefault("WANDERINGTRADER_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Illusioner", null);
+        configuration.addDefault("Illusioner.base_hp", 5);
+        configuration.addDefault("Illusioner.base_attack", 4);
+        configuration.addDefault("Illusioner.speed", 1);
+        configuration.addDefault("Illusioner.min_level", 7);
+        configuration.addDefault("Illusioner.nameplates_enabled", true);
 
-        configuration.addDefault("DONKEY", true);
-        configuration.addDefault("DONKEY_BASE_HP", 2);
-        configuration.addDefault("DONKEY_BASE_ATTACK", 3);
-        configuration.addDefault("DONKEY_SPEED", 1);
-        configuration.addDefault("DONKEY_MIN_LEVEL", 20);
-        configuration.addDefault("DONKEY_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Evoker", null);
+        configuration.addDefault("Evoker.base_hp", 5);
+        configuration.addDefault("Evoker.base_attack", 4);
+        configuration.addDefault("Evoker.speed", 1);
+        configuration.addDefault("Evoker.min_level", 10);
+        configuration.addDefault("Evoker.nameplates_enabled", true);
 
-        configuration.addDefault("LLAMA", true);
-        configuration.addDefault("LLAMA_BASE_HP", 2);
-        configuration.addDefault("LLAMA_BASE_ATTACK", 3);
-        configuration.addDefault("LLAMA_SPEED", 1);
-        configuration.addDefault("LLAMA_MIN_LEVEL", 1);
-        configuration.addDefault("LLAMA_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Ravager", null);
+        configuration.addDefault("Ravager.base_hp", 5);
+        configuration.addDefault("Ravager.base_attack", 5);
+        configuration.addDefault("Ravager.speed", 1);
+        configuration.addDefault("Ravager.min_level", 1);
+        configuration.addDefault("Ravager.nameplates_enabled", true);
 
-        configuration.addDefault("SALMON", true);
-        configuration.addDefault("SALMON_BASE_HP", 2);
-        configuration.addDefault("SALMON_BASE_ATTACK", 3);
-        configuration.addDefault("SALMON_SPEED", 1);
-        configuration.addDefault("SALMON_MIN_LEVEL", 1);
-        configuration.addDefault("SALMON_NAMEPLATES_ENABLED", true);
+        configuration.addDefault("Bat", null);
+        configuration.addDefault("Bat.base_hp", 3);
+        configuration.addDefault("Bat.base_attack", 3);
+        configuration.addDefault("Bat.speed", 1);
+        configuration.addDefault("Bat.min_level", 1);
+        configuration.addDefault("Bat.nameplates_enabled", true);
+
+        configuration.addDefault("Drowned", null);
+        configuration.addDefault("Drowned.base_hp", 3);
+        configuration.addDefault("Drowned.base_attack", 2);
+        configuration.addDefault("Drowned.speed", 1);
+        configuration.addDefault("Drowned.min_level", 3);
+        configuration.addDefault("Drowned.nameplates_enabled", true);
+
+        configuration.addDefault("Zombievillager", null);
+        configuration.addDefault("Zombievillager.base_hp", 3);
+        configuration.addDefault("Zombievillager.base_attack", 2);
+        configuration.addDefault("Zombievillager.speed", 1);
+        configuration.addDefault("Zombievillager.min_level", 3);
+        configuration.addDefault("Zombievillager.nameplates_enabled", true);
+
+        configuration.addDefault("Polarbear", null);
+        configuration.addDefault("Polarbear.base_hp", 4);
+        configuration.addDefault("Polarbear.base_attack", 4);
+        configuration.addDefault("Polarbear.speed", 1);
+        configuration.addDefault("Polarbear.min_level", 3);
+        configuration.addDefault("Polarbear.nameplates_enabled", true);
+
+        configuration.addDefault("Wanderingtrader", null);
+        configuration.addDefault("Wanderingtrader.base_hp", 20);
+        configuration.addDefault("Wanderingtrader.base_attack", 4);
+        configuration.addDefault("Wanderingtrader.speed", 1);
+        configuration.addDefault("Wanderingtrader.min_level", 20);
+        configuration.addDefault("Wanderingtrader.nameplates_enabled", true);
+
+        configuration.addDefault("Donkey", null);
+        configuration.addDefault("Donkey.base_hp", 2);
+        configuration.addDefault("Donkey.base_attack", 3);
+        configuration.addDefault("Donkey.speed", 1);
+        configuration.addDefault("Donkey.min_level", 20);
+        configuration.addDefault("Donkey.nameplates_enabled", true);
+
+        configuration.addDefault("llama", null);
+        configuration.addDefault("Llama.base_hp", 2);
+        configuration.addDefault("Llama.base_attack", 3);
+        configuration.addDefault("Llama.speed", 1);
+        configuration.addDefault("Llama.min_level", 1);
+        configuration.addDefault("Llama.nameplates_enabled", true);
+
+        configuration.addDefault("Salmon", null);
+        configuration.addDefault("Salmon.base_hP", 2);
+        configuration.addDefault("Salmon.base_attack", 3);
+        configuration.addDefault("Salmon.speed", 1);
+        configuration.addDefault("Salmon.min_level", 1);
+        configuration.addDefault("Salmon.nameplates_enabled", true);
 
 
         configuration.options().copyDefaults(true);
