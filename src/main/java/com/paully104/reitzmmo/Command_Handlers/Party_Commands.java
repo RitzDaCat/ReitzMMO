@@ -28,9 +28,13 @@ public class Party_Commands implements CommandExecutor {
 
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+    {
         //check if party is enabled
-        if((cmd.getName().equalsIgnoreCase("RParty") || cmd.getName().equalsIgnoreCase("rparty")) && partyEnabled == true) {
+        Player pl = Bukkit.getPlayer(sender.getName());
+        int worldEnabled = API.worldConfig.getInt(pl.getLocation().getWorld().getName());
+
+        if((cmd.getName().equalsIgnoreCase("RParty") || cmd.getName().equalsIgnoreCase("rparty")) && partyEnabled == true && worldEnabled != -1) {
 
 
             if ((cmd.getName().equalsIgnoreCase("RParty") || cmd.getName().equalsIgnoreCase("rparty")) && args.length == 0) {

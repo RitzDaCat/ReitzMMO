@@ -1,6 +1,7 @@
 package com.paully104.reitzmmo.OnPlayerEvents;
 
 import com.paully104.reitzmmo.ConfigFiles.API;
+import com.paully104.reitzmmo.Custom_Recipes.ReitzMMO_Book;
 import com.paully104.reitzmmo.Party_System.Party_API;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
 import org.bukkit.entity.Player;
@@ -45,7 +46,8 @@ public class OnPlayerExitStatSave implements Listener {
         {
             p.performCommand("Rparty leave");
         }
-        //party member kills mob
+        //Remove Book
+        ReitzMMO_Book.removeLoginBook(p);
     }
 
 }

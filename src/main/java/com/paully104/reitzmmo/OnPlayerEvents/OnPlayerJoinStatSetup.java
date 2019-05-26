@@ -1,6 +1,7 @@
 package com.paully104.reitzmmo.OnPlayerEvents;
 
 import com.paully104.reitzmmo.ConfigFiles.API;
+import com.paully104.reitzmmo.Custom_Recipes.ReitzMMO_Book;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -54,7 +55,8 @@ public class OnPlayerJoinStatSetup implements Listener {
         pd.save();
         API.Players.put(e.getPlayer().getName(), pd); //this loads the player data into the API
 
-        //Lets setup the scoreboard
+        //Lets give the book
+        ReitzMMO_Book.setLoginBook(p);
 
     }
 
