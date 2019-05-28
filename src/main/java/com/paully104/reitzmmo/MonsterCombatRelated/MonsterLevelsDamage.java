@@ -87,7 +87,8 @@ public class MonsterLevelsDamage implements Listener {
             EntityType attackerType = attacker.getType();
             EntityType defenderType = defender.getType();
             if (defenderType == EntityType.PLAYER) {
-                PlayerData pd = API.Players.get(defender.getName());
+                String defenderUUID = defender.getUniqueId().toString();
+                PlayerData pd = API.Players.get(defenderUUID);
                 Player defendingPlayer = (Player) defender;
                 int helmet;
                 int helmetEnchant;
@@ -102,7 +103,8 @@ public class MonsterLevelsDamage implements Listener {
                     case PLAYER:
                         //PVP stuff
                         player_defense = pd.getData().getInt("Level");
-                        PlayerData personAttacking = API.Players.get(attacker.getUniqueId().toString());
+                        String attackerUUID = attacker.getUniqueId().toString();
+                        PlayerData personAttacking = API.Players.get(attackerUUID);
                         int personAttacking_Attack = personAttacking.getData().getInt("Attack");
                         int weaponDamage = 0;
 
