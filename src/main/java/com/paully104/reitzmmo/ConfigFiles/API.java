@@ -7,12 +7,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * Created by Paul on 3/22/2016.
  */
 public class API {
     //Configs
+    //UUID STRING then playerData
     public static final HashMap<String, PlayerData> Players = new HashMap<>();
     public static FileConfiguration monsterConfig;
     public static FileConfiguration playerConfig;
@@ -47,11 +49,11 @@ public class API {
     public static int getPlayerDataFromAPI(Player p, String requestedStat)
     {
 
-        return API.Players.get(p.getName()).getData().getInt(requestedStat);
+        return API.Players.get(p.getUniqueId().toString()).getData().getInt(requestedStat);
     }
     public static void setPlayerDataFromAPI(Player p, String requestedStat, int value)
     {
-        Players.get(p.getName()).getData().set(requestedStat,value);
+        Players.get(p.getUniqueId().toString()).getData().set(requestedStat,value);
 
 
     }

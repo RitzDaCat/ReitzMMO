@@ -102,7 +102,7 @@ public class MonsterLevelsDamage implements Listener {
                     case PLAYER:
                         //PVP stuff
                         player_defense = pd.getData().getInt("Level");
-                        PlayerData personAttacking = API.Players.get(attacker.getName());
+                        PlayerData personAttacking = API.Players.get(attacker.getUniqueId().toString());
                         int personAttacking_Attack = personAttacking.getData().getInt("Attack");
                         int weaponDamage = 0;
 

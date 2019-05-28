@@ -12,6 +12,8 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 /**
  * Created by Paul on 7/24/2016.
  */
@@ -46,9 +48,9 @@ public class ReitzRPGMain implements CommandExecutor {
                 return true;
             } else if ((cmd.getName().equalsIgnoreCase("Reitz") || cmd.getName().equalsIgnoreCase("RRM") || cmd.getName().equalsIgnoreCase("ReitzMMO")) && args.length == 1 && args[0].equalsIgnoreCase("FixHealth")) {
                 Player p = Bukkit.getPlayer(sender.getName());
-
-                int combatexp = API.Players.get(p.getName()).getData().getInt("Combat-EXP");
-                int level = API.Players.get(p.getName()).getData().getInt("Level");
+                UUID uuid = p.getUniqueId();
+                int combatexp = API.Players.get(uuid).getData().getInt("Combat-EXP");
+                int level = API.Players.get(uuid).getData().getInt("Level");
                 int combatexpneeded = level * (API.playerConfig.getInt("CombatEXP") * API.playerConfig.getInt("CombatEXP_MULTIPLIER"));
                 //level up occurs
                 if (combatexp >= combatexpneeded) {
@@ -57,18 +59,18 @@ public class ReitzRPGMain implements CommandExecutor {
                     combatexp = combatexp - combatexpneeded;
                     p.sendMessage("~Fixing stats due to plugin changes...");
                     p.sendMessage("You leveled up to: " + level);
-                    API.Players.get(p.getName()).getData().set("Level", level);
-                    API.Players.get(p.getName()).getData().set("Attack", (level * API.playerConfig.getInt("AttackScale")));
-                    API.Players.get(p.getName()).getData().set("Health", (18 + (level * API.playerConfig.getInt("HealthScale"))));
+                    API.Players.get(uuid).getData().set("Level", level);
+                    API.Players.get(uuid).getData().set("Attack", (level * API.playerConfig.getInt("AttackScale")));
+                    API.Players.get(uuid).getData().set("Health", (18 + (level * API.playerConfig.getInt("HealthScale"))));
                     p.sendMessage("Attack is now: " + API.getPlayerDataFromAPI(p, "Attack"));
                     p.sendMessage("Health is now: " + API.getPlayerDataFromAPI(p, "Health"));
                     p.setMaxHealth(API.getPlayerDataFromAPI(p, "Health"));
-                    API.Players.get(p.getName()).getData().set("CombatEXP", combatexp);
+                    API.Players.get(uuid).getData().set("CombatEXP", combatexp);
                 } else {
                     //just fixing stats
                     p.sendMessage("~Fixing stats due to plugin changes...");
-                    API.Players.get(p.getName()).getData().set("Attack", (level * API.playerConfig.getInt("AttackScale")));
-                    API.Players.get(p.getName()).getData().set("Health", (18 + (level * API.playerConfig.getInt("HealthScale"))));
+                    API.Players.get(uuid).getData().set("Attack", (level * API.playerConfig.getInt("AttackScale")));
+                    API.Players.get(uuid).getData().set("Health", (18 + (level * API.playerConfig.getInt("HealthScale"))));
                     p.sendMessage("Attack is now: " + API.getPlayerDataFromAPI(p, "Attack"));
                     p.sendMessage("Health is now: " + API.getPlayerDataFromAPI(p, "Health"));
                     p.setMaxHealth(API.getPlayerDataFromAPI(p, "Health"));

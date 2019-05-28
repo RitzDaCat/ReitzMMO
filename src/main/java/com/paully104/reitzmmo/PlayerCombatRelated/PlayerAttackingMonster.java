@@ -42,7 +42,7 @@ public class PlayerAttackingMonster implements Listener {
 
                 if (attacker instanceof Player) {
                     //lets ignore if the damage source is custom
-                    PlayerData pd = API.Players.get(attacker.getName());
+                    PlayerData pd = API.Players.get(attacker.getUniqueId().toString());
                     player_attack = pd.getData().getInt("Attack");
                     try {
                         monster_level_from_name = defender.getCustomName().replaceAll("\\D+", "");
@@ -109,7 +109,7 @@ public class PlayerAttackingMonster implements Listener {
                     Arrow arrow = (Arrow) e.getDamager();
                     Entity shooter = (Entity) arrow.getShooter();
                     if (shooter instanceof Player) {
-                        PlayerData pd = API.Players.get(shooter.getName());
+                        PlayerData pd = API.Players.get(shooter.getUniqueId().toString());
                         player_attack = pd.getData().getInt("Attack");
                         monster_level_from_name = defender.getCustomName().replaceAll("\\D+", "");
                         monster_defense = Integer.parseInt(monster_level_from_name);

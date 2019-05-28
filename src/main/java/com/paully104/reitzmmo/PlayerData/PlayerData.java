@@ -2,7 +2,9 @@ package com.paully104.reitzmmo.PlayerData;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -16,7 +18,7 @@ import org.bukkit.plugin.Plugin;
 
 public class PlayerData {
 
-    private final String name;
+    private final String uuid;
     private final FileConfiguration config;
     private File file;
     private static File dir;
@@ -44,21 +46,21 @@ public class PlayerData {
     /**
      * Creates a new player data object.
      * If the file doesn't exist, it will be created
-     * @param name the name of the player
+     * @param uuid the uuid of the player
      */
 
-    public PlayerData(String name) {
-        this.name = name;
-        this.file = new File(dir + File.separator + this.name + ".yml");
+    public PlayerData(String uuid) {
+        this.uuid = uuid;
+        this.file = new File(dir + File.separator + this.uuid + ".yml");
         if (file.exists()) {
-            file = new File(dir + File.separator + this.name + ".yml");
+            file = new File(dir + File.separator + this.uuid + ".yml");
             try {
                 //noinspection ResultOfMethodCallIgnored
                 file.createNewFile();
                 if (this.debug)
-                    plugin.getLogger().fine("The data file for " + this.name + " has been created.");
+                    plugin.getLogger().fine("The data file for " + this.uuid + " has been created.");
             } catch (IOException e) {
-                plugin.getLogger().severe("The data file for " + this.name + " could not be created! Reason: " + e.getMessage());
+                plugin.getLogger().severe("The data file for " + this.uuid + " could not be created! Reason: " + e.getMessage());
                 if (this.debug)
                     e.printStackTrace();
             }
@@ -93,7 +95,7 @@ public class PlayerData {
         try {
             config.save(this.file);
         } catch (IOException e) {
-            plugin.getLogger().severe("The data file for " + this.name + " could not be saved! Reason: " + e.getMessage());
+            plugin.getLogger().severe("The data file for " + this.uuid + " could not be saved! Reason: " + e.getMessage());
             if (this.debug)
                 e.printStackTrace();
         }

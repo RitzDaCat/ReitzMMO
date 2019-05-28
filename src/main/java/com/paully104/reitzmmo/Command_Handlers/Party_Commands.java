@@ -154,24 +154,35 @@ public class Party_Commands implements CommandExecutor {
 
                     //lets cache some values for performance
                     Player invitedPlayer = Bukkit.getPlayer(args[1]);
-                    String invitedPlayerName = invitedPlayer.getName();
-                    String uuid = invitedPlayer.getUniqueId().toString();
+                    if(invitedPlayer.isOnline())
+                    {
+                        String invitedPlayerName = invitedPlayer.getName();
+                        String uuid = invitedPlayer.getUniqueId().toString();
 
-                    Party_Queue queue = new Party_Queue(sender.getName(), Bukkit.getPlayer(args[1]).getName(), uuid);
+                        Party_Queue queue = new Party_Queue(sender.getName(), Bukkit.getPlayer(args[1]).getName(), uuid);
 
-                    //new invite system
-                    Bukkit.getPlayer(args[1]).sendMessage(ChatColor.YELLOW + "[PARTY]" + ChatColor.GREEN + "Party invite from: " + sender.getName());
-                    TextComponent component = new TextComponent();
-                    component.setBold(true);
-                    component.setText("Click " + ChatColor.YELLOW + "[HERE]" + ChatColor.WHITE + " to accept the party invite.");
-                    component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("From: " + sender.getName()).create()));
-                    component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rparty join"));
-                    Bukkit.getPlayer(args[1]).spigot().sendMessage(component);
+                        //new invite system
+                        Bukkit.getPlayer(args[1]).sendMessage(ChatColor.YELLOW + "[PARTY]" + ChatColor.GREEN + "Party invite from: " + sender.getName());
+                        TextComponent component = new TextComponent();
+                        component.setBold(true);
+                        component.setText("Click " + ChatColor.YELLOW + "[HERE]" + ChatColor.WHITE + " to accept the party invite.");
+                        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("From: " + sender.getName()).create()));
+                        component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rparty join"));
+                        Bukkit.getPlayer(args[1]).spigot().sendMessage(component);
+                        Party_API.Password_Queue.put(Bukkit.getPlayer(args[1]).getName(), queue);
+                    }
+                    else
+                    {
+                        sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.WHITE + " Requested player is offline!");
+                        //not online
+
+
+                    }
 
                     //Bukkit.getPlayer(args[1]).sendMessage(ChatColor.GREEN + "Party invite from: " + sender.getName());
                     //Bukkit.getPlayer(args[1]).sendMessage(ChatColor.WHITE + "Passcode: " + passcode);
                     //Bukkit.getPlayer(args[1]).sendMessage(ChatColor.WHITE + "Use /rparty join to join!");
-                    Party_API.Password_Queue.put(Bukkit.getPlayer(args[1]).getName(), queue);
+
                 } else {
                     sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.WHITE + " You must first create a party and be its leader!");
 

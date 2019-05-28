@@ -26,6 +26,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * Created by Paul on 3/22/2016.
@@ -103,8 +104,8 @@ public class Main extends JavaPlugin {
         for(Player p : Bukkit.getServer().getOnlinePlayers())
         {
 
-            PlayerData pd = new PlayerData(p.getName());
-            pd.getData().set("Name", p.getName());
+            PlayerData pd = new PlayerData(p.getUniqueId().toString());
+            pd.getData().set("Name", p.getUniqueId());
 
             Integer Level = pd.getData().getInt("Level");
             Integer Attack = pd.getData().getInt("Attack");
@@ -113,7 +114,7 @@ public class Main extends JavaPlugin {
 
 
 
-            pd.getData().set("Name", p.getName());
+            pd.getData().set("Name", p.getUniqueId());
             if (Level == 0) {
                 pd.getData().set("Level", 1);
 
@@ -135,7 +136,7 @@ public class Main extends JavaPlugin {
 
             }
             pd.save();
-            API.Players.put(p.getName(), pd); //this loads the player data into the API
+            API.Players.put(p.getUniqueId().toString(), pd); //this loads the player data into the API
 
         }
 
@@ -162,15 +163,16 @@ public class Main extends JavaPlugin {
         for (Player p : Bukkit.getServer().getOnlinePlayers())
         {
             //Get player information;
-            PlayerData pd = new PlayerData(p.getName());
+            PlayerData pd = new PlayerData(p.getUniqueId().toString());
             String name = p.getName();
+            UUID uuid = p.getUniqueId();
             System.out.println(p.getName() + "[ReitzRPG] has been saved!");
 
             //get stats from API
-            Integer level = API.Players.get(name).getData().getInt("Level");
-            Integer attack = API.Players.get(name).getData().getInt("Attack");
-            Integer health = API.Players.get(name).getData().getInt("Health");
-            Integer combatexp = API.Players.get(name).getData().getInt("Combat-EXP");
+            Integer level = API.Players.get(uuid).getData().getInt("Level");
+            Integer attack = API.Players.get(uuid).getData().getInt("Attack");
+            Integer health = API.Players.get(uuid).getData().getInt("Health");
+            Integer combatexp = API.Players.get(uuid).getData().getInt("Combat-EXP");
 
             //Save stats
             pd.getData().set("Level", level);
