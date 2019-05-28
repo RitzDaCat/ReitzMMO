@@ -45,8 +45,10 @@ public class Menu implements Listener {
         }
         createDisplay(Material.MAP, 1, "Stats","Get your combat stats!");
         //createDisplay(Material.SPECTRAL_ARROW, 3, "Fix Health","If your health is bugged fix it");
-        createDisplay(Material.PLAYER_HEAD, 2, "Party","Get the party commands!");
-        //createDisplay(Material.SPECTRAL_ARROW, 3, "Weaponskills","Apply weaponskills");
+        if(API.partyConfig.getBoolean("Parties_Enabled")) {
+            createDisplay(Material.PLAYER_HEAD, 2, "Party", "Get the party commands!");
+            //createDisplay(Material.SPECTRAL_ARROW, 3, "Weaponskills","Apply weaponskills");
+        }
         //createDisplay(Material.ARMOR_STAND, 6, "Fix EXP","Fix floating EXP");
         //createDisplay(Material.MAP, 7, "Town Menu","Teleport to a town");
         //GUI_MENU.setItem(0, new ItemStack(Material.DIRT, 3));

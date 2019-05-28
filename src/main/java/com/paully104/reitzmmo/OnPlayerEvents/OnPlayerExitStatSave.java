@@ -51,7 +51,7 @@ public class OnPlayerExitStatSave implements Listener {
             p.performCommand("Rparty leave");
         }
         //Remove Book
-        ReitzMMO_Book.removeLoginBook(p);
+        //ReitzMMO_Book.removeLoginBook(p);
     }
 
 }

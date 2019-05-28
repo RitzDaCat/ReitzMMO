@@ -63,7 +63,7 @@ public class OnPlayerJoinStatSetup implements Listener {
         API.Players.put(p.getUniqueId().toString(), pd); //this loads the player data into the API
 
         //Lets give the book
-        ReitzMMO_Book.setLoginBook(p);
+        //ReitzMMO_Book.setLoginBook(p);
 
     }
 
