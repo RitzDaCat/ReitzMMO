@@ -1,5 +1,5 @@
 name: ReitzMMO
-version: 1.15
+version: 1.16
 author: Paully104
 main: com.paully104.reitzmmo.Main
 api-version: 1.14
@@ -10,12 +10,20 @@ permissions:
   reitzmmo.party.use:
     description: Allows use of ReitzMMO party commands.
     default: true
+  reitzmmo.reload:
+    description: Allows reload of ReitzMMO
+    default: op
 
 commands:
   reitz:
     description: Main ReitzRPGMMO command listings
     usage: /reitz
     permission: reitzmmo.use
+    permission-message: Sorry! You are missing the reitzmmo.use permission.
+  reitz.reload:
+    description: Reload ReitzMMO
+    usage: /reitz reload
+    permission: reitzmmo.reload
     permission-message: Sorry! You are missing the reitzmmo.use permission.
   rrm:
     description: Main ReitzRPGMMO command listings
@@ -27,4 +35,5 @@ commands:
     usage: /rparty
     permission: reitzmmo.party.use
     permission-message: Sorry! You are missing the reitzmmo.party.use permission.
+
 

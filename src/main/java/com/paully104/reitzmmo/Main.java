@@ -15,7 +15,6 @@ import com.paully104.reitzmmo.Party_System.EntityRegainHealthEvent;
 import com.paully104.reitzmmo.Party_System.Scoreboard_Custom;
 import com.paully104.reitzmmo.PlayerCombatRelated.PlayerAttackingMonster;
 import com.paully104.reitzmmo.PlayerCombatRelated.PlayerDefeatsMonster;
-import com.paully104.reitzmmo.PlayerCombatRelated.PlayerEntityShootBowEvent;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -86,7 +85,7 @@ public class Main extends JavaPlugin {
         //removed weaponskills and weaponskill menu
         registerEvents(this,new OnPlayerJoinStatSetup(), new MonsterLevelsHealth(), new OnPlayerExitStatSave(),
         new MonsterLevelsDamage(), new PlayerAttackingMonster(),new PlayerDefeatsMonster(), new Menu(), new Party_Menu(),
-                new Scoreboard_Custom(), new EntityRegainHealthEvent(), new EntityDamageEvent(), new PlayerEntityShootBowEvent());
+                new Scoreboard_Custom(), new EntityRegainHealthEvent(), new EntityDamageEvent());
 
         //SetCustomItems
 
