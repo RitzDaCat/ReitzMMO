@@ -20,6 +20,9 @@ public class PlayerConfig {
         configuration.addDefault("HealthScale",2);
         configuration.addDefault("AttackScale",2);
 
+        configuration.addDefault("MinimumDamage",null);
+        configuration.addDefault("MinimumDamage.Arrow",2);
+
 
 
 

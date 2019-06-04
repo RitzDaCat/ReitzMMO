@@ -21,6 +21,7 @@ public class PlayerAttackingMonster implements Listener {
 
     private final boolean debugEnabled = API.debugConfig.getBoolean("PlayerAttackingMonster");
     private final boolean namePlatesEnabled = API.monsterConfig.getBoolean("General.nameplates-enabled");
+    private final int bowMinimumDamage = API.playerConfig.getInt("MinimumDamage.Arrow");
 
     @EventHandler
     public void playerAttackingMonster(EntityDamageByEntityEvent e) {
@@ -72,7 +73,8 @@ public class PlayerAttackingMonster implements Listener {
                                 weaponDamage = (Weapon_Damage.Weapon_Damages.valueOf(human.getInventory().getItemInMainHand().getType().toString().toUpperCase()).getValue());
                             } catch (NullPointerException error) {
                                 weaponDamage = 0;
-                            } finally {
+                            } finally
+                            {
                                 //if the weapon has special stats
                                 if (human.getInventory().getItemInMainHand().getItemMeta().hasAttributeModifiers()) {
                                     Collection<AttributeModifier> weaponStats = human.getInventory().getItemInMainHand().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE);
@@ -129,10 +131,11 @@ public class PlayerAttackingMonster implements Listener {
                         }
                         monster_defense = Integer.parseInt(monster_level_from_name);
                         damage = (damage + player_attack) - monster_defense;
-                        if(damage < 1)
+                        if(damage < bowMinimumDamage)
                         {
-                            damage = 1.0;
+                            damage = bowMinimumDamage + .0;
                         }
+                        e.setDamage(damage);
 
 
 
