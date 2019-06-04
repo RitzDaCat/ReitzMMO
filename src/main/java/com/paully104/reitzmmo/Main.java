@@ -59,7 +59,6 @@ public class Main extends JavaPlugin {
         WorldConfig.Configuration();
         PartyConfig.Configuration();
         WeaponskillConfig.Configuration();
-        CustomBowConfig.Configuration();
         ChatConfig.Configuration();
         SpecialMonsterConfig.Configuration();
         LootConfig.Configuration();
