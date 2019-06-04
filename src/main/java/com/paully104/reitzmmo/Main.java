@@ -3,8 +3,6 @@ package com.paully104.reitzmmo;
 import com.paully104.reitzmmo.Command_Handlers.Party_Commands;
 import com.paully104.reitzmmo.Command_Handlers.ReitzRPGMain;
 import com.paully104.reitzmmo.ConfigFiles.*;
-import com.paully104.reitzmmo.Custom_Recipes.Custom_Arrows;
-import com.paully104.reitzmmo.Custom_Recipes.Custom_Bows;
 import com.paully104.reitzmmo.Menu.Menu;
 import com.paully104.reitzmmo.Menu.Party_Menu;
 import com.paully104.reitzmmo.Metrics.Metrics;
@@ -20,12 +18,11 @@ import com.paully104.reitzmmo.PlayerCombatRelated.PlayerDefeatsMonster;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.IOException;
 import java.util.UUID;
 
 /**
@@ -92,13 +89,7 @@ public class Main extends JavaPlugin {
                 new Scoreboard_Custom(), new EntityRegainHealthEvent(), new EntityDamageEvent());
 
         //SetCustomItems
-        Custom_Arrows.setCustomArrow();
-        Custom_Bows.setCustomWoodBow();
-        Custom_Bows.setStoneBow();
-        Custom_Bows.setIronBow();
-        Custom_Bows.setGoldBow();
-        Custom_Bows.setDiamondBow();
-        Custom_Bows.setLlamaBow();
+
 
         //if they reloaded the server people might be on, lets set their stats
         for(Player p : Bukkit.getServer().getOnlinePlayers())
@@ -125,11 +116,11 @@ public class Main extends JavaPlugin {
             }
             if (Health == 0.0) {
                 pd.getData().set("Health", 20);
-                p.setMaxHealth(20);
+                p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
 
             } else {
 
-                p.setMaxHealth(Health);
+                p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(Health);
             }
             if (CombatEXP == 0) {
                 pd.getData().set("Combat-EXP", 0);

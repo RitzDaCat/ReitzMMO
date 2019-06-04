@@ -1,7 +1,6 @@
 package com.paully104.reitzmmo.PlayerCombatRelated;
 
 import com.paully104.reitzmmo.ConfigFiles.API;
-import com.paully104.reitzmmo.Custom_Recipes.Custom_Bows;
 import com.paully104.reitzmmo.Enum.Weapon_Damage;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
 import org.bukkit.ChatColor;
@@ -114,9 +113,9 @@ public class PlayerAttackingMonster implements Listener {
                         monster_level_from_name = defender.getCustomName().replaceAll("\\D+", "");
                         monster_defense = Integer.parseInt(monster_level_from_name);
                         //updated on 5/6/2017 to add new custom bow recipes
-                        damage_done = player_attack - monster_defense + Custom_Bows.getBowDamage(((Player) shooter).getInventory().getItemInMainHand());
+                        damage_done = player_attack - monster_defense;
                         if (debugEnabled == true) {
-                            System.out.println("Damage Done: " + player_attack + " " + monster_defense + " " + Custom_Bows.getBowDamage(((Player) shooter).getInventory().getItemInMainHand()));
+                            System.out.println("Damage Done: " + player_attack + " " + monster_defense);
                         }
 
                         //custom item logic
