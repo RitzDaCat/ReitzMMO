@@ -10,6 +10,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerUnleashEntityEvent;
 
 import java.util.Collection;
 
@@ -26,7 +27,6 @@ public class PlayerAttackingMonster implements Listener {
         int worldEnabled = API.worldConfig.getInt(e.getEntity().getLocation().getWorld().getName());
         if (worldEnabled != -1) {
 
-            Boolean isProjectile = false;
             Entity defender = e.getEntity();//monster
             Entity attacker = e.getDamager();//player
 
@@ -39,13 +39,16 @@ public class PlayerAttackingMonster implements Listener {
                 int damage_done = 0;
                 String monster_level_from_name = "";
 
-                if (attacker instanceof Player) {
+                if (attacker instanceof Player)
+                {
                     //lets ignore if the damage source is custom
                     PlayerData pd = API.Players.get(attacker.getUniqueId().toString());
                     player_attack = pd.getData().getInt("Attack");
-                    try {
+                    try
+                    {
                         monster_level_from_name = defender.getCustomName().replaceAll("\\D+", "");
-                    } catch (NullPointerException error) {
+                    } catch (NullPointerException error)
+                    {
                         String levelColor = ChatColor.YELLOW + "[" + 1 + "]";
                         defender.setCustomName(e.getEntityType() + levelColor);
                         monster_level_from_name = "1";
@@ -100,48 +103,49 @@ public class PlayerAttackingMonster implements Listener {
                     }
 
 
-                } else if (e.getDamager() instanceof Arrow) {
-                    isProjectile = true;
-                    if (debugEnabled == true) {
-                        System.out.println("Arrow attack event");
-                    }
-                    Arrow arrow = (Arrow) e.getDamager();
-                    Entity shooter = (Entity) arrow.getShooter();
-                    if (shooter instanceof Player) {
-                        PlayerData pd = API.Players.get(shooter.getUniqueId().toString());
+                }
+                if(attacker instanceof  Arrow)
+                {
+                    Arrow arrow = (Arrow) attacker;
+                    if(arrow.getShooter() instanceof Player)
+                    {
+                        //arrow and shot by a player
+                        Player p = (Player)arrow.getShooter();
+                        Double damage = e.getDamage();
+                        PlayerData pd = API.Players.get(p.getUniqueId().toString());
                         player_attack = pd.getData().getInt("Attack");
-                        monster_level_from_name = defender.getCustomName().replaceAll("\\D+", "");
+
+                        try
+                        {
+                            monster_level_from_name = defender.getCustomName().replaceAll("\\D+", "");
+                        } catch (NullPointerException error)
+                        {
+                            String levelColor = ChatColor.YELLOW + "[" + 1 + "]";
+                            defender.setCustomName(e.getEntityType() + levelColor);
+                            monster_level_from_name = "1";
+                            if (namePlatesEnabled) {
+                                defender.setCustomNameVisible(true);
+                            }
+                        }
                         monster_defense = Integer.parseInt(monster_level_from_name);
-                        //updated on 5/6/2017 to add new custom bow recipes
-                        damage_done = player_attack - monster_defense;
-                        if (debugEnabled == true) {
-                            System.out.println("Damage Done: " + player_attack + " " + monster_defense);
+                        damage = (damage + player_attack) - monster_defense;
+                        if(damage < 1)
+                        {
+                            damage = 1.0;
                         }
 
-                        //custom item logic
 
-                        //check if cheap arrow
-                        //make sure 1 damage is done minimum
-                        if (damage_done < 1) {
-                            damage_done = 1;
-                        }
-                        e.setDamage(damage_done);
-                        if (debugEnabled && isProjectile) {
-                            System.out.println("[PAM]: " + shooter.getName() + " " + player_attack +
-                                    " -> " + defender.getCustomName() + " " + monster_defense + "\n" + " Damage_Done -> " + damage_done +
-                                    "\n" + " Mob HP: " + ((LivingEntity) defender).getHealth());
 
-                        }
                     }
 
-                }
 
-                if (debugEnabled && !isProjectile && !(e.getDamager() instanceof TNTPrimed)) {
-                    System.out.println("[PAM]: " + attacker.getName() + " " + player_attack +
-                            " -> " + defender.getCustomName() + " " + monster_defense + "\n" + " Damage_Done -> " + damage_done +
-                            "\n" + " Mob HP: " + "Broken");
+
 
                 }
+
+
+
+
                 if (debugEnabled == true) {
                     System.out.println(e.getDamage() + "Damage DONE");
                 }
