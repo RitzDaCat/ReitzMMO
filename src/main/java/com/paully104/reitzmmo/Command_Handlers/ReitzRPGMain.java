@@ -2,6 +2,7 @@ package com.paully104.reitzmmo.Command_Handlers;
 
 import com.paully104.reitzmmo.ConfigFiles.API;
 import com.paully104.reitzmmo.Menu.Menu;
+import com.paully104.reitzmmo.Party_System.Party_API;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -103,10 +104,10 @@ public class ReitzRPGMain implements CommandExecutor {
                 for (Player p : Bukkit.getServer().getOnlinePlayers())
                 {
                     //Get player information;
-                    PlayerData pd = new PlayerData(p.getUniqueId().toString());
                     String name = p.getName();
-                    UUID uuid = p.getUniqueId();
-                    System.out.println(p.getName() + "[ReitzRPG] has been saved!");
+                    String uuid = p.getUniqueId().toString();
+                    PlayerData pd = new PlayerData(uuid);
+                    System.out.println(p.getName() + " has exited the game!");
 
                     //get stats from API
                     Integer level = API.Players.get(uuid).getData().getInt("Level");
@@ -119,7 +120,20 @@ public class ReitzRPGMain implements CommandExecutor {
                     pd.getData().set("Attack", attack);
                     pd.getData().set("Health", health);
                     pd.getData().set("Combat-EXP", combatexp);
+                    pd.getData().set("DisplayName",p.getDisplayName());
                     pd.save();
+
+
+                    //They disconnect make sure their party status is removed!
+                    if (Party_API.Party_Leaders.containsKey(name))
+                    {
+                        p.performCommand("Rparty disband");
+
+                    }
+                    else if (Party_API.inParty.containsKey(name))
+                    {
+                        p.performCommand("Rparty leave");
+                    }
 
                 }
                 Bukkit.broadcastMessage("[ReitzMMO] All online player's saved");
@@ -130,17 +144,15 @@ public class ReitzRPGMain implements CommandExecutor {
                 for(Player p : Bukkit.getServer().getOnlinePlayers())
                 {
 
-                    PlayerData pd = new PlayerData(p.getUniqueId().toString());
-                    pd.getData().set("Name", p.getUniqueId());
+                    String uuid = p.getUniqueId().toString();
+                    PlayerData pd = new PlayerData(uuid);
+                    pd.getData().set("UUID", uuid);
 
                     Integer Level = pd.getData().getInt("Level");
                     Integer Attack = pd.getData().getInt("Attack");
                     Double Health = pd.getData().getDouble("Health");
                     Integer CombatEXP = pd.getData().getInt("Combat-EXP");
 
-
-
-                    pd.getData().set("Name", p.getUniqueId());
                     if (Level == 0) {
                         pd.getData().set("Level", 1);
 
@@ -153,6 +165,7 @@ public class ReitzRPGMain implements CommandExecutor {
                         pd.getData().set("Health", 20);
                         p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
 
+
                     } else {
 
                         p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(Health);
@@ -161,8 +174,12 @@ public class ReitzRPGMain implements CommandExecutor {
                         pd.getData().set("Combat-EXP", 0);
 
                     }
+                    pd.getData().set("DisplayName",p.getDisplayName());
                     pd.save();
                     API.Players.put(p.getUniqueId().toString(), pd); //this loads the player data into the API
+
+                    //Lets give the book
+                    //ReitzMMO_Book.setLoginBook(p);
 
                 }
 
