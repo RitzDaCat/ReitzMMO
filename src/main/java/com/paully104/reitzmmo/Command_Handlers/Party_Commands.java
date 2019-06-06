@@ -165,7 +165,7 @@ public class Party_Commands implements CommandExecutor {
                         Bukkit.getPlayer(args[1]).sendMessage(ChatColor.YELLOW + "[PARTY]" + ChatColor.GREEN + "Party invite from: " + sender.getName());
                         TextComponent component = new TextComponent();
                         component.setBold(true);
-                        component.setText("Click " + ChatColor.YELLOW + "[HERE]" + ChatColor.WHITE + " to accept the party invite.");
+                        component.setText( "Click " + ChatColor.YELLOW + "[HERE]" + ChatColor.WHITE + " to accept the party invite.");
                         component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("From: " + sender.getName()).create()));
                         component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rparty join"));
                         Bukkit.getPlayer(args[1]).spigot().sendMessage(component);

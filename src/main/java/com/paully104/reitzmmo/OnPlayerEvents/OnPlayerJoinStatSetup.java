@@ -3,6 +3,7 @@ package com.paully104.reitzmmo.OnPlayerEvents;
 import com.paully104.reitzmmo.ConfigFiles.API;
 import com.paully104.reitzmmo.Custom_Recipes.ReitzMMO_Book;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -61,7 +62,7 @@ public class OnPlayerJoinStatSetup implements Listener {
         pd.getData().set("DisplayName",p.getDisplayName());
         pd.save();
         API.Players.put(p.getUniqueId().toString(), pd); //this loads the player data into the API
-
+        //p.sendMessage(PlaceholderAPI.setPlaceholders(p,"%ReitzMMO_Attack%"));
         //Lets give the book
         //ReitzMMO_Book.setLoginBook(p);
 

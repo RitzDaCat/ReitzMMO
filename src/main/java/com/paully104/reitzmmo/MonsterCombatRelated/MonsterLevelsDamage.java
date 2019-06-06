@@ -2790,7 +2790,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case SPLASH_POTION:
-                        SplashPotion potion = (SplashPotion) attacker;
+                        ThrownPotion potion = (ThrownPotion) attacker;
                         if (potion.getShooter() instanceof Witch) {
                             player_defense = pd.getData().getInt("Level");
                             monster_level_from_name = ((Witch) potion.getShooter()).getCustomName().replaceAll("\\D+", "");

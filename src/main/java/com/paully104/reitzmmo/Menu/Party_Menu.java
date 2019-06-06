@@ -41,7 +41,7 @@ public class Party_Menu implements Listener{
         createDisplay(Material.BEDROCK, 2, "Remove", "/Rparty remove USERNAME");
         createDisplay(Material.SKELETON_SKULL, 3, "Disband", "/rparty disband");
         createDisplay(Material.SHIELD, 4, "Get Members", "Show party members");
-        createDisplay(Material.LEGACY_EXPLOSIVE_MINECART, 5, "Leave", "Leave a party");
+        createDisplay(Material.MINECART, 5, "Leave", "Leave a party");
         createDisplay(Material.REDSTONE_BLOCK, 8, "Return To Menu", "Return to Reitz menu screen");
 
 

@@ -14,9 +14,11 @@ import com.paully104.reitzmmo.Party_System.EntityDamageEvent;
 import com.paully104.reitzmmo.Party_System.EntityRegainHealthEvent;
 import com.paully104.reitzmmo.Party_System.Party_API;
 import com.paully104.reitzmmo.Party_System.Scoreboard_Custom;
+import com.paully104.reitzmmo.PlaceHolderAPI.registerPlaceHolders;
 import com.paully104.reitzmmo.PlayerCombatRelated.PlayerAttackingMonster;
 import com.paully104.reitzmmo.PlayerCombatRelated.PlayerDefeatsMonster;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
@@ -146,6 +148,15 @@ public class Main extends JavaPlugin {
                     }
                 }
             }
+
+        }
+
+        //placeholder nonsense
+        if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
+        {
+            registerPlaceHolders.registerPlaceHoldersReitzMMO();
+
+
 
         }
 
