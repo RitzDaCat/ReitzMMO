@@ -3,7 +3,7 @@ version: 1.16
 author: Paully104
 main: com.paully104.reitzmmo.Main
 api-version: 1.14
-softdepend: [PlaceholderAPI] # This is used, if your plugin works without PlaceholderAPI.
+softdepend: [PlaceholderAPI]
 permissions:
   reitzmmo.use:
     description: Allows use of ReitzMMO commands.

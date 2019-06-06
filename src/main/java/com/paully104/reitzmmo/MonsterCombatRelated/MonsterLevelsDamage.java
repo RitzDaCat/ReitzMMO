@@ -69,6 +69,9 @@ public class MonsterLevelsDamage implements Listener {
     //debug section
     private final boolean debugEnabled = API.debugConfig.getBoolean("MonsterAttackingPlayer");
 
+    //Scaling section
+    private final int defenseScale = API.playerConfig.getInt("DefenseScale");
+
 
 
     @EventHandler
@@ -78,9 +81,9 @@ public class MonsterLevelsDamage implements Listener {
         if(worldEnabled != -1) {
             Entity defender = e.getEntity();//player
             Entity attacker = e.getDamager();//monster
-            int player_defense;
             int monster_attack;
             int damage_done;
+            int player_defense;
             Arrow arrow;
             String monster_level_from_name;
 
@@ -90,6 +93,7 @@ public class MonsterLevelsDamage implements Listener {
                 String defenderUUID = defender.getUniqueId().toString();
                 PlayerData pd = API.Players.get(defenderUUID);
                 Player defendingPlayer = (Player) defender;
+                player_defense = pd.getData().getInt("Level") * defenseScale;
                 int helmet;
                 int helmetEnchant;
                 int chestplate;
@@ -102,7 +106,6 @@ public class MonsterLevelsDamage implements Listener {
                 switch (attackerType) {
                     case PLAYER:
                         //PVP stuff
-                        player_defense = pd.getData().getInt("Level");
                         String attackerUUID = attacker.getUniqueId().toString();
                         PlayerData personAttacking = API.Players.get(attackerUUID);
                         int personAttacking_Attack = personAttacking.getData().getInt("Attack");
@@ -190,7 +193,7 @@ public class MonsterLevelsDamage implements Listener {
 
 
                     case ZOMBIE:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * zombieBaseAttack;
                         try {
@@ -275,7 +278,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case WOLF:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * wolfBaseAttack;
                         try {
@@ -357,7 +360,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case SQUID:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * squidBaseAttack;
                         try {
@@ -439,7 +442,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case SNOWMAN:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * snowmanBaseAttack;
                         try {
@@ -521,7 +524,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case SLIME:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * slimeBaseAttack;
                         try {
@@ -603,7 +606,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case SILVERFISH:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * silverfishBaseAttack;
                         try {
@@ -685,7 +688,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case SHEEP:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * sheepBaseAttack;
                         try {
@@ -767,7 +770,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case RABBIT:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * rabbitBaseAttack;
                         try {
@@ -849,7 +852,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case PIG_ZOMBIE:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * pigzombieBaseAttack;
                         try {
@@ -931,7 +934,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case PIG:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * pigBaseAttack;
                         try {
@@ -1013,7 +1016,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case MUSHROOM_COW:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * mushroomcowBaseAttack;
                         try {
@@ -1095,7 +1098,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case MAGMA_CUBE:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * magmacubeBaseAttack;
                         try {
@@ -1177,7 +1180,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case GUARDIAN:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * guardianBaseAttack;
                         try {
@@ -1259,7 +1262,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case GIANT:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * giantBaseAttack;
                         try {
@@ -1341,7 +1344,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case GHAST:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * ghastBaseAttack;
                         try {
@@ -1423,7 +1426,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case ENDERMITE:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * endermiteBaseAttack;
                         try {
@@ -1505,7 +1508,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case ENDERMAN:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * endermanBaseAttack;
                         try {
@@ -1587,7 +1590,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case ENDER_DRAGON:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * enderdragonBaseAttack;
                         try {
@@ -1669,7 +1672,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case CREEPER:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * creeperBaseAttack;
                         try {
@@ -1751,7 +1754,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case COW:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * cowBaseAttack;
                         try {
@@ -1833,7 +1836,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case CHICKEN:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * chickenBaseAttack;
                         try {
@@ -1915,7 +1918,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case CAVE_SPIDER:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * cavespiderBaseAttack;
                         try {
@@ -1997,7 +2000,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case SPIDER:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * spiderBaseAttack;
                         try {
@@ -2079,7 +2082,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case WITHER_SKELETON:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * witherSkeletonBaseAttack;
                         try {
@@ -2161,7 +2164,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case BLAZE:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * blazeBaseAttack;
                         try {
@@ -2243,7 +2246,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case PILLAGER:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * pillagerBaseAttack;
                         try {
@@ -2325,7 +2328,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case ILLUSIONER:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * illusionerBaseAttack;
                         try {
@@ -2407,7 +2410,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case EVOKER:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * evokerBaseAttack;
                         try {
@@ -2456,7 +2459,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case BAT:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * batBaseAttack;
                         try {
@@ -2538,7 +2541,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case RAVAGER:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * ravagerBaseAttack;
                         try {
@@ -2620,7 +2623,7 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         break;
                     case DROWNED:
-                        player_defense = pd.getData().getInt("Level");
+                        
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * drownedBaseAttack;
                         try {
@@ -2704,7 +2707,7 @@ public class MonsterLevelsDamage implements Listener {
                     case ARROW:
                         arrow = (Arrow) attacker;
                         if (arrow.getShooter() instanceof Skeleton) {
-                            player_defense = pd.getData().getInt("Level");
+                            
                             monster_level_from_name = ((Skeleton) arrow.getShooter()).getCustomName().replaceAll("\\D+", "");
                             monster_attack = Integer.parseInt(monster_level_from_name) * skeletonBaseAttack;
                             try {
@@ -2792,7 +2795,7 @@ public class MonsterLevelsDamage implements Listener {
                     case SPLASH_POTION:
                         ThrownPotion potion = (ThrownPotion) attacker;
                         if (potion.getShooter() instanceof Witch) {
-                            player_defense = pd.getData().getInt("Level");
+                            
                             monster_level_from_name = ((Witch) potion.getShooter()).getCustomName().replaceAll("\\D+", "");
                             monster_attack = Integer.parseInt(monster_level_from_name) * witchBaseAttack;
                             try {
@@ -2877,7 +2880,7 @@ public class MonsterLevelsDamage implements Listener {
                     case SHULKER_BULLET:
                         arrow = (Arrow) attacker;
                         if (arrow.getShooter() instanceof Shulker) {
-                            player_defense = pd.getData().getInt("Level");
+                            
                             monster_level_from_name = ((Witch) arrow.getShooter()).getCustomName().replaceAll("\\D+", "");
                             monster_attack = Integer.parseInt(monster_level_from_name) * shulkerBaseAttack;
                             try {

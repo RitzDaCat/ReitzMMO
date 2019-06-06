@@ -19,6 +19,7 @@ public class PlayerConfig {
         configuration.addDefault("CombatEXP_MULTIPLIER", 2);
         configuration.addDefault("HealthScale",2);
         configuration.addDefault("AttackScale",2);
+        configuration.addDefault("DefenseScale",2);
 
         configuration.addDefault("MinimumDamage",null);
         configuration.addDefault("MinimumDamage.Arrow",2);
