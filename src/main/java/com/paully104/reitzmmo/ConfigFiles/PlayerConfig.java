@@ -15,7 +15,7 @@ public class PlayerConfig {
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         configuration.options().header("This config is used to set all monster health related configurations");
 
-        configuration.addDefault("CombatEXP", 50);
+        configuration.addDefault("CombatEXP", 25);
         configuration.addDefault("CombatEXP_MULTIPLIER", 2);
         configuration.addDefault("HealthScale",2);
         configuration.addDefault("AttackScale",2);

@@ -16,7 +16,7 @@ public class MonsterConfig {
         configuration.options().header("This config is used to set all monster related configurations");
 
         configuration.addDefault("General", null);
-        configuration.addDefault("General.blocks-per-mob-level", 100);
+        configuration.addDefault("General.blocks-per-mob-level", 150);
         configuration.addDefault("General.nameplates-enabled", true);
         configuration.addDefault("General.apply-on-spawner-spawns", true);
 
@@ -225,10 +225,10 @@ public class MonsterConfig {
         configuration.addDefault("Shulker.nameplates_enabled", true);
 
         configuration.addDefault("Pillager", null);
-        configuration.addDefault("Pillager.base_hp", 5);
-        configuration.addDefault("Pillager.base_attack", 4);
+        configuration.addDefault("Pillager.base_hp", 4);
+        configuration.addDefault("Pillager.base_attack", 3);
         configuration.addDefault("Pillager.speed", 1);
-        configuration.addDefault("Pillager.min_level", 8);
+        configuration.addDefault("Pillager.min_level", 5);
         configuration.addDefault("Pillager.nameplates_enabled", true);
 
         configuration.addDefault("Illusioner", null);
@@ -302,8 +302,8 @@ public class MonsterConfig {
         configuration.addDefault("Llama.nameplates_enabled", true);
 
         configuration.addDefault("Salmon", null);
-        configuration.addDefault("Salmon.base_hP", 2);
-        configuration.addDefault("Salmon.base_attack", 3);
+        configuration.addDefault("Salmon.base_hp", 2);
+        configuration.addDefault("Salmon.base_attack", 1);
         configuration.addDefault("Salmon.speed", 1);
         configuration.addDefault("Salmon.min_level", 1);
         configuration.addDefault("Salmon.nameplates_enabled", true);
