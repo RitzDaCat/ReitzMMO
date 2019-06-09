@@ -3,7 +3,6 @@ package com.paully104.reitzmmo.Party_System;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class EntityRegainHealthEvent implements Listener {
 
@@ -18,16 +17,8 @@ public class EntityRegainHealthEvent implements Listener {
             {
                 scoreboard.Scoreboard_PartySetup(p);
             }
-            else
-            {
-
-            }
             if (Party_API.inParty.containsKey(p.getName())) {
                 scoreboard.Scoreboard_PartySetup(p);
-            }
-            else
-            {
-
             }
 
         }

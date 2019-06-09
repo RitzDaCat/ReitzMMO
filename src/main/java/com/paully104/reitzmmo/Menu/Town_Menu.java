@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 /**
@@ -62,7 +63,7 @@ public class Town_Menu implements Listener {
         {
             if(null != clicked) {
                 if (clicked.hasItemMeta()) {
-                    if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Starting Fort")) { // The item that the player clicked it dirt
+                    if (Objects.requireNonNull(clicked.getItemMeta()).getDisplayName().equalsIgnoreCase("Starting Fort")) { // The item that the player clicked it dirt
                         event.setCancelled(true); // Make it so the dirt is back in its original spot
                         player.closeInventory(); // Closes there inventory
                         player.sendMessage(ChatColor.YELLOW + "Teleporting in 5 seconds");
@@ -115,7 +116,7 @@ public class Town_Menu implements Listener {
     private static void createDisplay(Material material, int Slot, String name, String lore) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(name);
+        Objects.requireNonNull(meta).setDisplayName(name);
         ArrayList<String> Lore = new ArrayList<>();
         Lore.add(lore);
         meta.setLore(Lore);

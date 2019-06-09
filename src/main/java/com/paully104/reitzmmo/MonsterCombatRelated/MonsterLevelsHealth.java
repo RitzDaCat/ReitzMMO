@@ -11,9 +11,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -221,7 +221,7 @@ public class MonsterLevelsHealth implements Listener {
         float deltaY= (float) (worldSpawn.getY() - monsterSpawn.getY());
         float deltaZ= (float) (worldSpawn.getZ() - monsterSpawn.getZ());
         float distance = (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
-        String worldName = monsterSpawn.getWorld().getName();
+        String worldName = Objects.requireNonNull(monsterSpawn.getWorld()).getName();
         int distance2 = (Math.round(distance) / blocksPerMobLevel);
         //change this later to the config option
         int baseWorldDamage = API.worldConfig.getInt(worldName);
@@ -244,12 +244,11 @@ public class MonsterLevelsHealth implements Listener {
         int hp; //mobs hp
 
 
-        int worldEnabled = API.worldConfig.getInt(e.getLocation().getWorld().getName());
+        int worldEnabled = API.worldConfig.getInt(Objects.requireNonNull(e.getLocation().getWorld()).getName());
         if(worldEnabled != -1)
         {
             Location worldSpawn = e.getLocation().getWorld().getSpawnLocation();
             Location monsterSpawn = e.getLocation();
-            if (null == monsterSpawn) return;//if there's a problem
             int distance = calculateDistanceFromSpawn(worldSpawn, monsterSpawn);
 
             //The world is set to -1 means don't apply to mobs
@@ -326,7 +325,7 @@ public class MonsterLevelsHealth implements Listener {
                     if(specialMobSilentEnabled){
                         e.getEntity().setSilent(true);
                     }
-                    e.getEntity().getEquipment().setHelmet(new ItemStack(Material.BUCKET, 1));
+                    Objects.requireNonNull(e.getEntity().getEquipment()).setHelmet(new ItemStack(Material.BUCKET, 1));
             }
 
             //updated on 5/7 for bad boys
@@ -344,13 +343,13 @@ public class MonsterLevelsHealth implements Listener {
                             hp = zombieMinLevel * zombieBaseHP;
                             distance = zombieMinLevel;
                         }
-                        e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                        Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                         e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                        e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * zombieSpeed);
+                        Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * zombieSpeed);
                         //Updated on 4/26/2017 to increase follow_range to 2.0 from 1.25
                         //updated on 4/26/2017 to increase the chance of getting tons of zombies :)
 
@@ -368,14 +367,14 @@ public class MonsterLevelsHealth implements Listener {
                             hp = zombieMinLevel * zombieBaseHP;
                             distance = zombieMinLevel;
                         }
-                        e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                        Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                                 e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
                         //Update onm 4/26/2017 To slow
-                        e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * zombieSpeed);
+                        Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * zombieSpeed);
                         //Updated on 4/26/2017 to increase follow_range to 2.0 from 1.25
                         //updated on 4/26/2017 to increase the chance of getting tons of zombies :)
 
@@ -394,13 +393,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = wolfMinLevel * wolfBaseHP;
                         distance = wolfMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * wolfSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * wolfSpeed);
                     if(monsterNameplatesEnabled && wolfNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -414,13 +413,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = villagerMinLevel * villagerBaseHP;
                         distance = villagerMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * villagerSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * villagerSpeed);
                     if(monsterNameplatesEnabled && villagerNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -433,13 +432,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = squidMinLevel * squidBaseHP;
                         distance = squidMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * squidSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * squidSpeed);
                     if(monsterNameplatesEnabled && squidNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -452,13 +451,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = spiderMinLevel * spiderBaseHP;
                         distance = spiderMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * spiderSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * spiderSpeed);
                     if(monsterNameplatesEnabled && spiderNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -471,13 +470,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = snowmanMinLevel * snowmanBaseHP;
                         distance = snowmanMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
-                        };
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * snowmanSpeed);
+                        }
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * snowmanSpeed);
                     if(monsterNameplatesEnabled && snowmanNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -490,13 +489,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = slimeMinLevel * slimeBaseHP;
                         distance = slimeMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * slimeSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * slimeSpeed);
                     if(monsterNameplatesEnabled && slimeNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -509,14 +508,14 @@ public class MonsterLevelsHealth implements Listener {
                         hp = skeletonMinLevel * skeletonBaseHP;
                         distance = skeletonMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
                     //slower Skellies because they suck
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * skeletonSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * skeletonSpeed);
                     if(monsterNameplatesEnabled && skeletonNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -530,13 +529,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = silverfishMinLevel * silverfishBaseHP;
                         distance = silverfishMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * silverfishSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * silverfishSpeed);
                     if(monsterNameplatesEnabled && silverfishNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -549,13 +548,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = sheepMinLevel * sheepBaseHP;
                         distance = sheepMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * sheepSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * sheepSpeed);
                     if(monsterNameplatesEnabled && sheepNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -568,13 +567,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = rabbitMinLevel * rabbitBaseHP;
                         distance = rabbitMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * rabbitSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * rabbitSpeed);
                     if(monsterNameplatesEnabled && rabbitNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -587,14 +586,14 @@ public class MonsterLevelsHealth implements Listener {
                         hp = pigzombieMinLevel * pigzombieBaseHP;
                         distance = pigzombieMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
                     //superfast
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * pigzombieSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * pigzombieSpeed);
                     if(monsterNameplatesEnabled && pigzombieNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -607,13 +606,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = pigMinLevel * pigBaseHP;
                         distance = pigMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * pigSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * pigSpeed);
                     if(monsterNameplatesEnabled && pigNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -626,13 +625,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = mushroomcowMinLevel * mushroomcowBaseHP;
                         distance = mushroomcowMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * mushroomcowSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * mushroomcowSpeed);
                     if(monsterNameplatesEnabled && mushroomcowNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -645,13 +644,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = magmacubeMinLevel * magmacubeBaseHP;
                         distance = magmacubeMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * magmacubeSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * magmacubeSpeed);
                     if(monsterNameplatesEnabled && magmacubeNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -664,13 +663,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = guardianMinLevel * guardianBaseHP;
                         distance = guardianMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * guardianSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * guardianSpeed);
                     if(monsterNameplatesEnabled && guardianNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -683,13 +682,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = guardianMinLevel * guardianBaseHP;
                         distance = guardianMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * guardianSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * guardianSpeed);
                     if(monsterNameplatesEnabled && guardianNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -702,13 +701,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = giantMinLevel * giantBaseHP;
                         distance = guardianMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * giantSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * giantSpeed);
                     if(monsterNameplatesEnabled && giantNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -721,13 +720,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = ghastMinLevel * ghastBaseHP;
                         distance = ghastMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * ghastSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * ghastSpeed);
                     //Slow them down
                     if(monsterNameplatesEnabled && ghastNameplate)
                     {
@@ -741,13 +740,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = endermiteMinLevel * endermiteBaseHP;
                         distance = endermiteMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * endermiteSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * endermiteSpeed);
                     if(monsterNameplatesEnabled && endermiteNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -760,14 +759,14 @@ public class MonsterLevelsHealth implements Listener {
                         hp = endermanMinLevel * endermanBaseHP;
                         distance = endermanMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                     e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                         if(e.getEntity().getCustomName() != null)
                         {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * endermanSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * endermanSpeed);
                     if(monsterNameplatesEnabled && endermanNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -780,13 +779,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = enderdragonMinLevel * enderdragonBaseHP;
                         distance = enderdragonMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                         if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * enderdragonSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * enderdragonSpeed);
                     if(monsterNameplatesEnabled && enderdragonNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -799,13 +798,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = creeperMinLevel * creeperBaseHP;
                         distance = creeperMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * creeperSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * creeperSpeed);
                     //superFastCreepers?
 
                     //this is paul being reasonable
@@ -821,13 +820,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = cowMinLevel * cowBaseHP;
                         distance = cowMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * cowSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * cowSpeed);
                     if(monsterNameplatesEnabled && cowNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -840,13 +839,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = chickenMinLevel * chickenBaseHP;
                         distance = chickenMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * chickenSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * chickenSpeed);
                     if(monsterNameplatesEnabled && chickenNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -859,13 +858,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = cavespiderMinLevel * cavespiderBaseHP;
                         distance = cavespiderMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * cavespiderSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * cavespiderSpeed);
                     if(monsterNameplatesEnabled && cavespiderNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -878,13 +877,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = blazeMinLevel * blazeBaseHP;
                         distance = blazeMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * blazeSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * blazeSpeed);
                     if(monsterNameplatesEnabled && blazeNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -897,13 +896,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = witchMinLevel * witchBaseHP;
                         distance = witchMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * witchSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * witchSpeed);
                     if(monsterNameplatesEnabled && witchNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -916,13 +915,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = witherSkeletonMinLevel * witherSkeletonBaseHP;
                         distance = witherSkeletonMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * witherSkeletonSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * witherSkeletonSpeed);
                     if(monsterNameplatesEnabled && witherSkeletonNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -935,13 +934,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = shulkerMinLevel * shulkerBaseHP;
                         distance = shulkerMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * shulkerSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * shulkerSpeed);
                     if(monsterNameplatesEnabled && shulkerNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -954,13 +953,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = pillagerMinLevel * pillagerBaseHP;
                         distance = pillagerMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * pillagerSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * pillagerSpeed);
                     if(monsterNameplatesEnabled && pillagerNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -973,13 +972,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = illusionerMinLevel * illusionerBaseHP;
                         distance = illusionerMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * illusionerSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * illusionerSpeed);
                     if(monsterNameplatesEnabled && illusionerNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -992,13 +991,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = evokerMinLevel * evokerBaseHP;
                         distance = evokerMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * evokerSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * evokerSpeed);
                     if(monsterNameplatesEnabled && evokerNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -1011,13 +1010,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = ravagerMinLevel * ravagerBaseHP;
                         distance = ravagerMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * ravagerSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * ravagerSpeed);
                     if(monsterNameplatesEnabled && ravagerNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -1031,13 +1030,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = batMinLevel * batBaseHP;
                         distance = batMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                                             e.getEntity().setHealth(hp);
                         levelColor = ChatColor.YELLOW + "[" + distance + "]";
                                                 if(e.getEntity().getCustomName() == null) {
                             e.getEntity().setCustomName(mobName + levelColor);
                         }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * batSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * batSpeed);
                     if(monsterNameplatesEnabled && batNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -1050,13 +1049,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = drownedMinLevel * drownedBaseHP;
                         distance = drownedMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                     e.getEntity().setHealth(hp);
                     levelColor = ChatColor.YELLOW + "[" + distance + "]";
                     if(e.getEntity().getCustomName() == null) {
                         e.getEntity().setCustomName(mobName + levelColor);
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * drownedSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * drownedSpeed);
                     if(monsterNameplatesEnabled && drownedNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -1069,13 +1068,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = zombievillagerMinLevel * zombievillagerBaseHP;
                         distance = zombievillagerMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                     e.getEntity().setHealth(hp);
                     levelColor = ChatColor.YELLOW + "[" + distance + "]";
                     if(e.getEntity().getCustomName() == null) {
                         e.getEntity().setCustomName(mobName + levelColor);
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * zombievillagerSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * zombievillagerSpeed);
                     if(monsterNameplatesEnabled && zombievillagerNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -1088,13 +1087,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = polarBearMinLevel * polarBearBaseHP;
                         distance = polarBearMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                     e.getEntity().setHealth(hp);
                     levelColor = ChatColor.YELLOW + "[" + distance + "]";
                     if(e.getEntity().getCustomName() == null) {
                         e.getEntity().setCustomName(mobName + levelColor);
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * polarBearSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * polarBearSpeed);
                     if(monsterNameplatesEnabled && polarBearNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -1107,13 +1106,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = wanderingTraderMinLevel * wanderingTraderBaseHP;
                         distance = wanderingTraderMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                     e.getEntity().setHealth(hp);
                     levelColor = ChatColor.YELLOW + "[" + distance + "]";
                     if(e.getEntity().getCustomName() == null) {
                         e.getEntity().setCustomName(mobName + levelColor);
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * wanderingTraderSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * wanderingTraderSpeed);
                     if(monsterNameplatesEnabled && wanderingTraderNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -1126,13 +1125,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = donkeyMinLevel * donkeyBaseHP;
                         distance = donkeyMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                     e.getEntity().setHealth(hp);
                     levelColor = ChatColor.YELLOW + "[" + distance + "]";
                     if(e.getEntity().getCustomName() == null) {
                         e.getEntity().setCustomName(mobName + levelColor);
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * donkeySpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * donkeySpeed);
                     if(monsterNameplatesEnabled && donkeyNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -1145,13 +1144,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = llamaMinLevel * llamaBaseHP;
                         distance = llamaMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                     e.getEntity().setHealth(hp);
                     levelColor = ChatColor.YELLOW + "[" + distance + "]";
                     if(e.getEntity().getCustomName() == null) {
                         e.getEntity().setCustomName(mobName + levelColor);
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * llamaSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * llamaSpeed);
                     if(monsterNameplatesEnabled && llamaNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
@@ -1164,13 +1163,13 @@ public class MonsterLevelsHealth implements Listener {
                         hp = salmonMinLevel * salmonBaseHP;
                         distance = salmonMinLevel;
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(hp);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
                     e.getEntity().setHealth(hp);
                     levelColor = ChatColor.YELLOW + "[" + distance + "]";
                     if(e.getEntity().getCustomName() == null) {
                         e.getEntity().setCustomName(mobName + levelColor);
                     }
-                    e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getValue() * salmonSpeed);
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * salmonSpeed);
                     if(monsterNameplatesEnabled && salmonNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);

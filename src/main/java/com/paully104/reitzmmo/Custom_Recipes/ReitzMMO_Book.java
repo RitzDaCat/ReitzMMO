@@ -5,18 +5,12 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
-import net.minecraft.server.v1_14_R1.ItemWrittenBook;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.BookMeta;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import java.awt.print.Book;
-import java.util.Collections;
+import java.util.Objects;
 
 public class ReitzMMO_Book {
 
@@ -239,7 +233,7 @@ public class ReitzMMO_Book {
                 .create();
 
         //add the page to the meta
-        bookMeta.spigot().addPage(page1);
+        Objects.requireNonNull(bookMeta).spigot().addPage(page1);
         bookMeta.spigot().addPage(page2);
 
 //set the title and author of this book
@@ -258,7 +252,7 @@ public class ReitzMMO_Book {
                 if (b.hasItemMeta()){
                     if (b.getItemMeta() instanceof  BookMeta) {
                         BookMeta meta = (BookMeta)b.getItemMeta();
-                        if(meta.getAuthor().equals("Paully104") && meta.getTitle().equals("ReitzMMO")) {
+                        if(Objects.requireNonNull(meta.getAuthor()).equals("Paully104") && Objects.requireNonNull(meta.getTitle()).equals("ReitzMMO")) {
                             p.getInventory().remove(b);
                         }
                     }
@@ -266,7 +260,7 @@ public class ReitzMMO_Book {
                 }
 
             }
-            catch(NullPointerException e)
+            catch(NullPointerException ignored)
             {
 
             }

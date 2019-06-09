@@ -4,7 +4,6 @@ import com.paully104.reitzmmo.ConfigFiles.API;
 import com.paully104.reitzmmo.Hologram.Hologram;
 import com.paully104.reitzmmo.Party_System.Party;
 import com.paully104.reitzmmo.Party_System.Party_API;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -13,20 +12,17 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.block.data.type.Fire;
 import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Paul on 3/22/2016.
@@ -39,21 +35,23 @@ public class PlayerDefeatsMonster implements Listener {
     private final int combatEXPMultipler = API.playerConfig.getInt("CombatEXP_MULTIPLIER");
     private final boolean expHologramEnabled = API.chatConfig.getBoolean("expHologramsEnabled");
     private final boolean expChatEnabled = API.chatConfig.getBoolean("expChatEnabled");
-    private final boolean mobsDropAttackUpItems = API.lootConfig.getBoolean("MOBSDROPATTACKUP");
+    private final boolean mobsDropAttackUpItems = API.lootConfig.getBoolean("General.MobsDropAttackUpItems");
+    private final int mobsDropAttackUpItemsChance = API.lootConfig.getInt("General.MobsDropAttackUpItems.PercentChance");
+
     @EventHandler
     public void MonsterDeathCausedByPlayer(EntityDeathEvent e) {
-        int worldEnabled = API.worldConfig.getInt(e.getEntity().getLocation().getWorld().getName());
+        int worldEnabled = API.worldConfig.getInt(Objects.requireNonNull(e.getEntity().getLocation().getWorld()).getName());
         if (worldEnabled != -1)
         {
 
 
-            if (e.getEntity().getKiller() instanceof Player && !(e.getEntity() instanceof  Player))
+            if (e.getEntity().getKiller() != null && !(e.getEntity() instanceof  Player))
             {
                 //Get Entities
                 Entity dead = e.getEntity();
-                Entity player = e.getEntity().getKiller();
-                String playerName = player.getName();
-                String monster_level_from_name = dead.getCustomName().replaceAll("\\D+", "");
+                Player player = e.getEntity().getKiller();
+                String playerName = Objects.requireNonNull(player).getName();
+                String monster_level_from_name = Objects.requireNonNull(dead.getCustomName()).replaceAll("\\D+", "");
                 int monster_level = Integer.parseInt(monster_level_from_name);
                 String lootConfigItem = API.lootConfig.getString(monster_level_from_name+"."+e.getEntity().getType()+".item");
                 int lootConfigChance = API.lootConfig.getInt(monster_level_from_name+"."+e.getEntity().getType()+".chance");
@@ -64,7 +62,7 @@ public class PlayerDefeatsMonster implements Listener {
                 if (randomLootChance <= lootConfigChance) {
 
 
-                    e.getDrops().add(new ItemStack(Material.getMaterial(lootConfigItem)));
+                    e.getDrops().add(new ItemStack(Objects.requireNonNull(Material.getMaterial(Objects.requireNonNull(lootConfigItem)))));
 
                 }
 
@@ -74,57 +72,46 @@ public class PlayerDefeatsMonster implements Listener {
 
                 //lets handle mob custom drops here
                 //dont iteriate while the thread is modifying
-                if(e.getEntity() instanceof Monster && mobsDropAttackUpItems == true) {
+                if(e.getEntity() instanceof Monster && mobsDropAttackUpItems) {
                     try {
                         for (ItemStack eachItem : e.getDrops())
                         {
-
-                            int itemDamage = 0;
-                            int itemDefense = 0;
-                            //check to see if it already has an attack modifier
-                            if (!(eachItem.getItemMeta().hasAttributeModifiers()))
+                            int randomNum = ThreadLocalRandom.current().nextInt(0, 100 + 1);
+                            if(mobsDropAttackUpItemsChance >= randomNum)
                             {
-                                //does not have a modifier so we can add
+                                //chance to make the item have attack up
+                                int itemDamage = 0;
+                                int itemDefense = 0;
+                                //check to see if it already has an attack modifier
+                                if (!(Objects.requireNonNull(eachItem.getItemMeta()).hasAttributeModifiers())) {
+                                    //does not have a modifier so we can add
 
 
+                                    net.minecraft.server.v1_14_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(eachItem);
+                                    NBTTagCompound compound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
+                                    NBTTagList modifiers = new NBTTagList();
+                                    NBTTagCompound damage = new NBTTagCompound();
+                                    damage.set("AttributeName", new NBTTagString("generic.attackDamage"));
+                                    damage.set("Name", new NBTTagString("generic.attackDamage"));
+                                    damage.set("Amount", new NBTTagInt(monster_level + itemDamage));
+                                    damage.set("Operation", new NBTTagInt(0));
+                                    damage.set("UUIDLeast", new NBTTagInt(894654));
+                                    damage.set("UUIDMost", new NBTTagInt(2872));
+                                    damage.set("Slot", new NBTTagString("mainhand"));
+
+                                    modifiers.add(damage);
+                                    Objects.requireNonNull(compound).set("AttributeModifiers", modifiers);
+                                    nmsStack.setTag(compound);
+                                    ItemStack item = CraftItemStack.asBukkitCopy(nmsStack);
+                                    if (debugEnabled) {
+                                        System.out.println("Item drop");
+                                    }
+                                    Objects.requireNonNull(e.getEntity().getLocation().getWorld()).dropItemNaturally(e.getEntity().getLocation(), item);
 
 
-                            net.minecraft.server.v1_14_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(eachItem);
-                            NBTTagCompound compound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
-                            NBTTagList modifiers = new NBTTagList();
-                            NBTTagCompound damage = new NBTTagCompound();
-                            damage.set("AttributeName", new NBTTagString("generic.attackDamage"));
-                            damage.set("Name", new NBTTagString("generic.attackDamage"));
-
-                            //need the mobs level
-
-                            //This is where we can effect the % chance of the item dropped
-                            Random random = new Random();
-                            //random.nextInt(max - min + 1) + min, Generally speaking, if you need to generate numbers from min to max (including both), you write
-                            int randomChance = random.nextInt(10 - 1 + 1) + 1; //chance between 1 and 10
-                            if (randomChance >= 9) {
-
-                                monster_level = monster_level + 1;
+                                }
+                                e.getDrops().clear();
                             }
-
-                            damage.set("Amount", new NBTTagInt(monster_level + itemDamage));
-                            damage.set("Operation", new NBTTagInt(0));
-                            damage.set("UUIDLeast", new NBTTagInt(894654));
-                            damage.set("UUIDMost", new NBTTagInt(2872));
-                            damage.set("Slot", new NBTTagString("mainhand"));
-
-                            modifiers.add(damage);
-                            compound.set("AttributeModifiers", modifiers);
-                            nmsStack.setTag(compound);
-                            ItemStack item = CraftItemStack.asBukkitCopy(nmsStack);
-                            if (debugEnabled == true) {
-                                System.out.println("Item drop");
-                            }
-                            e.getEntity().getLocation().getWorld().dropItemNaturally(e.getEntity().getLocation(), item);
-
-
-                        }
-                        e.getDrops().clear();
 
 
                     }
@@ -158,9 +145,9 @@ public class PlayerDefeatsMonster implements Listener {
 
                         }//player is the killer make sure party member is within 100 blocks
                         if (debug) {
-                            System.out.println("Distance #1 " + dead.getLocation().distance(partyMember.getLocation()));
+                            System.out.println("Distance #1 " + dead.getLocation().distance(Objects.requireNonNull(partyMember).getLocation()));
                         }
-                        if (dead.getLocation().distance(partyMember.getLocation()) <= PartyEXPMaxDistance) {
+                        if (dead.getLocation().distance(Objects.requireNonNull(partyMember).getLocation()) <= PartyEXPMaxDistance) {
                             System.out.println(people);
                             Integer currentexp = API.Players.get(partyMember.getUniqueId().toString()).getData().getInt("Combat-EXP");
                             System.out.println(currentexp);
@@ -184,11 +171,11 @@ public class PlayerDefeatsMonster implements Listener {
                     //This should be combatEXP Multiple
                     int expGained = monster_level * combatEXPMultipler;
                     if(expHologramEnabled) {
-                        hologram.setHologram((Player) player, player.getWorld(), monster, expGained);
+                        hologram.setHologram(player, player.getWorld(), monster, expGained);
                     }
                     if(expChatEnabled)
                     {
-                        Player p = (Player) player;
+                        Player p = player;
                         TextComponent component = new TextComponent();
 
                         int level = API.Players.get(p.getUniqueId().toString()).getData().getInt("Level");
@@ -212,7 +199,6 @@ public class PlayerDefeatsMonster implements Listener {
 
                     Party party = Party_API.Party_Leaders.get(leader);
                     List<String> members = party.get_MembersList();
-                    System.out.println(party.get_MembersList());
 
                     for (String people : members) {
 
@@ -227,10 +213,10 @@ public class PlayerDefeatsMonster implements Listener {
                         }
                         if (debug)
                         {
-                            System.out.println("Distance #1 " + dead.getLocation().distance(partyMember.getLocation()));
+                            System.out.println("Distance #1 " + dead.getLocation().distance(Objects.requireNonNull(partyMember).getLocation()));
                         }
                         //player is the killer make sure party member is within 100 blocks
-                        if (dead.getLocation().distance(partyMember.getLocation()) <= PartyEXPMaxDistance)
+                        if (dead.getLocation().distance(Objects.requireNonNull(partyMember).getLocation()) <= PartyEXPMaxDistance)
                         {
                             System.out.println(people);
                             Integer currentexp = API.Players.get(partyMember.getUniqueId().toString()).getData().getInt("Combat-EXP");
@@ -253,11 +239,11 @@ public class PlayerDefeatsMonster implements Listener {
                     Location monster = dead.getLocation().add(0.0, 0.0, 0.0);
                     int expGained = monster_level * combatEXPMultipler;
                     if(expHologramEnabled) {
-                        hologram.setHologram((Player) player, player.getWorld(), monster, expGained);
+                        hologram.setHologram(player, player.getWorld(), monster, expGained);
                     }
                     if(expChatEnabled)
                     {
-                        Player p = (Player) player;
+                        Player p = player;
                         TextComponent component = new TextComponent();
 
                         int level = API.Players.get(p.getUniqueId().toString()).getData().getInt("Level");
@@ -275,7 +261,7 @@ public class PlayerDefeatsMonster implements Listener {
                 else
                     {
                         monster_level_from_name = "1";
-                        Integer currentexp = API.Players.get(player.getUniqueId().toString()).getData().getInt("Combat-EXP");
+                        int currentexp = API.Players.get(player.getUniqueId().toString()).getData().getInt("Combat-EXP");
                         try
                         {
                             monster_level_from_name = dead.getCustomName().replaceAll("\\D+", "");
@@ -288,16 +274,16 @@ public class PlayerDefeatsMonster implements Listener {
                         int new_exp = currentexp + (monster_level * combatEXPMultipler);
                         API.Players.get(player.getUniqueId().toString()).getData().set("Combat-EXP", new_exp);
                         CheckPlayerCombatLevelUp test = new CheckPlayerCombatLevelUp();
-                        test.CheckLevelUp((Player) player);
+                        test.CheckLevelUp(player);
                         Hologram hologram = new Hologram();
                         Location monster = dead.getLocation().add(0.0, 0.0, 0.0);
                         int expGained = combatEXPMultipler * monster_level;
                         if(expHologramEnabled) {
-                            hologram.setHologram((Player) player, player.getWorld(), monster, expGained);
+                            hologram.setHologram(player, player.getWorld(), monster, expGained);
                         }
                         if(expChatEnabled)
                         {
-                            Player p = (Player) player;
+                            Player p = player;
                             TextComponent component = new TextComponent();
 
                             int level = API.Players.get(p.getUniqueId().toString()).getData().getInt("Level");
@@ -318,7 +304,7 @@ public class PlayerDefeatsMonster implements Listener {
                         }
                         if (debug)
                         {
-                            System.out.println("Headheight location: " + ((Player) player).getEyeLocation());
+                            System.out.println("Headheight location: " + player.getEyeLocation());
                         }
 
                     }

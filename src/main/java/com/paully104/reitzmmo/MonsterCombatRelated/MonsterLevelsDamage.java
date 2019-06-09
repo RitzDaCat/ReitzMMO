@@ -122,7 +122,7 @@ public class MonsterLevelsDamage implements Listener {
 
                                 } catch (IllegalArgumentException error) {
                                     weaponDamage = 0;
-                                    if (debugEnabled == true) {
+                                    if (debugEnabled) {
                                         System.out.println("weapon damaged set to 0");
 
                                     }
@@ -160,21 +160,20 @@ public class MonsterLevelsDamage implements Listener {
                             } else {
                                 //empty handed
 
-                                if (debugEnabled == true) {
-                                    System.out.print("empty hands");
+                                if (debugEnabled) {
+                                    System.err.print("empty hands");
                                 }
                             }
                         } catch (IllegalArgumentException error) {
                             //trying to get main hand fails for whatever reason
                             if (debugEnabled) {
-                                System.out.println(error);
+                                System.err.println(error);
                             }
 
                         }
 
                         damage_done = (personAttacking_Attack + weaponDamage) - player_defense;//if not in list
                         if (damage_done < 1) {
-                            damage_done = 1;
                             if (debugEnabled) {
                                 System.out.println("Cant do less then 1 damage!");
                             }
@@ -349,7 +348,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -431,7 +429,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -513,7 +510,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -595,7 +591,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -677,7 +672,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -759,7 +753,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -841,7 +834,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -923,7 +915,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -1005,7 +996,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -1087,7 +1077,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -1169,7 +1158,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -1251,7 +1239,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -1333,7 +1320,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -1415,7 +1401,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -1497,7 +1482,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -1579,7 +1563,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -1661,7 +1644,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -1743,7 +1725,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -1825,7 +1806,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -1907,7 +1887,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -1989,7 +1968,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -2071,7 +2049,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -2153,7 +2130,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -2235,7 +2211,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -2317,7 +2292,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -2399,7 +2373,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -2448,7 +2421,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -2530,7 +2502,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -2612,7 +2583,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -2694,7 +2664,6 @@ public class MonsterLevelsDamage implements Listener {
                         }
                         armorTotal = helmet + chestplate + leggings + boots;
                         damage_done = monster_attack - (player_defense + armorTotal);
-                        ;
                         if (damage_done < 1) {
                             damage_done = 1;
                         }
@@ -2778,7 +2747,6 @@ public class MonsterLevelsDamage implements Listener {
                             }
                             armorTotal = helmet + chestplate + leggings + boots;
                             damage_done = monster_attack - (player_defense + armorTotal);
-                            ;
                             if (damage_done < 1) {
                                 damage_done = 1;
                             }
@@ -2787,10 +2755,8 @@ public class MonsterLevelsDamage implements Listener {
                                 System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
                                 System.out.println("Armor Total: " + armorTotal);
                             }
-                        } else {
+                        }  //Not from skeleton archer
 
-                            //Not from skeleton archer
-                        }
                         break;
                     case SPLASH_POTION:
                         ThrownPotion potion = (ThrownPotion) attacker;
@@ -2866,7 +2832,6 @@ public class MonsterLevelsDamage implements Listener {
                             }
                             armorTotal = helmet + chestplate + leggings + boots;
                             damage_done = monster_attack - (player_defense + armorTotal);
-                            ;
                             if (damage_done < 1) {
                                 damage_done = 1;
                             }
@@ -2951,7 +2916,6 @@ public class MonsterLevelsDamage implements Listener {
                             }
                             armorTotal = helmet + chestplate + leggings + boots;
                             damage_done = monster_attack - (player_defense + armorTotal);
-                            ;
                             if (damage_done < 1) {
                                 damage_done = 1;
                             }
@@ -2971,16 +2935,8 @@ public class MonsterLevelsDamage implements Listener {
                     {
                         scoreboard.Scoreboard_PartySetup(p);
                     }
-                    else
-                    {
-
-                    }
                     if (Party_API.inParty.containsKey(p.getName())) {
                         scoreboard.Scoreboard_PartySetup(p);
-                    }
-                    else
-                    {
-
                     }
 
                 }

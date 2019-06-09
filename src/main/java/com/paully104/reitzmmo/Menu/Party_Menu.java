@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by Paul on 4/26/2017.
@@ -72,7 +73,7 @@ public class Party_Menu implements Listener{
             {
                 if(clicked.hasItemMeta())
                 {
-                    if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase("Create")) { // The item that the player clicked it dirt
+                    if (Objects.requireNonNull(clicked.getItemMeta()).getDisplayName().equalsIgnoreCase("Create")) { // The item that the player clicked it dirt
                         event.setCancelled(true); // Make it so the dirt is back in its original spot
                         player.closeInventory(); // Closes there inventory
                         player.performCommand("Rparty create");
@@ -128,7 +129,7 @@ public class Party_Menu implements Listener{
     private static void createDisplay(Material material, int Slot, String name, String lore) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(name);
+        Objects.requireNonNull(meta).setDisplayName(name);
         ArrayList<String> Lore = new ArrayList<>();
         Lore.add(lore);
         meta.setLore(Lore);

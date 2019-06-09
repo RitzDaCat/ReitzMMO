@@ -15,6 +15,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -26,13 +27,13 @@ public class ReitzRPGMain implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         Player pl = Bukkit.getPlayer(sender.getName());
-        int worldEnabled = API.worldConfig.getInt(pl.getLocation().getWorld().getName());
+        int worldEnabled = API.worldConfig.getInt(Objects.requireNonNull(Objects.requireNonNull(pl).getLocation().getWorld()).getName());
 
         if( (cmd.getName().equalsIgnoreCase("Reitz") || cmd.getName().equalsIgnoreCase("RRM") || cmd.getName().equalsIgnoreCase("ReitzMMO")) && worldEnabled != -1)
         {
 
             if ((cmd.getName().equalsIgnoreCase("Reitz") || cmd.getName().equalsIgnoreCase("RRM") || cmd.getName().equalsIgnoreCase("ReitzMMO")) && args.length == 0) {
-                Bukkit.getPlayer(sender.getName()).openInventory(Menu.GUI_MENU);
+                Objects.requireNonNull(Bukkit.getPlayer(sender.getName())).openInventory(Menu.GUI_MENU);
                 //The Idea is to make these obsolute with a nifty menu :)
                 //sender.sendMessage(ChatColor.GOLD + "~ReitzRPGMMO main  menu listing commands~");
                 //sender.sendMessage(ChatColor.GOLD + "1. /Reitz Stats");
@@ -44,18 +45,18 @@ public class ReitzRPGMain implements CommandExecutor {
             {
 
                 sender.sendMessage(ChatColor.GOLD + "|||Current Stats|||");
-                sender.sendMessage(ChatColor.GOLD + "     Level: " + API.getPlayerDataFromAPI(Bukkit.getPlayer(sender.getName()), "Level"));
-                sender.sendMessage(ChatColor.RED + "     Attack: " + API.getPlayerDataFromAPI(Bukkit.getPlayer(sender.getName()), "Attack"));
-                sender.sendMessage(ChatColor.YELLOW + "     Health: " + API.getPlayerDataFromAPI(Bukkit.getPlayer(sender.getName()), "Health"));
-                sender.sendMessage(ChatColor.DARK_GREEN + "     CombatEXP: " + API.getPlayerDataFromAPI(Bukkit.getPlayer(sender.getName()), "Combat-EXP"));
-                int combatexpneeded = API.getPlayerDataFromAPI(Bukkit.getPlayer(sender.getName()), "Level") * (API.playerConfig.getInt("CombatEXP") * API.playerConfig.getInt("CombatEXP_MULTIPLIER"));
+                sender.sendMessage(ChatColor.GOLD + "     Level: " + API.getPlayerDataFromAPI(Objects.requireNonNull(Bukkit.getPlayer(sender.getName())), "Level"));
+                sender.sendMessage(ChatColor.RED + "     Attack: " + API.getPlayerDataFromAPI(Objects.requireNonNull(Bukkit.getPlayer(sender.getName())), "Attack"));
+                sender.sendMessage(ChatColor.YELLOW + "     Health: " + API.getPlayerDataFromAPI(Objects.requireNonNull(Bukkit.getPlayer(sender.getName())), "Health"));
+                sender.sendMessage(ChatColor.DARK_GREEN + "     CombatEXP: " + API.getPlayerDataFromAPI(Objects.requireNonNull(Bukkit.getPlayer(sender.getName())), "Combat-EXP"));
+                int combatexpneeded = API.getPlayerDataFromAPI(Objects.requireNonNull(Bukkit.getPlayer(sender.getName())), "Level") * (API.playerConfig.getInt("CombatEXP") * API.playerConfig.getInt("CombatEXP_MULTIPLIER"));
                 sender.sendMessage(ChatColor.DARK_GREEN + "     CombatEXP Needed: " + combatexpneeded);
                 return true;
             }
             else if ((cmd.getName().equalsIgnoreCase("Reitz") || cmd.getName().equalsIgnoreCase("RRM") || cmd.getName().equalsIgnoreCase("ReitzMMO")) && args.length == 1 && args[0].equalsIgnoreCase("FixHealth"))
             {
                 Player p = Bukkit.getPlayer(sender.getName());
-                UUID uuid = p.getUniqueId();
+                UUID uuid = Objects.requireNonNull(p).getUniqueId();
                 int combatexp = API.Players.get(uuid).getData().getInt("Combat-EXP");
                 int level = API.Players.get(uuid).getData().getInt("Level");
                 int combatexpneeded = level * (API.playerConfig.getInt("CombatEXP") * API.playerConfig.getInt("CombatEXP_MULTIPLIER"));
@@ -72,7 +73,7 @@ public class ReitzRPGMain implements CommandExecutor {
                     API.Players.get(uuid).getData().set("Health", (18 + (level * API.playerConfig.getInt("HealthScale"))));
                     p.sendMessage("Attack is now: " + API.getPlayerDataFromAPI(p, "Attack"));
                     p.sendMessage("Health is now: " + API.getPlayerDataFromAPI(p, "Health"));
-                    p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(API.getPlayerDataFromAPI(p, "Health"));
+                    Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(API.getPlayerDataFromAPI(p, "Health"));
                     API.Players.get(uuid).getData().set("CombatEXP", combatexp);
                 } else
                     {
@@ -82,13 +83,13 @@ public class ReitzRPGMain implements CommandExecutor {
                         API.Players.get(uuid).getData().set("Health", (18 + (level * API.playerConfig.getInt("HealthScale"))));
                         p.sendMessage("Attack is now: " + API.getPlayerDataFromAPI(p, "Attack"));
                         p.sendMessage("Health is now: " + API.getPlayerDataFromAPI(p, "Health"));
-                        p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(API.getPlayerDataFromAPI(p, "Health"));
+                        Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(API.getPlayerDataFromAPI(p, "Health"));
 
                     }
             }
             else if ((cmd.getName().equalsIgnoreCase("Reitz") || cmd.getName().equalsIgnoreCase("RRM") || cmd.getName().equalsIgnoreCase("ReitzMMO")) && args.length == 1 && args[0].equalsIgnoreCase("FixEXP"))
             {
-                World world = Bukkit.getPlayer(sender.getName()).getWorld();
+                World world = Objects.requireNonNull(Bukkit.getPlayer(sender.getName())).getWorld();
                 for (Entity e : world.getEntities()) {
                     if (e instanceof ArmorStand) {
                         e.remove();
@@ -148,10 +149,10 @@ public class ReitzRPGMain implements CommandExecutor {
                     PlayerData pd = new PlayerData(uuid);
                     pd.getData().set("UUID", uuid);
 
-                    Integer Level = pd.getData().getInt("Level");
-                    Integer Attack = pd.getData().getInt("Attack");
-                    Double Health = pd.getData().getDouble("Health");
-                    Integer CombatEXP = pd.getData().getInt("Combat-EXP");
+                    int Level = pd.getData().getInt("Level");
+                    int Attack = pd.getData().getInt("Attack");
+                    double Health = pd.getData().getDouble("Health");
+                    int CombatEXP = pd.getData().getInt("Combat-EXP");
 
                     if (Level == 0) {
                         pd.getData().set("Level", 1);
@@ -163,12 +164,12 @@ public class ReitzRPGMain implements CommandExecutor {
                     }
                     if (Health == 0.0) {
                         pd.getData().set("Health", 20);
-                        p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
+                        Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(20);
 
 
                     } else {
 
-                        p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(Health);
+                        Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(Health);
                     }
                     if (CombatEXP == 0) {
                         pd.getData().set("Combat-EXP", 0);

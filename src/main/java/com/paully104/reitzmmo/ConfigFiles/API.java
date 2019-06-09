@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 /**
  * Created by Paul on 3/22/2016.

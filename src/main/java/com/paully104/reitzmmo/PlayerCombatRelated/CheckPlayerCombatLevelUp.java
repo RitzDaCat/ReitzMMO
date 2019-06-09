@@ -1,10 +1,11 @@
 package com.paully104.reitzmmo.PlayerCombatRelated;
 
 import com.paully104.reitzmmo.ConfigFiles.API;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
+
+import java.util.Objects;
 
 /**
  * Created by Paul on 3/22/2016.
@@ -34,7 +35,7 @@ class CheckPlayerCombatLevelUp {
             API.Players.get(p.getUniqueId().toString()).getData().set("Attack", (level * API.playerConfig.getInt("AttackScale")));
             API.Players.get(p.getUniqueId().toString()).getData().set("Health", (18 + (level * API.playerConfig.getInt("HealthScale"))));
             API.Players.get(p.getUniqueId().toString()).getData().set("CombatEXP", combatexp);
-            p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue((18 + (level * API.playerConfig.getInt("HealthScale"))));
+            Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue((18 + (level * API.playerConfig.getInt("HealthScale"))));
 
 
         }

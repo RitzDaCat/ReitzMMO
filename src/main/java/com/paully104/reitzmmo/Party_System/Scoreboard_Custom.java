@@ -9,6 +9,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scoreboard.*;
 
+import java.util.Objects;
+
 /**
  * Created by Paul on 8/11/2016.
  */
@@ -17,7 +19,7 @@ public class Scoreboard_Custom implements Listener {
     @EventHandler(priority= EventPriority.HIGHEST)
     public void scoreboard(PlayerJoinEvent e) {
         try {
-            Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
+            Scoreboard sb = Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
 
             Objective objective = sb.registerNewObjective("showhealth", "health");
             objective.setDisplaySlot(DisplaySlot.BELOW_NAME);

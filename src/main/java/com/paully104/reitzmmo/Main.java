@@ -18,7 +18,6 @@ import com.paully104.reitzmmo.PlaceHolderAPI.registerPlaceHolders;
 import com.paully104.reitzmmo.PlayerCombatRelated.PlayerAttackingMonster;
 import com.paully104.reitzmmo.PlayerCombatRelated.PlayerDefeatsMonster;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
@@ -26,7 +25,8 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import java.util.UUID;
+
+import java.util.Objects;
 
 /**
  * Created by Paul on 3/22/2016.
@@ -80,9 +80,9 @@ public class Main extends JavaPlugin {
         API.setMenuConfig();
 
         //Main Commands
-        this.getCommand("reitz").setExecutor(new ReitzRPGMain());
-        this.getCommand("rrm").setExecutor(new ReitzRPGMain());
-        this.getCommand("rparty").setExecutor(new Party_Commands());
+        Objects.requireNonNull(this.getCommand("reitz")).setExecutor(new ReitzRPGMain());
+        Objects.requireNonNull(this.getCommand("rrm")).setExecutor(new ReitzRPGMain());
+        Objects.requireNonNull(this.getCommand("rparty")).setExecutor(new Party_Commands());
 
         //Register Events
         //removed weaponskills and weaponskill menu
@@ -101,10 +101,10 @@ public class Main extends JavaPlugin {
             PlayerData pd = new PlayerData(uuid);
             pd.getData().set("UUID", uuid);
 
-            Integer Level = pd.getData().getInt("Level");
-            Integer Attack = pd.getData().getInt("Attack");
-            Double Health = pd.getData().getDouble("Health");
-            Integer CombatEXP = pd.getData().getInt("Combat-EXP");
+            int Level = pd.getData().getInt("Level");
+            int Attack = pd.getData().getInt("Attack");
+            double Health = pd.getData().getDouble("Health");
+            int CombatEXP = pd.getData().getInt("Combat-EXP");
 
             if (Level == 0) {
                 pd.getData().set("Level", 1);
@@ -116,12 +116,12 @@ public class Main extends JavaPlugin {
             }
             if (Health == 0.0) {
                 pd.getData().set("Health", 20);
-                p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
+                Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(20);
 
 
             } else {
 
-                p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(Health);
+                Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(Health);
             }
             if (CombatEXP == 0) {
                 pd.getData().set("Combat-EXP", 0);
@@ -142,7 +142,7 @@ public class Main extends JavaPlugin {
             {
                 if(!(stand.isVisible()))
                 {
-                    if(stand.getCustomName().contains("+EXP:")) {
+                    if(Objects.requireNonNull(stand.getCustomName()).contains("+EXP:")) {
                         //its invisible probably left over EXP modifier
                         stand.remove();
                     }

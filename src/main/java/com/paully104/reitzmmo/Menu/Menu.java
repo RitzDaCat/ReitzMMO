@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.paully104.reitzmmo.ConfigFiles.API.plugin;
 
@@ -78,7 +79,7 @@ public class Menu implements Listener {
         if (inventory == GUI_MENU) {
             if(null != clicked) {
                 if (clicked.hasItemMeta()) {
-                    switch(clicked.getItemMeta().getDisplayName()) {
+                    switch(Objects.requireNonNull(clicked.getItemMeta()).getDisplayName()) {
 
                         case "Home":
                             event.setCancelled(true); // Make it so the dirt is back in its original spot
@@ -154,7 +155,7 @@ public class Menu implements Listener {
     private static void createDisplay(Material material, int Slot, String name, String lore) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(name);
+        Objects.requireNonNull(meta).setDisplayName(name);
         ArrayList<String> Lore = new ArrayList<>();
         Lore.add(lore);
         meta.setLore(Lore);

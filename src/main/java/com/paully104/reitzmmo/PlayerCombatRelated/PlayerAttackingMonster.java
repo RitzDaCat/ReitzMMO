@@ -10,9 +10,9 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerUnleashEntityEvent;
 
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * Created by Paul on 3/22/2016.
@@ -25,7 +25,7 @@ public class PlayerAttackingMonster implements Listener {
 
     @EventHandler
     public void playerAttackingMonster(EntityDamageByEntityEvent e) {
-        int worldEnabled = API.worldConfig.getInt(e.getEntity().getLocation().getWorld().getName());
+        int worldEnabled = API.worldConfig.getInt(Objects.requireNonNull(e.getEntity().getLocation().getWorld()).getName());
         if (worldEnabled != -1) {
 
             Entity defender = e.getEntity();//monster
@@ -35,10 +35,10 @@ public class PlayerAttackingMonster implements Listener {
             if (!(defender instanceof Player)) {
 
 
-                int player_attack = 0;
-                int monster_defense = 0;
-                int damage_done = 0;
-                String monster_level_from_name = "";
+                int player_attack;
+                int monster_defense;
+                int damage_done;
+                String monster_level_from_name;
 
                 if (attacker instanceof Player)
                 {
@@ -47,7 +47,7 @@ public class PlayerAttackingMonster implements Listener {
                     player_attack = pd.getData().getInt("Attack");
                     try
                     {
-                        monster_level_from_name = defender.getCustomName().replaceAll("\\D+", "");
+                        monster_level_from_name = Objects.requireNonNull(defender.getCustomName()).replaceAll("\\D+", "");
                     } catch (NullPointerException error)
                     {
                         String levelColor = ChatColor.YELLOW + "[" + 1 + "]";
@@ -71,14 +71,13 @@ public class PlayerAttackingMonster implements Listener {
 
                             try {
                                 weaponDamage = (Weapon_Damage.Weapon_Damages.valueOf(human.getInventory().getItemInMainHand().getType().toString().toUpperCase()).getValue());
-                            } catch (NullPointerException error) {
-                                weaponDamage = 0;
+                            } catch (NullPointerException ignored) {
                             } finally
                             {
                                 //if the weapon has special stats
-                                if (human.getInventory().getItemInMainHand().getItemMeta().hasAttributeModifiers()) {
+                                if (Objects.requireNonNull(human.getInventory().getItemInMainHand().getItemMeta()).hasAttributeModifiers()) {
                                     Collection<AttributeModifier> weaponStats = human.getInventory().getItemInMainHand().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ATTACK_DAMAGE);
-                                    int weaponBonus = (int) weaponStats.iterator().next().getAmount();
+                                    int weaponBonus = (int) Objects.requireNonNull(weaponStats).iterator().next().getAmount();
                                     weaponDamage = weaponDamage + weaponBonus;
                                     damage_done = damage_done + weaponDamage;
                                     e.setDamage(damage_done);
@@ -94,9 +93,8 @@ public class PlayerAttackingMonster implements Listener {
                         } else {
                             //empty handed
 
-                            damage_done = damage_done + weaponDamage;
                             e.setDamage(damage_done);
-                            if (debugEnabled == true) {
+                            if (debugEnabled) {
                                 System.out.print("empty hands");
                             }
                         }
@@ -113,13 +111,13 @@ public class PlayerAttackingMonster implements Listener {
                     {
                         //arrow and shot by a player
                         Player p = (Player)arrow.getShooter();
-                        Double damage = e.getDamage();
+                        double damage = e.getDamage();
                         PlayerData pd = API.Players.get(p.getUniqueId().toString());
                         player_attack = pd.getData().getInt("Attack");
 
                         try
                         {
-                            monster_level_from_name = defender.getCustomName().replaceAll("\\D+", "");
+                            monster_level_from_name = Objects.requireNonNull(defender.getCustomName()).replaceAll("\\D+", "");
                         } catch (NullPointerException error)
                         {
                             String levelColor = ChatColor.YELLOW + "[" + 1 + "]";
@@ -149,7 +147,7 @@ public class PlayerAttackingMonster implements Listener {
 
 
 
-                if (debugEnabled == true) {
+                if (debugEnabled) {
                     System.out.println(e.getDamage() + "Damage DONE");
                 }
 

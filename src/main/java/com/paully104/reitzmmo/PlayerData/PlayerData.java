@@ -2,9 +2,7 @@ package com.paully104.reitzmmo.PlayerData;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -57,12 +55,8 @@ public class PlayerData {
             try {
                 //noinspection ResultOfMethodCallIgnored
                 file.createNewFile();
-                if (this.debug)
-                    plugin.getLogger().fine("The data file for " + this.uuid + " has been created.");
             } catch (IOException e) {
                 plugin.getLogger().severe("The data file for " + this.uuid + " could not be created! Reason: " + e.getMessage());
-                if (this.debug)
-                    e.printStackTrace();
             }
         }
         this.config = YamlConfiguration.loadConfiguration(file);

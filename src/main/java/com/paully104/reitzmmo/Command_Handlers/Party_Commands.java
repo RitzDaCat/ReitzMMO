@@ -18,6 +18,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Paul on 7/29/2016.
@@ -32,13 +33,13 @@ public class Party_Commands implements CommandExecutor {
     {
         //check if party is enabled
         Player pl = Bukkit.getPlayer(sender.getName());
-        int worldEnabled = API.worldConfig.getInt(pl.getLocation().getWorld().getName());
+        int worldEnabled = API.worldConfig.getInt(Objects.requireNonNull(Objects.requireNonNull(pl).getLocation().getWorld()).getName());
 
-        if((cmd.getName().equalsIgnoreCase("RParty") || cmd.getName().equalsIgnoreCase("rparty")) && partyEnabled == true && worldEnabled != -1) {
+        if((cmd.getName().equalsIgnoreCase("RParty") || cmd.getName().equalsIgnoreCase("rparty")) && partyEnabled && worldEnabled != -1) {
 
 
             if ((cmd.getName().equalsIgnoreCase("RParty") || cmd.getName().equalsIgnoreCase("rparty")) && args.length == 0) {
-                Bukkit.getPlayer(sender.getName()).openInventory(Party_Menu.PARTY_MENU);
+                Objects.requireNonNull(Bukkit.getPlayer(sender.getName())).openInventory(Party_Menu.PARTY_MENU);
             /*
             sender.sendMessage(ChatColor.GOLD + "~RParty Commands~");
             sender.sendMessage(ChatColor.GOLD + "1. /Rparty create");
@@ -76,25 +77,25 @@ public class Party_Commands implements CommandExecutor {
                     List<String> members = party_leaders.get_MembersList();
                     System.out.println(party_leaders.get_MembersList());
 
-                    for (String people : members) {
-                        if (people.equalsIgnoreCase("null")) {
+                    for (String people : members)
+                    {
 
-                        } else {
+
                             Party_API.inParty.remove(people);
-                            Bukkit.getPlayer(people).sendMessage(ChatColor.YELLOW + "Party has been disbanded!");
+                            Objects.requireNonNull(Bukkit.getPlayer(people)).sendMessage(ChatColor.YELLOW + "Party has been disbanded!");
                             try {
-                                Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
+                                Scoreboard sb = Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
 
                                 Objective objective = sb.getObjective("showhealth");
-                                objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
+                                Objects.requireNonNull(objective).setDisplaySlot(DisplaySlot.BELOW_NAME);
                                 objective.setDisplayName(ChatColor.RED + "❤");
-                                Bukkit.getPlayer(people).setScoreboard(sb);
-                                Bukkit.getPlayer(people).setHealth(Bukkit.getPlayer(people).getHealth());
-                            } catch (NullPointerException e) {
+                                Objects.requireNonNull(Bukkit.getPlayer(people)).setScoreboard(sb);
+                                Objects.requireNonNull(Bukkit.getPlayer(people)).setHealth(Objects.requireNonNull(Bukkit.getPlayer(people)).getHealth());
+                            } catch (NullPointerException ignored) {
 
                             }
 
-                        }
+
 
                     }
                     //after all the players are safely removed then we can remove the leader
@@ -102,14 +103,14 @@ public class Party_Commands implements CommandExecutor {
                     Party_API.Party_Leaders.remove(name);
 
                     try {
-                        Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
+                        Scoreboard sb = Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
 
                         Objective objective = sb.getObjective("showhealth");
-                        objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
+                        Objects.requireNonNull(objective).setDisplaySlot(DisplaySlot.BELOW_NAME);
                         objective.setDisplayName(ChatColor.RED + "❤");
-                        Bukkit.getPlayer(sender.getName()).setScoreboard(sb);
-                        Bukkit.getPlayer(sender.getName()).setHealth(Bukkit.getPlayer(sender.getName()).getHealth());
-                    } catch (NullPointerException e) {
+                        Objects.requireNonNull(Bukkit.getPlayer(sender.getName())).setScoreboard(sb);
+                        Objects.requireNonNull(Bukkit.getPlayer(sender.getName())).setHealth(Objects.requireNonNull(Bukkit.getPlayer(sender.getName())).getHealth());
+                    } catch (NullPointerException ignored) {
 
                     }
 
@@ -154,22 +155,22 @@ public class Party_Commands implements CommandExecutor {
 
                     //lets cache some values for performance
                     Player invitedPlayer = Bukkit.getPlayer(args[1]);
-                    if(invitedPlayer.isOnline())
+                    if(Objects.requireNonNull(invitedPlayer).isOnline())
                     {
                         String invitedPlayerName = invitedPlayer.getName();
                         String uuid = invitedPlayer.getUniqueId().toString();
 
-                        Party_Queue queue = new Party_Queue(sender.getName(), Bukkit.getPlayer(args[1]).getName(), uuid);
+                        Party_Queue queue = new Party_Queue(sender.getName(), Objects.requireNonNull(Bukkit.getPlayer(args[1])).getName(), uuid);
 
                         //new invite system
-                        Bukkit.getPlayer(args[1]).sendMessage(ChatColor.YELLOW + "[PARTY]" + ChatColor.GREEN + "Party invite from: " + sender.getName());
+                        Objects.requireNonNull(Bukkit.getPlayer(args[1])).sendMessage(ChatColor.YELLOW + "[PARTY]" + ChatColor.GREEN + "Party invite from: " + sender.getName());
                         TextComponent component = new TextComponent();
                         component.setBold(true);
                         component.setText( "Click " + ChatColor.YELLOW + "[HERE]" + ChatColor.WHITE + " to accept the party invite.");
                         component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("From: " + sender.getName()).create()));
                         component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rparty join"));
-                        Bukkit.getPlayer(args[1]).spigot().sendMessage(component);
-                        Party_API.Password_Queue.put(Bukkit.getPlayer(args[1]).getName(), queue);
+                        Objects.requireNonNull(Bukkit.getPlayer(args[1])).spigot().sendMessage(component);
+                        Party_API.Password_Queue.put(Objects.requireNonNull(Bukkit.getPlayer(args[1])).getName(), queue);
                     }
                     else
                     {
@@ -207,16 +208,16 @@ public class Party_Commands implements CommandExecutor {
                 if (!(Party_API.inParty.containsKey(sender.getName()))) {
                     Party_Queue queue = Party_API.Password_Queue.get(sender.getName());
                     String passcode = queue.getPasscode();
-                    if (Bukkit.getPlayer(sender.getName()).getUniqueId().toString().equalsIgnoreCase(passcode)) {
+                    if (Objects.requireNonNull(Bukkit.getPlayer(sender.getName())).getUniqueId().toString().equalsIgnoreCase(passcode)) {
                         sender.sendMessage(ChatColor.GREEN + "Joining... " + queue.getCreator() + "'s" + " party");
                         Party_API.Party_Leaders.get(queue.getCreator()).set_Member(sender.getName());
-                        Bukkit.getPlayer(queue.getCreator()).sendMessage(ChatColor.GREEN + sender.getName() + " has joined your party!");
+                        Objects.requireNonNull(Bukkit.getPlayer(queue.getCreator())).sendMessage(ChatColor.GREEN + sender.getName() + " has joined your party!");
                         Party_API.Password_Queue.remove(sender.getName());
                         Party_API.inParty.put(sender.getName(), queue.getCreator());
 
                         //setup Scoreboard with party members and leader
                         Scoreboard_Party scoreboard_party = new Scoreboard_Party();
-                        scoreboard_party.Scoreboard_PartySetup(Bukkit.getPlayer(sender.getName()));
+                        scoreboard_party.Scoreboard_PartySetup(Objects.requireNonNull(Bukkit.getPlayer(sender.getName())));
 
                     } else {
                         sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.WHITE + " Incorrect passcode!");
@@ -238,7 +239,7 @@ public class Party_Commands implements CommandExecutor {
 
                 if ((Party_API.Party_Leaders.containsKey(sender.getName()))) {
                     sender.sendMessage(ChatColor.RED + "removing member...");
-                    Bukkit.getPlayer(args[1]).sendMessage(ChatColor.RED + sender.getName() + " has remove you from party!");
+                    Objects.requireNonNull(Bukkit.getPlayer(args[1])).sendMessage(ChatColor.RED + sender.getName() + " has remove you from party!");
                     Party party = Party_API.Party_Leaders.get(sender.getName());
                     party.Remove_Member(args[1]);
                     Party_API.Party_Leaders.put(sender.getName(), party);
@@ -268,7 +269,7 @@ public class Party_Commands implements CommandExecutor {
                     for (String people : members) {
 
                         Player partyMember = Bukkit.getPlayer(people);
-                        Bukkit.getPlayer(people).sendMessage(name + " has left the party!");
+                        Objects.requireNonNull(Bukkit.getPlayer(people)).sendMessage(name + " has left the party!");
                         if (partyMember == null) {
                             System.out.println("Player error");
 
@@ -282,7 +283,7 @@ public class Party_Commands implements CommandExecutor {
                 return true;
             }
         }
-        else if(cmd.getName().equalsIgnoreCase("/rparty") && partyEnabled == false)
+        else if(cmd.getName().equalsIgnoreCase("/rparty") && !partyEnabled)
         {
             sender.sendMessage(ChatColor.RED + "[PARTY]" + ChatColor.WHITE + "ReitzMMO parties are disabled");
 

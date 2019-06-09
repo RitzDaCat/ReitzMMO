@@ -17,17 +17,9 @@ public class EntityDamageEvent implements Listener {
                 Scoreboard_Party scoreboard = new Scoreboard_Party();
                 scoreboard.Scoreboard_PartySetup(p);
             }
-            else
-            {
-
-            }
             if (Party_API.inParty.containsKey(p.getName())) {
                 Scoreboard_Party scoreboard = new Scoreboard_Party();
                 scoreboard.Scoreboard_PartySetup(p);
-            }
-            else
-            {
-
             }
 
         }

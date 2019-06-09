@@ -1,15 +1,15 @@
 package com.paully104.reitzmmo.OnPlayerEvents;
 
 import com.paully104.reitzmmo.ConfigFiles.API;
-import com.paully104.reitzmmo.Custom_Recipes.ReitzMMO_Book;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+
+import java.util.Objects;
 
 /**
  * Created by Paul on 3/22/2016.
@@ -33,10 +33,10 @@ public class OnPlayerJoinStatSetup implements Listener {
         PlayerData pd = new PlayerData(uuid);
         pd.getData().set("UUID", uuid);
 
-        Integer Level = pd.getData().getInt("Level");
-        Integer Attack = pd.getData().getInt("Attack");
-        Double Health = pd.getData().getDouble("Health");
-        Integer CombatEXP = pd.getData().getInt("Combat-EXP");
+        int Level = pd.getData().getInt("Level");
+        int Attack = pd.getData().getInt("Attack");
+        double Health = pd.getData().getDouble("Health");
+        int CombatEXP = pd.getData().getInt("Combat-EXP");
 
         if (Level == 0) {
             pd.getData().set("Level", 1);
@@ -48,12 +48,12 @@ public class OnPlayerJoinStatSetup implements Listener {
         }
         if (Health == 0.0) {
             pd.getData().set("Health", 20);
-            p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
+            Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(20);
 
 
         } else {
 
-            p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(Health);
+            Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(Health);
         }
         if (CombatEXP == 0) {
             pd.getData().set("Combat-EXP", 0);

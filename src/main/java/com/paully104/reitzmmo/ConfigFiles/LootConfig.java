@@ -13,7 +13,9 @@ public class LootConfig {
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         configuration.options().header("This config is used to configure the loot table of mobs by level and mob type and you can add 1 item");
 
-        configuration.addDefault("MOBSDROPATTACKUP", true);
+        configuration.addDefault("General",null);
+        configuration.addDefault("General.MobsDropAttackUpItems", true);
+        configuration.addDefault("General.MobsDropAttackUpItems.PercentChance", 50);
 
 
         configuration.addDefault("1.ZOMBIE", 1);
