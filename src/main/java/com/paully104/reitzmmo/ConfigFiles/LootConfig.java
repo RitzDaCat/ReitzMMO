@@ -21,6 +21,9 @@ public class LootConfig {
         configuration.addDefault("General.BonusChest",null);
         configuration.addDefault("General.BonusChest.Enabled",true);
         configuration.addDefault("General.BonusChest.PercentChance",5);
+        configuration.addDefault("General.BonusChest.TimeUntilDisappear",500);
+
+
         configuration.addDefault("General.BonusChest.Items",true);
 
         configuration.addDefault("General.BonusChest.Items.wooden_sword",true);

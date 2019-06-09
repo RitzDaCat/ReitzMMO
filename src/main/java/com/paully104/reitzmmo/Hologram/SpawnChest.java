@@ -18,6 +18,8 @@ import java.util.Objects;
 
 public class SpawnChest {
 
+    private final int chestTimeUntilDisappear = API.lootConfig.getInt("General.BonusChest.TimeUntilDisappear");
+
     public void setChest(World w, Location location, String name,int monster_level) {
 
 
@@ -45,7 +47,7 @@ public class SpawnChest {
                 chest.getInventory().clear();
                 block.setType(Material.AIR);
             }
-        }, 500L);
+        }, chestTimeUntilDisappear);
 
 
     }
