@@ -35,7 +35,7 @@ public class PlayerDefeatsMonster implements Listener {
     private final int combatEXPMultipler = API.playerConfig.getInt("CombatEXP_MULTIPLIER");
     private final boolean expHologramEnabled = API.chatConfig.getBoolean("expHologramsEnabled");
     private final boolean expChatEnabled = API.chatConfig.getBoolean("expChatEnabled");
-    private final boolean mobsDropAttackUpItems = API.lootConfig.getBoolean("General.MobsDropAttackUpItems");
+    private final boolean mobsDropAttackUpItems = API.lootConfig.getBoolean("General.MobsDropAttackUpItems.Enabled");
     private final int mobsDropAttackUpItemsChance = API.lootConfig.getInt("General.MobsDropAttackUpItems.PercentChance");
 
     @EventHandler

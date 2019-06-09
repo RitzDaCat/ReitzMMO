@@ -15,6 +15,7 @@ public class LootConfig {
 
         configuration.addDefault("General",null);
         configuration.addDefault("General.MobsDropAttackUpItems", true);
+        configuration.addDefault("General.MobsDropAttackUpItems.Enabled", true);
         configuration.addDefault("General.MobsDropAttackUpItems.PercentChance", 50);
 
 
