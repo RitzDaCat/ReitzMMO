@@ -1,6 +1,7 @@
 package com.paully104.reitzmmo.PlayerCombatRelated;
 
 import com.paully104.reitzmmo.ConfigFiles.API;
+import com.paully104.reitzmmo.Hologram.SpawnChest;
 import com.paully104.reitzmmo.Hologram.Hologram;
 import com.paully104.reitzmmo.Party_System.Party;
 import com.paully104.reitzmmo.Party_System.Party_API;
@@ -35,8 +36,12 @@ public class PlayerDefeatsMonster implements Listener {
     private final int combatEXPMultipler = API.playerConfig.getInt("CombatEXP_MULTIPLIER");
     private final boolean expHologramEnabled = API.chatConfig.getBoolean("expHologramsEnabled");
     private final boolean expChatEnabled = API.chatConfig.getBoolean("expChatEnabled");
+
     private final boolean mobsDropAttackUpItems = API.lootConfig.getBoolean("General.MobsDropAttackUpItems.Enabled");
     private final int mobsDropAttackUpItemsChance = API.lootConfig.getInt("General.MobsDropAttackUpItems.PercentChance");
+
+    private final boolean mobsDropBonusChest = API.lootConfig.getBoolean("General.BonusChest.Enabled");
+    private final int mobsDropBonusChestPercentChance = API.lootConfig.getInt("General.BonusChest.PercentChance");
 
     @EventHandler
     public void MonsterDeathCausedByPlayer(EntityDeathEvent e) {
@@ -73,12 +78,11 @@ public class PlayerDefeatsMonster implements Listener {
                 //lets handle mob custom drops here
                 //dont iteriate while the thread is modifying
                 if(e.getEntity() instanceof Monster && mobsDropAttackUpItems) {
-                    try {
-                        for (ItemStack eachItem : e.getDrops())
-                        {
+                    try
+                    {
+                        for (ItemStack eachItem : e.getDrops()) {
                             int randomNum = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-                            if(mobsDropAttackUpItemsChance >= randomNum)
-                            {
+                            if (mobsDropAttackUpItemsChance >= randomNum) {
                                 //chance to make the item have attack up
                                 int itemDamage = 0;
                                 int itemDefense = 0;
@@ -114,8 +118,16 @@ public class PlayerDefeatsMonster implements Listener {
                             }
 
 
-                    }
                         }
+                        //after the usual items we can do chest logic?
+                        int randomNumBonusChest = ThreadLocalRandom.current().nextInt(0, 100 + 1);
+                        if(mobsDropBonusChest && (mobsDropBonusChestPercentChance > randomNumBonusChest)) {
+                            SpawnChest chestspawn = new SpawnChest();
+                            chestspawn.setChest(e.getEntity().getWorld(), e.getEntity().getLocation(), "Bonus Loot",monster_level);
+                        }
+
+
+                    }
                     catch (ConcurrentModificationException ce)
                     {
                         if (debugEnabled) {
@@ -171,7 +183,7 @@ public class PlayerDefeatsMonster implements Listener {
                     //This should be combatEXP Multiple
                     int expGained = monster_level * combatEXPMultipler;
                     if(expHologramEnabled) {
-                        hologram.setHologram(player, player.getWorld(), monster, expGained);
+                        hologram.setHologram(player.getWorld(), monster, expGained);
                     }
                     if(expChatEnabled)
                     {
@@ -239,7 +251,7 @@ public class PlayerDefeatsMonster implements Listener {
                     Location monster = dead.getLocation().add(0.0, 0.0, 0.0);
                     int expGained = monster_level * combatEXPMultipler;
                     if(expHologramEnabled) {
-                        hologram.setHologram(player, player.getWorld(), monster, expGained);
+                        hologram.setHologram(player.getWorld(), monster, expGained);
                     }
                     if(expChatEnabled)
                     {
@@ -279,7 +291,7 @@ public class PlayerDefeatsMonster implements Listener {
                         Location monster = dead.getLocation().add(0.0, 0.0, 0.0);
                         int expGained = combatEXPMultipler * monster_level;
                         if(expHologramEnabled) {
-                            hologram.setHologram(player, player.getWorld(), monster, expGained);
+                            hologram.setHologram(player.getWorld(), monster, expGained);
                         }
                         if(expChatEnabled)
                         {

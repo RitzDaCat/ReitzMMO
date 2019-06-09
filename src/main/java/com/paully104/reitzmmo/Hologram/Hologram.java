@@ -14,12 +14,13 @@ import org.bukkit.entity.Player;
 public class Hologram {
 
 
-    public void setHologram(Player p, World w, Location location,int exp) {
+    public void setHologram( World w, Location location,int exp) {
         ArmorStand a = (ArmorStand)w.spawnEntity(location,EntityType.ARMOR_STAND);
         a.setVisible(false);
         a.setGravity(false);
         a.setCustomName(ChatColor.GREEN+ "+EXP: " + exp);
         a.setCustomNameVisible(true);
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(API.plugin, a::remove,100L);}
+        Bukkit.getScheduler().scheduleSyncDelayedTask(API.plugin, a::remove,50L);}
+
 }

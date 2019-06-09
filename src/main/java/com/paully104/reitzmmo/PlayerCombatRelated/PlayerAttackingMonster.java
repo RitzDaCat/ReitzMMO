@@ -82,7 +82,7 @@ public class PlayerAttackingMonster implements Listener {
                                     damage_done = damage_done + weaponDamage;
                                     e.setDamage(damage_done);
                                     if (debugEnabled) {
-                                        System.out.println(weaponStats.iterator().next().getAmount());
+                                        System.err.println(weaponStats.iterator().next().getAmount());
                                     }
 
                                     //[14:07:39 INFO]: AttributeModifier{uuid=00000000-0000-0b38-0000-0000000da6be, name=generic.attackDamage, operation=ADD_NUMBER, amount=20.0, slot=}
@@ -95,7 +95,7 @@ public class PlayerAttackingMonster implements Listener {
 
                             e.setDamage(damage_done);
                             if (debugEnabled) {
-                                System.out.print("empty hands");
+                                System.err.print("empty hands");
                             }
                         }
                     } catch (IllegalArgumentException error) {
@@ -127,7 +127,15 @@ public class PlayerAttackingMonster implements Listener {
                                 defender.setCustomNameVisible(true);
                             }
                         }
-                        monster_defense = Integer.parseInt(monster_level_from_name);
+                        try
+                        {
+                            monster_defense = Integer.parseInt(monster_level_from_name);
+                        }
+                        catch (NumberFormatException f)
+                        {
+                            monster_defense = 0;
+
+                        }
                         damage = (damage + player_attack) - monster_defense;
                         if(damage < bowMinimumDamage)
                         {
@@ -148,7 +156,7 @@ public class PlayerAttackingMonster implements Listener {
 
 
                 if (debugEnabled) {
-                    System.out.println(e.getDamage() + "Damage DONE");
+                    System.err.println(e.getDamage() + "Damage DONE");
                 }
 
             }

@@ -16,7 +16,32 @@ public class LootConfig {
         configuration.addDefault("General",null);
         configuration.addDefault("General.MobsDropAttackUpItems", true);
         configuration.addDefault("General.MobsDropAttackUpItems.Enabled", true);
-        configuration.addDefault("General.MobsDropAttackUpItems.PercentChance", 50);
+        configuration.addDefault("General.MobsDropAttackUpItems.PercentChance", 25);
+
+        configuration.addDefault("General.BonusChest",null);
+        configuration.addDefault("General.BonusChest.Enabled",true);
+        configuration.addDefault("General.BonusChest.PercentChance",5);
+        configuration.addDefault("General.BonusChest.Items",true);
+
+        configuration.addDefault("General.BonusChest.Items.wooden_sword",true);
+        configuration.addDefault("General.BonusChest.Items.wooden_sword.Enabled",true);
+        configuration.addDefault("General.BonusChest.Items.wooden_sword.PercentChance",25);
+
+        configuration.addDefault("General.BonusChest.Items.gold_sword",true);
+        configuration.addDefault("General.BonusChest.Items.gold_sword.Enabled",true);
+        configuration.addDefault("General.BonusChest.Items.gold_sword.PercentChance",25);
+
+        configuration.addDefault("General.BonusChest.Items.stone_sword",true);
+        configuration.addDefault("General.BonusChest.Items.stone_sword.Enabled",true);
+        configuration.addDefault("General.BonusChest.Items.stone_sword.PercentChance",25);
+
+        configuration.addDefault("General.BonusChest.Items.iron_sword",true);
+        configuration.addDefault("General.BonusChest.Items.iron_sword.Enabled",true);
+        configuration.addDefault("General.BonusChest.Items.iron_sword.PercentChance",25);
+
+        configuration.addDefault("General.BonusChest.Items.diamond_sword",true);
+        configuration.addDefault("General.BonusChest.Items.diamond_sword.Enabled",true);
+        configuration.addDefault("General.BonusChest.Items.diamond_sword.PercentChance",25);
 
 
         configuration.addDefault("1.ZOMBIE", 1);
