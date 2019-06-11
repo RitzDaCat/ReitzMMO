@@ -70,7 +70,7 @@ public class PlayerAttackingMonster implements Listener {
                         if (!(human.getInventory().getItemInMainHand().toString().contains("AIR"))) {
 
                             try {
-                                weaponDamage = (Weapon_Damage.Weapon_Damages.valueOf(human.getInventory().getItemInMainHand().getType().toString().toUpperCase()).getValue());
+                                weaponDamage = (Weapon_Damage.Weapon_Damages.valueOf(human.getInventory().getItemInMainHand().getType().name()).getValue());
                             } catch (NullPointerException ignored) {
                             } finally
                             {

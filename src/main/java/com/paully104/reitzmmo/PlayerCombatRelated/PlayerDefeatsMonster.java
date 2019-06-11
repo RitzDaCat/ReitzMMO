@@ -80,7 +80,8 @@ public class PlayerDefeatsMonster implements Listener {
                 if(e.getEntity() instanceof Monster && mobsDropAttackUpItems) {
                     try
                     {
-                        for (ItemStack eachItem : e.getDrops()) {
+                        for (ItemStack eachItem : e.getDrops())
+                        {
                             int randomNum = ThreadLocalRandom.current().nextInt(0, 100 + 1);
                             if (mobsDropAttackUpItemsChance >= randomNum) {
                                 //chance to make the item have attack up
@@ -102,6 +103,7 @@ public class PlayerDefeatsMonster implements Listener {
                                     damage.set("UUIDLeast", new NBTTagInt(894654));
                                     damage.set("UUIDMost", new NBTTagInt(2872));
                                     damage.set("Slot", new NBTTagString("mainhand"));
+                                    damage.set("Durability",new NBTTagInt(100));
 
                                     modifiers.add(damage);
                                     Objects.requireNonNull(compound).set("AttributeModifiers", modifiers);
@@ -121,7 +123,7 @@ public class PlayerDefeatsMonster implements Listener {
                         }
                         //after the usual items we can do chest logic?
                         int randomNumBonusChest = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-                        if(mobsDropBonusChest && (mobsDropBonusChestPercentChance > randomNumBonusChest)) {
+                        if(mobsDropBonusChest && (mobsDropBonusChestPercentChance >= randomNumBonusChest)) {
                             SpawnChest chestspawn = new SpawnChest();
                             chestspawn.setChest(e.getEntity().getWorld(), e.getEntity().getLocation(), "Bonus Loot",monster_level);
                         }
