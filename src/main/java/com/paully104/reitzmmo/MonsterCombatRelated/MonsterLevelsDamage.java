@@ -30,6 +30,8 @@ If the attribute modifier is equal to the default value on the item it won't det
  */
 public class MonsterLevelsDamage implements Listener {
 
+    private static final String ARMORTOTAL = "Armor Total: ";
+
     private final int zombieBaseAttack = API.monsterConfig.getInt("zombie.base_attack");
     private final int wolfBaseAttack  = API.monsterConfig.getInt("Wolf.base_attack");
     private final int villagerBaseAttack  = API.monsterConfig.getInt("Villager.base_attack");
@@ -70,7 +72,7 @@ public class MonsterLevelsDamage implements Listener {
     private final boolean debugEnabled = API.debugConfig.getBoolean("MonsterAttackingPlayer");
 
     //Scaling section
-    private final int defenseScale = API.playerConfig.getInt("DefenseScale");
+    private final int defenseScale = API.playerConfig.getInt("Scaling.Player.DefenseScale");
 
 
 
@@ -103,7 +105,8 @@ public class MonsterLevelsDamage implements Listener {
                 int boots;
                 int bootsEnchant;
                 int armorTotal;
-                switch (attackerType) {
+                switch (attackerType)
+                {
                     case PLAYER:
                         //PVP stuff
                         String attackerUUID = attacker.getUniqueId().toString();
@@ -192,7 +195,7 @@ public class MonsterLevelsDamage implements Listener {
 
 
                     case ZOMBIE:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * zombieBaseAttack;
                         try {
@@ -272,12 +275,12 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
 
                         }
                         break;
                     case WOLF:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * wolfBaseAttack;
                         try {
@@ -354,11 +357,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case SQUID:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * squidBaseAttack;
                         try {
@@ -435,11 +438,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case SNOWMAN:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * snowmanBaseAttack;
                         try {
@@ -516,11 +519,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case SLIME:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * slimeBaseAttack;
                         try {
@@ -597,11 +600,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case SILVERFISH:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * silverfishBaseAttack;
                         try {
@@ -678,11 +681,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case SHEEP:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * sheepBaseAttack;
                         try {
@@ -759,11 +762,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case RABBIT:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * rabbitBaseAttack;
                         try {
@@ -840,11 +843,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case PIG_ZOMBIE:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * pigzombieBaseAttack;
                         try {
@@ -921,11 +924,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case PIG:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * pigBaseAttack;
                         try {
@@ -1002,11 +1005,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case MUSHROOM_COW:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * mushroomcowBaseAttack;
                         try {
@@ -1083,11 +1086,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case MAGMA_CUBE:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * magmacubeBaseAttack;
                         try {
@@ -1164,11 +1167,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case GUARDIAN:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * guardianBaseAttack;
                         try {
@@ -1245,11 +1248,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case GIANT:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * giantBaseAttack;
                         try {
@@ -1326,11 +1329,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case GHAST:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * ghastBaseAttack;
                         try {
@@ -1407,11 +1410,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case ENDERMITE:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * endermiteBaseAttack;
                         try {
@@ -1488,11 +1491,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case ENDERMAN:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * endermanBaseAttack;
                         try {
@@ -1569,11 +1572,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case ENDER_DRAGON:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * enderdragonBaseAttack;
                         try {
@@ -1650,11 +1653,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case CREEPER:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * creeperBaseAttack;
                         try {
@@ -1731,11 +1734,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case COW:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * cowBaseAttack;
                         try {
@@ -1812,11 +1815,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case CHICKEN:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * chickenBaseAttack;
                         try {
@@ -1893,11 +1896,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case CAVE_SPIDER:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * cavespiderBaseAttack;
                         try {
@@ -1974,11 +1977,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case SPIDER:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * spiderBaseAttack;
                         try {
@@ -2055,11 +2058,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case WITHER_SKELETON:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * witherSkeletonBaseAttack;
                         try {
@@ -2136,11 +2139,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case BLAZE:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * blazeBaseAttack;
                         try {
@@ -2217,11 +2220,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case PILLAGER:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * pillagerBaseAttack;
                         try {
@@ -2298,11 +2301,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case ILLUSIONER:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * illusionerBaseAttack;
                         try {
@@ -2379,11 +2382,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case EVOKER:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * evokerBaseAttack;
                         try {
@@ -2427,11 +2430,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case BAT:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * batBaseAttack;
                         try {
@@ -2508,11 +2511,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case RAVAGER:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * ravagerBaseAttack;
                         try {
@@ -2589,11 +2592,11 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case DROWNED:
-                        
+
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * drownedBaseAttack;
                         try {
@@ -2670,13 +2673,13 @@ public class MonsterLevelsDamage implements Listener {
                         e.setDamage(damage_done);
                         if (debugEnabled) {
                             System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                            System.out.println("Armor Total: " + armorTotal);
+                            System.out.println(ARMORTOTAL + armorTotal);
                         }
                         break;
                     case ARROW:
                         arrow = (Arrow) attacker;
                         if (arrow.getShooter() instanceof Skeleton) {
-                            
+
                             monster_level_from_name = ((Skeleton) arrow.getShooter()).getCustomName().replaceAll("\\D+", "");
                             monster_attack = Integer.parseInt(monster_level_from_name) * skeletonBaseAttack;
                             try {
@@ -2753,7 +2756,7 @@ public class MonsterLevelsDamage implements Listener {
                             e.setDamage(damage_done);
                             if (debugEnabled) {
                                 System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                                System.out.println("Armor Total: " + armorTotal);
+                                System.out.println(ARMORTOTAL + armorTotal);
                             }
                         }  //Not from skeleton archer
 
@@ -2761,7 +2764,7 @@ public class MonsterLevelsDamage implements Listener {
                     case SPLASH_POTION:
                         ThrownPotion potion = (ThrownPotion) attacker;
                         if (potion.getShooter() instanceof Witch) {
-                            
+
                             monster_level_from_name = ((Witch) potion.getShooter()).getCustomName().replaceAll("\\D+", "");
                             monster_attack = Integer.parseInt(monster_level_from_name) * witchBaseAttack;
                             try {
@@ -2838,14 +2841,15 @@ public class MonsterLevelsDamage implements Listener {
                             e.setDamage(damage_done);
                             if (debugEnabled) {
                                 System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                                System.out.println("Armor Total: " + armorTotal);
+                                System.out.println(ARMORTOTAL + armorTotal);
                             }
                         }
                         break;
                     case SHULKER_BULLET:
                         arrow = (Arrow) attacker;
-                        if (arrow.getShooter() instanceof Shulker) {
-                            
+                        if (arrow.getShooter() instanceof Shulker)
+                        {
+
                             monster_level_from_name = ((Witch) arrow.getShooter()).getCustomName().replaceAll("\\D+", "");
                             monster_attack = Integer.parseInt(monster_level_from_name) * shulkerBaseAttack;
                             try {
@@ -2922,9 +2926,12 @@ public class MonsterLevelsDamage implements Listener {
                             e.setDamage(damage_done);
                             if (debugEnabled) {
                                 System.out.println("[MAP]: " + attacker.getType() + " " + attacker.getCustomName() + " -> " + defender.getName() + " " + player_defense);
-                                System.out.println("Armor Total: " + armorTotal);
+                                System.out.println(ARMORTOTAL + armorTotal);
                             }
+                            break;
                         }
+                        break;
+
                 }
                 //update scoreboards on damage?
                 if(e.getEntity() instanceof Player)

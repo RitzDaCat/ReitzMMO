@@ -5,7 +5,6 @@ import com.paully104.reitzmmo.ConfigFiles.API;
 import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 
 /**
  */

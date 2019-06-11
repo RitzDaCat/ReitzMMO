@@ -2,15 +2,12 @@ package com.paully104.reitzmmo.Hologram;
 
 import com.paully104.reitzmmo.ConfigFiles.API;
 import com.paully104.reitzmmo.Enum.Weapon_Damage;
-import com.paully104.reitzmmo.PlayerData.PlayerData;
 import net.minecraft.server.v1_14_R1.NBTTagCompound;
 import net.minecraft.server.v1_14_R1.NBTTagInt;
 import net.minecraft.server.v1_14_R1.NBTTagList;
 import net.minecraft.server.v1_14_R1.NBTTagString;
 import org.bukkit.*;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
-import org.bukkit.block.Chest;
 import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -80,7 +77,6 @@ public class SpawnChest {
             nmsStack.setTag(compound);
 
             ItemStack nmsItem = CraftItemStack.asBukkitCopy(nmsStack);
-            System.out.println(item.getType().name());
             modifiedWeapons.put(item.getType().name(),nmsItem);
 
 
@@ -108,7 +104,7 @@ public class SpawnChest {
         int random4 = ThreadLocalRandom.current().nextInt(0, 100 + 1);
         if(iron_swordEnabled && iron_swordPercentChance > random4)
         {
-            chest.getInventory().addItem(modifiedWeapons.get("IRON_SWORD"));;
+            chest.getInventory().addItem(modifiedWeapons.get("IRON_SWORD"));
         }
         int random5 = ThreadLocalRandom.current().nextInt(0, 100 + 1);
         if(diamond_swordEnabled && diamond_swordPercentChance > random5)
@@ -123,26 +119,25 @@ public class SpawnChest {
         ArmorStand a = (ArmorStand)w.spawnEntity(location.add(0,.5,0), EntityType.ARMOR_STAND);
         a.setVisible(false);
         a.setGravity(false);
-        final int startTime = chestTimeUntilDisappear;
+        long chestDisappearTime = chestTimeUntilDisappear *20L;
         long start = System.currentTimeMillis();
         long end = (chestTimeUntilDisappear * 1000) + start;
 
 
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(API.plugin, a::remove,chestTimeUntilDisappear *20L);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(API.plugin, a::remove,chestDisappearTime);
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(API.plugin, new Runnable() {
             public void run() {
                 chest.getInventory().clear();
                 block.setType(Material.AIR);
             }
-        }, chestTimeUntilDisappear * 20L);
+        }, chestDisappearTime);
 
 
         new BukkitRunnable() {
             public void run() {
                 long timeRemaining = (end - System.currentTimeMillis())/1000;
-                System.out.println(timeRemaining);
                 a.setCustomName(ChatColor.GOLD+ name +ChatColor.RED+ "[" + timeRemaining + "]");
                 a.setCustomNameVisible(true);
 

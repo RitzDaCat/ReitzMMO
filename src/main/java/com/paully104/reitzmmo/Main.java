@@ -36,6 +36,12 @@ public class Main extends JavaPlugin {
     //update 4/25/2017
 
 
+    public static final String LEVEL = "Level";
+    public static final String ATTACK = "Attack";
+    public static final String HEALTH = "Health";
+    public static final String COMBATEXP = "Combat-EXP";
+    public static final String DISPLAYNAME = "DisplayName";
+
     @Override
     public void onEnable(){
 
@@ -101,21 +107,21 @@ public class Main extends JavaPlugin {
             PlayerData pd = new PlayerData(uuid);
             pd.getData().set("UUID", uuid);
 
-            int Level = pd.getData().getInt("Level");
-            int Attack = pd.getData().getInt("Attack");
-            double Health = pd.getData().getDouble("Health");
-            int CombatEXP = pd.getData().getInt("Combat-EXP");
+            int Level = pd.getData().getInt(LEVEL);
+            int Attack = pd.getData().getInt(ATTACK);
+            double Health = pd.getData().getDouble(HEALTH);
+            int CombatEXP = pd.getData().getInt(COMBATEXP);
 
             if (Level == 0) {
-                pd.getData().set("Level", 1);
+                pd.getData().set(LEVEL, 1);
 
             }
             if (Attack == 0) {
-                pd.getData().set("Attack", 1);
+                pd.getData().set(ATTACK, 1);
 
             }
             if (Health == 0.0) {
-                pd.getData().set("Health", 20);
+                pd.getData().set(HEALTH, 20);
                 Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(20);
 
 
@@ -124,10 +130,10 @@ public class Main extends JavaPlugin {
                 Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(Health);
             }
             if (CombatEXP == 0) {
-                pd.getData().set("Combat-EXP", 0);
+                pd.getData().set(COMBATEXP, 0);
 
             }
-            pd.getData().set("DisplayName",p.getDisplayName());
+            pd.getData().set(DISPLAYNAME,p.getDisplayName());
             pd.save();
             API.Players.put(p.getUniqueId().toString(), pd); //this loads the player data into the API
 
@@ -140,12 +146,10 @@ public class Main extends JavaPlugin {
         {
             for(ArmorStand stand : world.getEntitiesByClass(ArmorStand.class))
             {
-                if(!(stand.isVisible()))
+                if(!(stand.isVisible() && Objects.requireNonNull(stand.getCustomName()).contains("+EXP:")))
                 {
-                    if(Objects.requireNonNull(stand.getCustomName()).contains("+EXP:")) {
-                        //its invisible probably left over EXP modifier
                         stand.remove();
-                    }
+
                 }
             }
 
@@ -170,20 +174,20 @@ public class Main extends JavaPlugin {
             String name = p.getName();
             String uuid = p.getUniqueId().toString();
             PlayerData pd = new PlayerData(uuid);
-            System.out.println(p.getName() + " has exited the game!");
+            System.err.println(p.getName() + " has exited the game!");
 
             //get stats from API
-            Integer level = API.Players.get(uuid).getData().getInt("Level");
-            Integer attack = API.Players.get(uuid).getData().getInt("Attack");
-            Integer health = API.Players.get(uuid).getData().getInt("Health");
-            Integer combatexp = API.Players.get(uuid).getData().getInt("Combat-EXP");
+            Integer level = API.Players.get(uuid).getData().getInt(LEVEL);
+            Integer attack = API.Players.get(uuid).getData().getInt(ATTACK);
+            Integer health = API.Players.get(uuid).getData().getInt(HEALTH);
+            Integer combatexp = API.Players.get(uuid).getData().getInt(COMBATEXP);
 
             //Save stats
-            pd.getData().set("Level", level);
-            pd.getData().set("Attack", attack);
-            pd.getData().set("Health", health);
-            pd.getData().set("Combat-EXP", combatexp);
-            pd.getData().set("DisplayName",p.getDisplayName());
+            pd.getData().set(LEVEL, level);
+            pd.getData().set(ATTACK, attack);
+            pd.getData().set(HEALTH, health);
+            pd.getData().set(COMBATEXP, combatexp);
+            pd.getData().set(DISPLAYNAME,p.getDisplayName());
             pd.save();
 
 

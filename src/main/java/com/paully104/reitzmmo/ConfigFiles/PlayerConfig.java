@@ -15,11 +15,13 @@ public class PlayerConfig {
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         configuration.options().header("This config is used to set all monster health related configurations");
 
-        configuration.addDefault("CombatEXP", 25);
-        configuration.addDefault("CombatEXP_MULTIPLIER", 2);
-        configuration.addDefault("HealthScale",2);
-        configuration.addDefault("AttackScale",2);
-        configuration.addDefault("DefenseScale",2);
+        configuration.addDefault("Scaling.World",null);
+        configuration.addDefault("Scaling.World.WorldBaseCombatEXP", null);
+        configuration.addDefault("Scaling.World.WorldBaseCombatEXP.Base", 25);
+        configuration.addDefault("Scaling.World.WorldBaseCombatEXP.Multiplier", 2);
+        configuration.addDefault("Scaling.Player.HealthScale",2);
+        configuration.addDefault("Scaling.Player.AttackScale",2);
+        configuration.addDefault("Scaling.Player.DefenseScale",2);
 
         configuration.addDefault("MinimumDamage",null);
         configuration.addDefault("MinimumDamage.Arrow",2);
