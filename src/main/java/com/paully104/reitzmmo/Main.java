@@ -155,6 +155,7 @@ public class Main extends JavaPlugin {
 
         }
 
+
         //placeholder nonsense
         if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
         {

@@ -21,10 +21,14 @@ class CheckPlayerCombatLevelUp {
     private final static String WORLDBASECOMBATEXP = "Scaling.World.WorldBaseCombatEXP.Base";
     private final static String WORLDBASECOMBATEXP_MULTIPLIER = "Scaling.World.WorldBaseCombatEXP.Multiplier";
 
+    private final static String ATTACK = "Attack";
+    private final static String HEALTH = "Health";
+    private final static String LEVEL = "Level";
+
     public  void CheckLevelUp(Player p)
     {
         int combatexp = API.Players.get(p.getUniqueId().toString()).getData().getInt(PLAYERCOMBATEXP);
-        int level = API.Players.get(p.getUniqueId().toString()).getData().getInt("Level");
+        int level = API.Players.get(p.getUniqueId().toString()).getData().getInt(LEVEL);
         int combatexpneeded = level * (API.playerConfig.getInt(WORLDBASECOMBATEXP) * API.playerConfig.getInt(WORLDBASECOMBATEXP_MULTIPLIER));
         System.out.println("combatexpneeded:" + combatexpneeded);
         //level up occurs
@@ -33,16 +37,16 @@ class CheckPlayerCombatLevelUp {
             level = level+1;
             combatexp = combatexp - combatexpneeded;
             API.Players.get(p.getUniqueId().toString()).getData().set(PLAYERCOMBATEXP, combatexp);
-            API.Players.get(p.getUniqueId().toString()).getData().set("Level", level);
+            API.Players.get(p.getUniqueId().toString()).getData().set(LEVEL, level);
 
             /* message sent to players for leveling u */
             p.sendMessage(ChatColor.GREEN + "[ReitzMMO]" + ChatColor.WHITE + " You have leveled up to: " + ChatColor.YELLOW +  level);
             String levelMessage = ChatColor.YELLOW + Integer.toString(level);
             p.sendTitle(levelMessage,"Congratulations, you have leveled up!",10,70,10);
 
-            API.Players.get(p.getUniqueId().toString()).getData().set("Attack", (level * API.playerConfig.getInt(ATTACKSCALE)));
-            API.Players.get(p.getUniqueId().toString()).getData().set("Health", (18 + (level * API.playerConfig.getInt(HEALTHSCALE))));
-            API.Players.get(p.getUniqueId().toString()).getData().set("CombatEXP", combatexp);
+            API.Players.get(p.getUniqueId().toString()).getData().set(ATTACK, (level * API.playerConfig.getInt(ATTACKSCALE)));
+            API.Players.get(p.getUniqueId().toString()).getData().set(HEALTH, (18 + (level * API.playerConfig.getInt(HEALTHSCALE))));
+            API.Players.get(p.getUniqueId().toString()).getData().set(PLAYERCOMBATEXP, combatexp);
             Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue((18 + (level * API.playerConfig.getInt(HEALTHSCALE))));
 
 

@@ -23,6 +23,8 @@ public class PlayerAttackingMonster implements Listener {
     private final boolean namePlatesEnabled = API.monsterConfig.getBoolean("General.nameplates-enabled");
     private final int bowMinimumDamage = API.playerConfig.getInt("MinimumDamage.Arrow");
 
+    private final static String ATTACK = "Attack";
+
     @EventHandler
     public void playerAttackingMonster(EntityDamageByEntityEvent e) {
         int worldEnabled = API.worldConfig.getInt(Objects.requireNonNull(e.getEntity().getLocation().getWorld()).getName());
@@ -44,7 +46,7 @@ public class PlayerAttackingMonster implements Listener {
                 {
                     //lets ignore if the damage source is custom
                     PlayerData pd = API.Players.get(attacker.getUniqueId().toString());
-                    player_attack = pd.getData().getInt("Attack");
+                    player_attack = pd.getData().getInt(ATTACK);
                     try
                     {
                         monster_level_from_name = Objects.requireNonNull(defender.getCustomName()).replaceAll("\\D+", "");
@@ -113,7 +115,7 @@ public class PlayerAttackingMonster implements Listener {
                         Player p = (Player)arrow.getShooter();
                         double damage = e.getDamage();
                         PlayerData pd = API.Players.get(p.getUniqueId().toString());
-                        player_attack = pd.getData().getInt("Attack");
+                        player_attack = pd.getData().getInt(ATTACK);
 
                         try
                         {

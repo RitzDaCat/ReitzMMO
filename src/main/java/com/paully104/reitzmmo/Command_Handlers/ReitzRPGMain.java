@@ -53,19 +53,22 @@ public class ReitzRPGMain implements CommandExecutor {
             else if ((cmd.getName().equalsIgnoreCase(REITZ) || cmd.getName().equalsIgnoreCase("RRM") || cmd.getName().equalsIgnoreCase(REITZMMO)) && args.length == 1 && args[0].equalsIgnoreCase("Stats"))
             {
 
+                Player p = Bukkit.getPlayer(sender.getName());
+                String uuid = Objects.requireNonNull(p).getUniqueId().toString();
                 sender.sendMessage(ChatColor.GOLD + "|||Current Stats|||");
-                sender.sendMessage(ChatColor.GOLD + "     Level: " + API.getPlayerDataFromAPI(Objects.requireNonNull(Bukkit.getPlayer(sender.getName())), LEVEL));
-                sender.sendMessage(ChatColor.RED + "     Attack: " + API.getPlayerDataFromAPI(Objects.requireNonNull(Bukkit.getPlayer(sender.getName())), ATTACK));
-                sender.sendMessage(ChatColor.YELLOW + "     Health: " + API.getPlayerDataFromAPI(Objects.requireNonNull(Bukkit.getPlayer(sender.getName())), HEALTH));
-                sender.sendMessage(ChatColor.DARK_GREEN + "     CombatEXP: " + API.getPlayerDataFromAPI(Objects.requireNonNull(Bukkit.getPlayer(sender.getName())), WORLDBASECOMBATEXP));
-                int combatexpneeded = API.getPlayerDataFromAPI(Objects.requireNonNull(Bukkit.getPlayer(sender.getName())), LEVEL) * (API.playerConfig.getInt(WORLDBASECOMBATEXP) * API.playerConfig.getInt(WORLDBASECOMBATEXP_MULTIPLIER));
-                sender.sendMessage(ChatColor.DARK_GREEN + "     CombatEXP Needed: " + combatexpneeded);
+                sender.sendMessage(ChatColor.GOLD + "     Level: " + API.Players.get(uuid).getData().getInt(LEVEL));
+                sender.sendMessage(ChatColor.RED + "     Attack: " + API.Players.get(uuid).getData().getInt(ATTACK));
+                sender.sendMessage(ChatColor.YELLOW + "     Health: " + API.Players.get(uuid).getData().getInt(HEALTH));
+                sender.sendMessage(ChatColor.DARK_GREEN + "     Combat-EXP: " + API.Players.get(uuid).getData().getInt(PLAYERCOMBATEXP));
+                int level = API.Players.get(uuid).getData().getInt(LEVEL);
+                int combatexpNeeded = level * (API.playerConfig.getInt(WORLDBASECOMBATEXP) * API.playerConfig.getInt(WORLDBASECOMBATEXP_MULTIPLIER));
+                sender.sendMessage(ChatColor.DARK_GREEN + "     CombatEXP Needed: " + combatexpNeeded);
                 return true;
             }
             else if ((cmd.getName().equalsIgnoreCase(REITZ) || cmd.getName().equalsIgnoreCase("RRM") || cmd.getName().equalsIgnoreCase(REITZMMO)) && args.length == 1 && args[0].equalsIgnoreCase("FixHealth"))
             {
                 Player p = Bukkit.getPlayer(sender.getName());
-                UUID uuid = Objects.requireNonNull(p).getUniqueId();
+                String uuid = Objects.requireNonNull(p).getUniqueId().toString();
                 int combatexp = API.Players.get(uuid).getData().getInt(PLAYERCOMBATEXP);
                 int level = API.Players.get(uuid).getData().getInt(LEVEL);
                 int combatexpneeded = level * (API.playerConfig.getInt(WORLDBASECOMBATEXP) * API.playerConfig.getInt(WORLDBASECOMBATEXP_MULTIPLIER));

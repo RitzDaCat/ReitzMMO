@@ -16,6 +16,11 @@ import java.util.Objects;
  */
 public class OnPlayerJoinStatSetup implements Listener {
 
+    private final static String HEALTH = "Health";
+    private final static String ATTACK = "Attack";
+    private final static String LEVEL = "Level";
+    private final static String PLAYERCOMBATEXP = "Combat-EXP";
+
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void OnPlayerJoinStatSetup(PlayerJoinEvent e) {
@@ -33,21 +38,21 @@ public class OnPlayerJoinStatSetup implements Listener {
         PlayerData pd = new PlayerData(uuid);
         pd.getData().set("UUID", uuid);
 
-        int Level = pd.getData().getInt("Level");
-        int Attack = pd.getData().getInt("Attack");
-        double Health = pd.getData().getDouble("Health");
-        int CombatEXP = pd.getData().getInt("Combat-EXP");
+        int Level = pd.getData().getInt(LEVEL);
+        int Attack = pd.getData().getInt(ATTACK);
+        double Health = pd.getData().getDouble(HEALTH);
+        int CombatEXP = pd.getData().getInt(PLAYERCOMBATEXP);
 
         if (Level == 0) {
-            pd.getData().set("Level", 1);
+            pd.getData().set(LEVEL, 1);
 
         }
         if (Attack == 0) {
-            pd.getData().set("Attack", 1);
+            pd.getData().set(ATTACK, 1);
 
         }
         if (Health == 0.0) {
-            pd.getData().set("Health", 20);
+            pd.getData().set(HEALTH, 20);
             Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(20);
 
 
@@ -56,7 +61,7 @@ public class OnPlayerJoinStatSetup implements Listener {
             Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(Health);
         }
         if (CombatEXP == 0) {
-            pd.getData().set("Combat-EXP", 0);
+            pd.getData().set(PLAYERCOMBATEXP, 0);
 
         }
         pd.getData().set("DisplayName",p.getDisplayName());

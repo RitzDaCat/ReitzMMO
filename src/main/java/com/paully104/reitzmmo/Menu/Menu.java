@@ -62,9 +62,6 @@ public class Menu implements Listener {
     {
         System.out.println(event.getDestination().toString());
         if (event.getDestination() == GUI_MENU) {
-
-            System.out.println("InventoryMoveEvent on GUI_MENU");
-            System.out.println(event.getDestination().toString());
             event.setCancelled(true);
         }
 

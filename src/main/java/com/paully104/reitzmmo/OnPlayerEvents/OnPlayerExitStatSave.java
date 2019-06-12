@@ -13,6 +13,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
  */
 public class OnPlayerExitStatSave implements Listener {
 
+    private final static String HEALTH = "Health";
+    private final static String ATTACK = "Attack";
+    private final static String LEVEL = "Level";
+    private final static String PLAYERCOMBATEXP = "Combat-EXP";
+
     @EventHandler
     public void OnPlayerExit(PlayerQuitEvent e) {
         //Get player information
@@ -23,16 +28,16 @@ public class OnPlayerExitStatSave implements Listener {
         System.out.println(p.getName() + " has exited the game!");
 
         //get stats from API
-        Integer level = API.Players.get(uuid).getData().getInt("Level");
-        Integer attack = API.Players.get(uuid).getData().getInt("Attack");
-        Integer health = API.Players.get(uuid).getData().getInt("Health");
-        Integer combatexp = API.Players.get(uuid).getData().getInt("Combat-EXP");
+        Integer level = API.Players.get(uuid).getData().getInt(LEVEL);
+        Integer attack = API.Players.get(uuid).getData().getInt(ATTACK);
+        Integer health = API.Players.get(uuid).getData().getInt(HEALTH);
+        Integer combatexp = API.Players.get(uuid).getData().getInt(PLAYERCOMBATEXP);
 
         //Save stats
-        pd.getData().set("Level", level);
-        pd.getData().set("Attack", attack);
-        pd.getData().set("Health", health);
-        pd.getData().set("Combat-EXP", combatexp);
+        pd.getData().set(LEVEL, level);
+        pd.getData().set(ATTACK, attack);
+        pd.getData().set(HEALTH, health);
+        pd.getData().set(PLAYERCOMBATEXP, combatexp);
         pd.getData().set("DisplayName",p.getDisplayName());
         pd.save();
 

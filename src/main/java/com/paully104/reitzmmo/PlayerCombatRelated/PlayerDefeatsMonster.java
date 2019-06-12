@@ -196,11 +196,12 @@ public class PlayerDefeatsMonster implements Listener {
                     if(expChatEnabled)
                     {
                         Player p = player;
+                        String uuid = p.getUniqueId().toString();
                         TextComponent component = new TextComponent();
 
-                        int level = API.Players.get(p.getUniqueId().toString()).getData().getInt(LEVEL);
+                        int level = API.Players.get(uuid).getData().getInt(LEVEL);
                         int combatexpNeeded = level * (API.playerConfig.getInt(WORLDBASECOMBATEXP) * API.playerConfig.getInt(WORLDBASECOMBATEXP_MULTIPLIER));
-                        int combatexpCurrent = API.Players.get(p.getName()).getData().getInt(PLAYERCOMBATEXP);
+                        int combatexpCurrent = API.Players.get(uuid).getData().getInt(PLAYERCOMBATEXP);
                         int expNeededToLevel = combatexpNeeded - combatexpCurrent;
                         component.setText(ChatColor.WHITE + "+ " + ChatColor.GREEN + expGained + " [EXP]");
                         String toNextLevel = "You need: " + ChatColor.GREEN + expNeededToLevel + " [EXP] " + ChatColor.WHITE + " to level up!";
@@ -237,11 +238,12 @@ public class PlayerDefeatsMonster implements Listener {
                         //player is the killer make sure party member is within 100 blocks
                         if (dead.getLocation().distance(Objects.requireNonNull(partyMember).getLocation()) <= PartyEXPMaxDistance)
                         {
-                            System.out.println(people);
-                            Integer currentexp = API.Players.get(partyMember.getUniqueId().toString()).getData().getInt(PLAYERCOMBATEXP);
-                            System.out.println(currentexp);
+
+                            String uuid = partyMember.getUniqueId().toString();
+                            Integer currentexp = API.Players.get(uuid).getData().getInt(PLAYERCOMBATEXP);
+
                             int new_exp = currentexp + (monster_level * combatEXPMultipler);
-                            API.Players.get(partyMember.getUniqueId().toString()).getData().set(PLAYERCOMBATEXP, new_exp);
+                            API.Players.get(uuid).getData().set(PLAYERCOMBATEXP, new_exp);
                             CheckPlayerCombatLevelUp test = new CheckPlayerCombatLevelUp();
                             test.CheckLevelUp(partyMember);
                         }
@@ -264,10 +266,10 @@ public class PlayerDefeatsMonster implements Listener {
                     {
                         Player p = player;
                         TextComponent component = new TextComponent();
-
-                        int level = API.Players.get(p.getUniqueId().toString()).getData().getInt(LEVEL);
+                        String uuid = p.getUniqueId().toString();
+                        int level = API.Players.get(uuid).getData().getInt(LEVEL);
                         int combatexpNeeded = level * (API.playerConfig.getInt(WORLDBASECOMBATEXP) * API.playerConfig.getInt(WORLDBASECOMBATEXP_MULTIPLIER));
-                        int combatexpCurrent = API.Players.get(p.getUniqueId().toString()).getData().getInt(PLAYERCOMBATEXP);
+                        int combatexpCurrent = API.Players.get(uuid).getData().getInt(PLAYERCOMBATEXP);
                         int expNeededToLevel = combatexpNeeded - combatexpCurrent;
                         component.setText(ChatColor.WHITE + "+ " + ChatColor.GREEN + expGained + " [EXP]");
                         String toNextLevel = "You need: " + ChatColor.GREEN + expNeededToLevel + " [EXP] " + ChatColor.WHITE + " to level up!";
@@ -280,7 +282,8 @@ public class PlayerDefeatsMonster implements Listener {
                 else
                     {
                         monster_level_from_name = "1";
-                        int currentexp = API.Players.get(player.getUniqueId().toString()).getData().getInt(PLAYERCOMBATEXP);
+                        String uuid = player.getUniqueId().toString();
+                        int currentexp = API.Players.get(uuid).getData().getInt(PLAYERCOMBATEXP);
                         try
                         {
                             monster_level_from_name = dead.getCustomName().replaceAll("\\D+", "");
@@ -291,7 +294,7 @@ public class PlayerDefeatsMonster implements Listener {
                         }
                         monster_level = Integer.parseInt(monster_level_from_name);
                         int new_exp = currentexp + (monster_level * combatEXPMultipler);
-                        API.Players.get(player.getUniqueId().toString()).getData().set(PLAYERCOMBATEXP, new_exp);
+                        API.Players.get(uuid).getData().set(PLAYERCOMBATEXP, new_exp);
                         CheckPlayerCombatLevelUp test = new CheckPlayerCombatLevelUp();
                         test.CheckLevelUp(player);
                         Hologram hologram = new Hologram();
@@ -305,7 +308,7 @@ public class PlayerDefeatsMonster implements Listener {
                             Player p = player;
                             TextComponent component = new TextComponent();
 
-                            int level = API.Players.get(p.getUniqueId().toString()).getData().getInt(LEVEL);
+                            int level = API.Players.get(uuid).getData().getInt(LEVEL);
                             int combatexpNeeded = level * (API.playerConfig.getInt(WORLDBASECOMBATEXP) * API.playerConfig.getInt(WORLDBASECOMBATEXP_MULTIPLIER));
                             int combatexpCurrent = API.Players.get(p.getUniqueId().toString()).getData().getInt(PLAYERCOMBATEXP);
                             int expNeededToLevel = combatexpNeeded - combatexpCurrent;
