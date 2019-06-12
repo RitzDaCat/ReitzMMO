@@ -5,7 +5,6 @@ import com.paully104.reitzmmo.Menu.Party_Menu;
 import com.paully104.reitzmmo.Party_System.Party;
 import com.paully104.reitzmmo.Party_System.Party_API;
 import com.paully104.reitzmmo.Party_System.Party_Queue;
-import com.paully104.reitzmmo.Party_System.Scoreboard_Party;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -216,8 +215,6 @@ public class Party_Commands implements CommandExecutor {
                         Party_API.inParty.put(sender.getName(), queue.getCreator());
 
                         //setup Scoreboard with party members and leader
-                        Scoreboard_Party scoreboard_party = new Scoreboard_Party();
-                        scoreboard_party.Scoreboard_PartySetup(Objects.requireNonNull(Bukkit.getPlayer(sender.getName())));
 
                     } else {
                         sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.WHITE + " Incorrect passcode!");

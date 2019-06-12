@@ -30,7 +30,6 @@ class CheckPlayerCombatLevelUp {
         int combatexp = API.Players.get(p.getUniqueId().toString()).getData().getInt(PLAYERCOMBATEXP);
         int level = API.Players.get(p.getUniqueId().toString()).getData().getInt(LEVEL);
         int combatexpneeded = level * (API.playerConfig.getInt(WORLDBASECOMBATEXP) * API.playerConfig.getInt(WORLDBASECOMBATEXP_MULTIPLIER));
-        System.out.println("combatexpneeded:" + combatexpneeded);
         //level up occurs
         if(combatexp >= combatexpneeded)
         {

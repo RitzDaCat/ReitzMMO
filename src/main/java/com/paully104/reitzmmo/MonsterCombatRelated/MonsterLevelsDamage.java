@@ -4,7 +4,6 @@ import com.paully104.reitzmmo.ConfigFiles.API;
 import com.paully104.reitzmmo.Enum.Armor_Defense;
 import com.paully104.reitzmmo.Enum.Weapon_Damage;
 import com.paully104.reitzmmo.Party_System.Party_API;
-import com.paully104.reitzmmo.Party_System.Scoreboard_Party;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -2933,20 +2932,7 @@ public class MonsterLevelsDamage implements Listener {
                         break;
 
                 }
-                //update scoreboards on damage?
-                if(e.getEntity() instanceof Player)
-                {
-                    Player p = (Player)e.getEntity();
-                    Scoreboard_Party scoreboard = new Scoreboard_Party();
-                    if (Party_API.Party_Leaders.containsKey((p.getName())))
-                    {
-                        scoreboard.Scoreboard_PartySetup(p);
-                    }
-                    if (Party_API.inParty.containsKey(p.getName())) {
-                        scoreboard.Scoreboard_PartySetup(p);
-                    }
 
-                }
 
             }
 

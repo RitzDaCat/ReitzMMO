@@ -169,7 +169,6 @@ public class PlayerDefeatsMonster implements Listener {
                             System.out.println("Distance #1 " + dead.getLocation().distance(Objects.requireNonNull(partyMember).getLocation()));
                         }
                         if (dead.getLocation().distance(Objects.requireNonNull(partyMember).getLocation()) <= PartyEXPMaxDistance) {
-                            System.out.println(people);
                             Integer currentexp = API.Players.get(partyMember.getUniqueId().toString()).getData().getInt(PLAYERCOMBATEXP);
                             int new_exp = currentexp + (monster_level * combatEXPMultipler);
                             API.Players.get(partyMember.getUniqueId().toString()).getData().set(PLAYERCOMBATEXP, new_exp);
@@ -249,10 +248,12 @@ public class PlayerDefeatsMonster implements Listener {
                         }
                         else
                             {
-                            System.out.println("Player is to far #2");
-                            System.out.println("Player:" + partyMember.getName());
-                            System.out.println("Distance" + dead.getLocation().distance(partyMember.getLocation()));
-                            System.out.println("Location:" + partyMember.getLocation());
+                                if(debugEnabled) {
+                                    System.out.println("Player is to far #2");
+                                    System.out.println("Player:" + partyMember.getName());
+                                    System.out.println("Distance" + dead.getLocation().distance(partyMember.getLocation()));
+                                    System.out.println("Location:" + partyMember.getLocation());
+                                }
                             //player is too far away
                         }
                     }
