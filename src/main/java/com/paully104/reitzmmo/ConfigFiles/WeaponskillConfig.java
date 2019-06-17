@@ -14,11 +14,16 @@ public class WeaponskillConfig {
     {
         File file = FileManager.weaponskillConfig;
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-        configuration.options().header("This config is used to set weaponskill settings");
+        configuration.options().header("WeaponSkill Settings");
 
-        configuration.addDefault("Spin_Attack_Level", 2);
-        configuration.addDefault("Spin_Attack_Base_Damage", 3);
-        configuration.addDefault("Spin_Attack_Damage_Scale",2);
+
+        configuration.addDefault("Swords", null);
+        configuration.addDefault("Swords.WeaponSkills", null);
+        configuration.addDefault("Swords.WeaponSkills.Under_Fire",null);
+        configuration.addDefault("Swords.WeaponSkills.Under_Fire.Enabled",true);
+        configuration.addDefault("Swords.WeaponSkills.Under_Fire.DurationInSeconds",10);
+        configuration.addDefault("Swords.WeaponSkills.Under_Fire.MovementSpeedIncreasePercent",200);
+        configuration.addDefault("Swords.WeaponSkills.Under_Fire.LevelRequirement",2);
 
 
 

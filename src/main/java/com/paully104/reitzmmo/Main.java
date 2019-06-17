@@ -5,6 +5,7 @@ import com.paully104.reitzmmo.Command_Handlers.ReitzRPGMain;
 import com.paully104.reitzmmo.ConfigFiles.*;
 import com.paully104.reitzmmo.Menu.Menu;
 import com.paully104.reitzmmo.Menu.Party_Menu;
+import com.paully104.reitzmmo.Menu.Sword_Skills;
 import com.paully104.reitzmmo.Metrics.Metrics;
 import com.paully104.reitzmmo.MonsterCombatRelated.MonsterLevelsDamage;
 import com.paully104.reitzmmo.MonsterCombatRelated.MonsterLevelsHealth;
@@ -16,6 +17,7 @@ import com.paully104.reitzmmo.PlaceHolderAPI.registerPlaceHolders;
 import com.paully104.reitzmmo.PlayerCombatRelated.PlayerAttackingMonster;
 import com.paully104.reitzmmo.PlayerCombatRelated.PlayerDefeatsMonster;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
+import com.paully104.reitzmmo.Skills.onRightClickWeaponSkills;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
@@ -92,7 +94,7 @@ public class Main extends JavaPlugin {
         //removed weaponskills and weaponskill menu
         registerEvents(this,new OnPlayerJoinStatSetup(), new MonsterLevelsHealth(), new OnPlayerExitStatSave(),
         new MonsterLevelsDamage(), new PlayerAttackingMonster(),new PlayerDefeatsMonster(), new Menu(), new Party_Menu(),
-                new Scoreboard_Custom());
+                new Scoreboard_Custom(), new Sword_Skills(), new onRightClickWeaponSkills());
 
         //SetCustomItems
 

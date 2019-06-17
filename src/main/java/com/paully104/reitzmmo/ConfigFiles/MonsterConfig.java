@@ -266,6 +266,13 @@ public class MonsterConfig {
         configuration.addDefault("Drowned.min_level", 3);
         configuration.addDefault("Drowned.nameplates_enabled", true);
 
+        configuration.addDefault("Husk", null);
+        configuration.addDefault("Husk.base_hp", 3);
+        configuration.addDefault("Husk.base_attack", 2);
+        configuration.addDefault("Husk.speed", 1);
+        configuration.addDefault("Husk.min_level", 3);
+        configuration.addDefault("Husk.nameplates_enabled", true);
+
         configuration.addDefault("Zombievillager", null);
         configuration.addDefault("Zombievillager.base_hp", 3);
         configuration.addDefault("Zombievillager.base_attack", 2);

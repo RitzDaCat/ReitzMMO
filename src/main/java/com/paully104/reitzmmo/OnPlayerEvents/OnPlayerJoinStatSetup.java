@@ -27,6 +27,8 @@ public class OnPlayerJoinStatSetup implements Listener {
 
 
         Player p = e.getPlayer();
+        //make sure players go normal speed which is .2
+        p.setWalkSpeed((float)(.2));
 
         /*
         PlayerData pd = new PlayerData(p.getName());

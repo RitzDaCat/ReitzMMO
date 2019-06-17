@@ -82,6 +82,7 @@ public class MonsterLevelsHealth implements Listener {
     private final int donkeyBaseHP = API.monsterConfig.getInt("Donkey.base_hp");
     private final int llamaBaseHP = API.monsterConfig.getInt("Llama.base_hp");
     private final int salmonBaseHP = API.monsterConfig.getInt("Salmon.base_hp");
+    private final int huskBaseHP = API.monsterConfig.getInt("Husk.base_hp");
 
     //NAMEPLATE SECTION
     private final boolean monsterNameplatesEnabled = API.monsterConfig.getBoolean("General.nameplates-enabled");
@@ -127,6 +128,7 @@ public class MonsterLevelsHealth implements Listener {
     private final boolean donkeyNameplate = API.monsterConfig.getBoolean("Donkey.nameplates_enabled");
     private final boolean llamaNameplate = API.monsterConfig.getBoolean("Llama.nameplates_enabled");
     private final boolean salmonNameplate = API.monsterConfig.getBoolean("Salmon.nameplates_enabled");
+    private final boolean huskNameplate = API.monsterConfig.getBoolean("Husk.nameplates_enabled");
 
     //Monster SPEED SECTION
     private final int zombieSpeed = API.monsterConfig.getInt("Zombie.speed");
@@ -170,6 +172,7 @@ public class MonsterLevelsHealth implements Listener {
     private final int donkeySpeed = API.monsterConfig.getInt("Donkey.speed");
     private final int llamaSpeed = API.monsterConfig.getInt("Llama.speed");
     private final int salmonSpeed = API.monsterConfig.getInt("Salmon.speed");
+    private final int huskSpeed = API.monsterConfig.getInt("Husk.speed");
 
     //Monster MINIMUM SECTION
     private final int zombieMinLevel = API.monsterConfig.getInt("Zombie.min_level");
@@ -213,6 +216,7 @@ public class MonsterLevelsHealth implements Listener {
     private final int donkeyMinLevel = API.monsterConfig.getInt("Donkey.min_level");
     private final int llamaMinLevel = API.monsterConfig.getInt("Llama.min_level");
     private final int salmonMinLevel = API.monsterConfig.getInt("Salmon.min_level");
+    private final int huskMinLevel = API.monsterConfig.getInt("Husk.min_level");
 
 
     private int calculateDistanceFromSpawn(Location worldSpawn, Location monsterSpawn)
@@ -1057,6 +1061,25 @@ public class MonsterLevelsHealth implements Listener {
                     }
                     Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * drownedSpeed);
                     if(monsterNameplatesEnabled && drownedNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
+                    break;
+                case HUSK:
+                    hp = distance * huskBaseHP;
+                    if(hp < huskMinLevel * huskBaseHP)
+                    {
+                        hp = huskMinLevel * huskBaseHP;
+                        distance = huskMinLevel;
+                    }
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
+                    e.getEntity().setHealth(hp);
+                    levelColor = ChatColor.YELLOW + "[" + distance + "]";
+                    if(e.getEntity().getCustomName() == null) {
+                        e.getEntity().setCustomName(mobName + levelColor);
+                    }
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * huskSpeed);
+                    if(monsterNameplatesEnabled && huskNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
                     }

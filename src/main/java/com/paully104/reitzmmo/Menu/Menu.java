@@ -50,6 +50,7 @@ public class Menu implements Listener {
             createDisplay(Material.PLAYER_HEAD, 2, "Party", "Get the party commands!");
             //createDisplay(Material.SPECTRAL_ARROW, 3, "Weaponskills","Apply weaponskills");
         }
+        createDisplay(Material.WOODEN_SWORD, 3, "Sword Skills", "Apply sword weaponskills");
         //createDisplay(Material.ARMOR_STAND, 6, "Fix EXP","Fix floating EXP");
         //createDisplay(Material.MAP, 7, "Town Menu","Teleport to a town");
         //GUI_MENU.setItem(0, new ItemStack(Material.DIRT, 3));
@@ -133,6 +134,12 @@ public class Menu implements Listener {
                             event.setCancelled(true); // Make it so the dirt is back in its original spot
                             player.closeInventory(); // Closes there inventory
                             player.openInventory(Town_Menu.TOWN_MENU); // Adds dirt
+                            break;
+
+                        case "Sword Skills":  // The item that the player clicked it dirt
+                            event.setCancelled(true); // Make it so the dirt is back in its original spot
+                            player.closeInventory(); // Closes there inventory
+                            player.openInventory(Sword_Skills.Sword_Skills); // Adds dirt
                             break;
 
 
