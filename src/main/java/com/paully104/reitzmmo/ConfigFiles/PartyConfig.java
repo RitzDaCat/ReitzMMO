@@ -17,6 +17,8 @@ public class PartyConfig {
 
         configuration.addDefault("Parties_Enabled", true);
         configuration.addDefault("PartyEXPMaxDistance", 100);
+        configuration.addDefault("Party_Scoreboard",null);
+        configuration.addDefault("Party_Scoreboard.Enabled",false);
 
 
 

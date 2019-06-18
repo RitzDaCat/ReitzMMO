@@ -636,6 +636,11 @@ public class PlayerDefeatsMonster implements Listener {
 
              */
 
+            //lets remove the bossbar since the mob you were fighting was defeated
+            createBossBar bar = new createBossBar();
+            bar.removeBossBaronPlayer(player);
+
+
         }
     }
 

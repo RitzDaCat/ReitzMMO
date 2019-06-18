@@ -28,13 +28,15 @@ public class PlayerAttackingMonster implements Listener {
     @EventHandler
     public void playerAttackingMonster(EntityDamageByEntityEvent e) {
         int worldEnabled = API.worldConfig.getInt(Objects.requireNonNull(e.getEntity().getLocation().getWorld()).getName());
-        if (worldEnabled != -1) {
+        if (worldEnabled != -1)
+        {
 
             Entity defender = e.getEntity();//monster
             Entity attacker = e.getDamager();//player
 
             //We do not want to use this for PVP
-            if (!(defender instanceof Player)) {
+            if (!(defender instanceof Player))
+            {
 
 
                 int player_attack;
@@ -104,6 +106,10 @@ public class PlayerAttackingMonster implements Listener {
                         e.setDamage(damage_done);//if not in list
                     }
 
+                    //end of player attacking monster lets do our bossBar here
+                    createBossBar bar = new createBossBar();
+                    bar.updateBossBaronPlayer((Player)attacker,(LivingEntity)defender,damage_done);
+
 
                 }
                 if(attacker instanceof  Arrow)
@@ -153,6 +159,7 @@ public class PlayerAttackingMonster implements Listener {
 
 
                 }
+                //after we check what kind of attack it is, lets try the boss bar here
 
 
 

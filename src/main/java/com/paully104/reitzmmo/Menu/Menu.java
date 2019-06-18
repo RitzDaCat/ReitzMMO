@@ -77,7 +77,8 @@ public class Menu implements Listener {
         if (inventory == GUI_MENU) {
             if(null != clicked) {
                 if (clicked.hasItemMeta()) {
-                    switch(Objects.requireNonNull(clicked.getItemMeta()).getDisplayName()) {
+                    switch(Objects.requireNonNull(clicked.getItemMeta()).getDisplayName())
+                    {
 
                         case "Home":
                             event.setCancelled(true); // Make it so the dirt is back in its original spot
@@ -149,6 +150,15 @@ public class Menu implements Listener {
                     //outside the switch
                     event.setCancelled(true);
                 }
+                else
+                {
+                    event.setCancelled(true);
+
+                }
+            }
+            else
+            {
+                event.setCancelled(true);
             }
 
 

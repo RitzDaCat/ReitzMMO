@@ -5,6 +5,7 @@ import com.paully104.reitzmmo.Menu.Party_Menu;
 import com.paully104.reitzmmo.Party_System.Party;
 import com.paully104.reitzmmo.Party_System.Party_API;
 import com.paully104.reitzmmo.Party_System.Party_Queue;
+import com.paully104.reitzmmo.Party_System.createPartyScoreboard;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -62,10 +63,13 @@ public class Party_Commands implements CommandExecutor {
                 } else {
                     sender.sendMessage(ChatColor.RED + "[ERROR]You are already in a party!");
                 }
+                createPartyScoreboard board = new createPartyScoreboard();
+                board.updatePartyScoreboardonPlayer(pl);
                 return true;
             }
             if ((cmd.getName().equalsIgnoreCase("RParty") || cmd.getName().equalsIgnoreCase("rparty")) && args.length == 1 &&
-                    args[0].equalsIgnoreCase("disband")) {
+                    args[0].equalsIgnoreCase("disband"))
+            {
                 //PARTY DISBAND
                 String name = sender.getName();
                 if ((Party_API.Party_Leaders.containsKey(name))) {
@@ -74,12 +78,8 @@ public class Party_Commands implements CommandExecutor {
                     Party party_leaders = Party_API.Party_Leaders.get(name);
                     //noinspection unchecked
                     List<String> members = party_leaders.get_MembersList();
-                    System.out.println(party_leaders.get_MembersList());
-
                     for (String people : members)
                     {
-
-
                             Party_API.inParty.remove(people);
                             Objects.requireNonNull(Bukkit.getPlayer(people)).sendMessage(ChatColor.YELLOW + "Party has been disbanded!");
                             try {
@@ -100,15 +100,18 @@ public class Party_Commands implements CommandExecutor {
                     //after all the players are safely removed then we can remove the leader
                     sender.sendMessage(ChatColor.YELLOW + "disbanding party...");
                     Party_API.Party_Leaders.remove(name);
+                    createPartyScoreboard board = new createPartyScoreboard();
+                    board.updatePartyScoreboardonPlayer(Bukkit.getPlayer(name));
 
                     try {
+                        pl.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
                         Scoreboard sb = Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
 
                         Objective objective = sb.getObjective("showhealth");
                         Objects.requireNonNull(objective).setDisplaySlot(DisplaySlot.BELOW_NAME);
                         objective.setDisplayName(ChatColor.RED + "❤");
-                        Objects.requireNonNull(Bukkit.getPlayer(sender.getName())).setScoreboard(sb);
-                        Objects.requireNonNull(Bukkit.getPlayer(sender.getName())).setHealth(Objects.requireNonNull(Bukkit.getPlayer(sender.getName())).getHealth());
+                        pl.setScoreboard(sb);
+                        Objects.requireNonNull(pl).setHealth(Objects.requireNonNull(Bukkit.getPlayer(sender.getName())).getHealth());
                     } catch (NullPointerException ignored) {
 
                     }
@@ -116,11 +119,14 @@ public class Party_Commands implements CommandExecutor {
                 } else {
                     sender.sendMessage(ChatColor.RED + "[ERROR]You are not a party leader!");
                 }
-
+                //disbanded party update list;
                 return true;
+
+
             }
             if ((cmd.getName().equalsIgnoreCase("RParty") || cmd.getName().equalsIgnoreCase("rparty")) && args.length == 1 &&
-                    args[0].equalsIgnoreCase("members")) {
+                    args[0].equalsIgnoreCase("members"))
+            {
 
                 if ((Party_API.Party_Leaders.containsKey(sender.getName()))) {
                     //You are in a party and the leader
@@ -139,7 +145,8 @@ public class Party_Commands implements CommandExecutor {
                 return true;
             }
             if ((cmd.getName().equalsIgnoreCase("RParty") || cmd.getName().equalsIgnoreCase("rparty")) && args.length == 2 &&
-                    args[0].equalsIgnoreCase("add")) {
+                    args[0].equalsIgnoreCase("add"))
+            {
 
                 if (args[1].equals(sender.getName())) {
                     sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.YELLOW + " Unable to invite yourself");
@@ -198,12 +205,12 @@ public class Party_Commands implements CommandExecutor {
                 //Party party = Party_API.Party_Leaders.get(sender.getName());
                 //party.set_Member(args[0]);
                 //Party_API.Party_Leaders.put(sender.getName(),party);
-
                 return true;
             }
 
             if ((cmd.getName().equalsIgnoreCase("RParty") || cmd.getName().equalsIgnoreCase("rparty")) && args.length == 1 &&
-                    args[0].equalsIgnoreCase("join")) {
+                    args[0].equalsIgnoreCase("join"))
+            {
                 if (!(Party_API.inParty.containsKey(sender.getName()))) {
                     Party_Queue queue = Party_API.Password_Queue.get(sender.getName());
                     String passcode = queue.getPasscode();
@@ -213,6 +220,31 @@ public class Party_Commands implements CommandExecutor {
                         Objects.requireNonNull(Bukkit.getPlayer(queue.getCreator())).sendMessage(ChatColor.GREEN + sender.getName() + " has joined your party!");
                         Party_API.Password_Queue.remove(sender.getName());
                         Party_API.inParty.put(sender.getName(), queue.getCreator());
+
+                        //Need to update the party leader and all members of the new recruit
+
+                        createPartyScoreboard board = new createPartyScoreboard();
+
+                        if ((Party_API.Party_Leaders.containsKey(sender.getName())))
+                        {
+                            //You are in a party and the leader
+                            Party party = Party_API.Party_Leaders.get(sender.getName());
+                            for(Object o : party.get_MembersList())
+                            {
+                                board.updatePartyScoreboardonPlayer(Bukkit.getPlayer(o.toString()));
+
+                            }
+                        }
+                        else if (Party_API.inParty.containsKey(sender.getName()))
+                        {
+                            String leader = Party_API.inParty.get(sender.getName());
+                            Party party = Party_API.Party_Leaders.get(leader);
+                            for(Object o : party.get_MembersList())
+                            {
+                                board.updatePartyScoreboardonPlayer(Bukkit.getPlayer(o.toString()));
+
+                            }
+                        }
 
                         //setup Scoreboard with party members and leader
 
@@ -227,12 +259,12 @@ public class Party_Commands implements CommandExecutor {
                 //Party party = Party_API.Party_Leaders.get(sender.getName());
                 //party.set_Member(args[0]);
                 //Party_API.Party_Leaders.put(sender.getName(),party);
-
                 return true;
             }
 
             if ((cmd.getName().equalsIgnoreCase("RParty") || cmd.getName().equalsIgnoreCase("rparty")) && args.length == 2 &&
-                    args[0].equalsIgnoreCase("remove")) {
+                    args[0].equalsIgnoreCase("remove"))
+            {
 
                 if ((Party_API.Party_Leaders.containsKey(sender.getName()))) {
                     sender.sendMessage(ChatColor.RED + "removing member...");
@@ -245,15 +277,38 @@ public class Party_Commands implements CommandExecutor {
                     sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.WHITE + " You are unable to remove members!");
 
                 }
+                createPartyScoreboard board = new createPartyScoreboard();
+                if ((Party_API.Party_Leaders.containsKey(sender.getName())))
+                {
+                    //You are in a party and the leader
+                    Party party = Party_API.Party_Leaders.get(sender.getName());
+                    for(Object o : party.get_MembersList())
+                    {
+                        Bukkit.getPlayer(o.toString()).setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+                        board.updatePartyScoreboardonPlayer(Bukkit.getPlayer(o.toString()));
+
+                    }
+                }
+                else if (Party_API.inParty.containsKey(sender.getName()))
+                {
+                    String leader = Party_API.inParty.get(sender.getName());
+                    Party party = Party_API.Party_Leaders.get(leader);
+                    for(Object o : party.get_MembersList())
+                    {
+                        Bukkit.getPlayer(o.toString()).setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+                        board.updatePartyScoreboardonPlayer(Bukkit.getPlayer(o.toString()));
+
+                    }
+                }
 
                 return true;
             }
 
             if ((cmd.getName().equalsIgnoreCase("RParty") || cmd.getName().equalsIgnoreCase("rparty")) && args.length == 1 &&
-                    args[0].equalsIgnoreCase("leave")) {
+                    args[0].equalsIgnoreCase("leave"))
+            {
                 String name = sender.getName();
                 if (Party_API.inParty.containsKey(name)) {
-                    //party member kills mob
                     String leader = Party_API.inParty.get(name);
 
                     Party party = Party_API.Party_Leaders.get(leader);
@@ -263,14 +318,19 @@ public class Party_Commands implements CommandExecutor {
                     party.Remove_Member(name);
                     Party_API.inParty.remove(name);
                     Party_API.Party_Leaders.put(leader, party);
-                    for (String people : members) {
+                    for (String people : members)
+                    {
 
                         Player partyMember = Bukkit.getPlayer(people);
                         Objects.requireNonNull(Bukkit.getPlayer(people)).sendMessage(name + " has left the party!");
-                        if (partyMember == null) {
+                        if (partyMember == null)
+                        {
                             System.out.println("Player error");
 
                         }
+                        //update scoreboard for all members
+                        createPartyScoreboard board = new createPartyScoreboard();
+                        board.removePlayerFromScoreboard(Bukkit.getPlayer(people), Bukkit.getPlayer(name));
                     }
                 } else {
                     sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.WHITE + " Not in a party to leave");

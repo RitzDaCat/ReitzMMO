@@ -1,6 +1,8 @@
 package com.paully104.reitzmmo.OnPlayerEvents;
 
 import com.paully104.reitzmmo.ConfigFiles.API;
+import com.paully104.reitzmmo.Party_System.createPartyScoreboard;
+import com.paully104.reitzmmo.PlayerCombatRelated.createBossBar;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
@@ -70,8 +72,16 @@ public class OnPlayerJoinStatSetup implements Listener {
         pd.save();
         API.Players.put(p.getUniqueId().toString(), pd); //this loads the player data into the API
         //p.sendMessage(PlaceholderAPI.setPlaceholders(p,"%ReitzMMO_Attack%"));
+
         //Lets give the book
         //ReitzMMO_Book.setLoginBook(p);
+
+        //lets try the boss bar creation
+        createBossBar bar = new createBossBar();
+        bar.setBossBaronPlayer(p);
+
+        createPartyScoreboard board = new createPartyScoreboard();
+        board.setPartyScoreboardonPlayer(p);
 
     }
 

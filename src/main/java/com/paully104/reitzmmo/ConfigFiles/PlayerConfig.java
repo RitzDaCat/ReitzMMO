@@ -15,6 +15,9 @@ public class PlayerConfig {
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         configuration.options().header("This config is used to set all monster health related configurations");
 
+        configuration.addDefault("BossBar",null);
+        configuration.addDefault("BossBar.Enabled",true);
+
         configuration.addDefault("Scaling.World",null);
         configuration.addDefault("Scaling.World.WorldBaseCombatEXP", null);
         configuration.addDefault("Scaling.World.WorldBaseCombatEXP.Base", 25);

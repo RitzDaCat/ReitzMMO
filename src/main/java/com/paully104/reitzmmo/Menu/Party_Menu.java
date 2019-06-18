@@ -120,6 +120,15 @@ public class Party_Menu implements Listener{
 
                     }
                 }
+                else
+                {
+                    event.setCancelled(true);
+
+                }
+            }
+            else
+            {
+                event.setCancelled(true);
             }
 
 

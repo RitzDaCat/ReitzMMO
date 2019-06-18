@@ -13,6 +13,7 @@ import com.paully104.reitzmmo.OnPlayerEvents.OnPlayerExitStatSave;
 import com.paully104.reitzmmo.OnPlayerEvents.OnPlayerJoinStatSetup;
 import com.paully104.reitzmmo.Party_System.Party_API;
 import com.paully104.reitzmmo.Party_System.Scoreboard_Custom;
+import com.paully104.reitzmmo.Party_System.createPartyScoreboard;
 import com.paully104.reitzmmo.PlaceHolderAPI.registerPlaceHolders;
 import com.paully104.reitzmmo.PlayerCombatRelated.PlayerAttackingMonster;
 import com.paully104.reitzmmo.PlayerCombatRelated.PlayerDefeatsMonster;
@@ -204,6 +205,8 @@ public class Main extends JavaPlugin {
             }
             //Remove Book
             //ReitzMMO_Book.removeLoginBook(p);
+
+            //everyone has their own partyboard
 
         }
         Bukkit.broadcastMessage("[ReitzMMO] All online player's saved");
