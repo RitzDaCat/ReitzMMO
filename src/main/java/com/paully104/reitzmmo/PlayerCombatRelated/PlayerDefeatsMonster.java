@@ -5,13 +5,13 @@ import com.paully104.reitzmmo.Hologram.SpawnChest;
 import com.paully104.reitzmmo.Hologram.Hologram;
 import com.paully104.reitzmmo.Party_System.Party;
 import com.paully104.reitzmmo.Party_System.Party_API;
+import io.netty.buffer.Unpooled;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_14_R1.*;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
+import org.apache.commons.lang.ObjectUtils;
+import org.bukkit.*;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
@@ -60,8 +60,24 @@ public class PlayerDefeatsMonster implements Listener {
                 //Get Entities
                 Entity dead = e.getEntity();
                 Player player = e.getEntity().getKiller();
+
+                //stop the battle music
+
+                if(PlayerAttackingMonster.playerHasMusic.contains(player.getUniqueId().toString()))
+                {
+                    player.stopSound(Sound.MUSIC_DISC_11);
+                    PlayerAttackingMonster.playerHasMusic.remove(player.getUniqueId().toString());
+                }
+
                 String playerName = Objects.requireNonNull(player).getName();
-                String monster_level_from_name = Objects.requireNonNull(dead.getCustomName()).replaceAll("\\D+", "");
+                String monster_level_from_name = "1";
+                try {
+                    monster_level_from_name = Objects.requireNonNull(dead.getCustomName()).replaceAll("\\D+", "");
+                }
+                catch (NullPointerException ex)
+                {
+                    monster_level_from_name = "1";
+                }
                 int monster_level = Integer.parseInt(monster_level_from_name);
                 String lootConfigItem = API.lootConfig.getString(monster_level_from_name+"."+e.getEntity().getType()+".item");
                 int lootConfigChance = API.lootConfig.getInt(monster_level_from_name+"."+e.getEntity().getType()+".chance");

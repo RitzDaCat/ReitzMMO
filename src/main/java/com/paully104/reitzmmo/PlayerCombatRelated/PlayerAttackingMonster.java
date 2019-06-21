@@ -4,6 +4,9 @@ import com.paully104.reitzmmo.ConfigFiles.API;
 import com.paully104.reitzmmo.Enum.Weapon_Damage;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
 import org.bukkit.ChatColor;
+import org.bukkit.Effect;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.*;
@@ -11,7 +14,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,6 +24,7 @@ import java.util.Objects;
  */
 public class PlayerAttackingMonster implements Listener {
 
+    public static List<String> playerHasMusic = new ArrayList<>();
     private final boolean debugEnabled = API.debugConfig.getBoolean("PlayerAttackingMonster");
     private final boolean namePlatesEnabled = API.monsterConfig.getBoolean("General.nameplates-enabled");
     private final int bowMinimumDamage = API.playerConfig.getInt("MinimumDamage.Arrow");
@@ -31,11 +37,12 @@ public class PlayerAttackingMonster implements Listener {
         if (worldEnabled != -1)
         {
 
+
             Entity defender = e.getEntity();//monster
             Entity attacker = e.getDamager();//player
 
             //We do not want to use this for PVP
-            if (!(defender instanceof Player))
+            if (!(defender instanceof Player) && !(defender.hasMetadata("NPC")))
             {
 
 
@@ -46,6 +53,14 @@ public class PlayerAttackingMonster implements Listener {
 
                 if (attacker instanceof Player)
                 {
+
+                    Player p = (Player) attacker;
+                    if(!(playerHasMusic.contains(p.getUniqueId().toString()))) {
+
+                        p.playSound(p.getLocation(),Sound.MUSIC_DISC_11,100f,1f);
+                        //p.playEffect(p.getLocation(), Effect.RECORD_PLAY, Material.LEGACY_RECORD_11);
+                        playerHasMusic.add(p.getUniqueId().toString());
+                    }
                     //lets ignore if the damage source is custom
                     PlayerData pd = API.Players.get(attacker.getUniqueId().toString());
                     player_attack = pd.getData().getInt(ATTACK);

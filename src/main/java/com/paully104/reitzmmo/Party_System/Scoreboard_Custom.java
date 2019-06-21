@@ -26,8 +26,11 @@ public class Scoreboard_Custom implements Listener {
             objective.setDisplayName(ChatColor.RED + "❤");
 
             for (Player online : Bukkit.getOnlinePlayers()) {
-                online.setScoreboard(sb);
-                online.setHealth(online.getHealth());
+
+                if(!(online.hasMetadata("NPC"))) {
+                    online.setScoreboard(sb);
+                    online.setHealth(online.getHealth());
+                }
             }
         } catch (IllegalArgumentException ignored) {
 

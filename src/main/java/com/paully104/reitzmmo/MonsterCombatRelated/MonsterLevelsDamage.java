@@ -79,7 +79,7 @@ public class MonsterLevelsDamage implements Listener {
     public void monsterAttackingPlayer(EntityDamageByEntityEvent e) {
         //The world is set to -1 means don't apply to mobs
         int worldEnabled = API.worldConfig.getInt(e.getEntity().getLocation().getWorld().getName());
-        if(worldEnabled != -1) {
+        if(worldEnabled != -1 && !(e.getEntity().hasMetadata("NPC"))) {
             Entity defender = e.getEntity();//player
             Entity attacker = e.getDamager();//monster
             int monster_attack;
