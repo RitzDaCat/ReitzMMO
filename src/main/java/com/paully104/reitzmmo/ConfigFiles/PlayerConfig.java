@@ -18,6 +18,10 @@ public class PlayerConfig {
         configuration.addDefault("BossBar",null);
         configuration.addDefault("BossBar.Enabled",true);
 
+        configuration.addDefault("Music",null);
+        configuration.addDefault("Music.BattleMusic",null);
+        configuration.addDefault("Music.BattleMusic.Enabled",false);
+
         configuration.addDefault("Scaling.World",null);
         configuration.addDefault("Scaling.World.WorldBaseCombatEXP", null);
         configuration.addDefault("Scaling.World.WorldBaseCombatEXP.Base", 25);

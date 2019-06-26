@@ -28,6 +28,8 @@ public class PlayerAttackingMonster implements Listener {
     private final boolean debugEnabled = API.debugConfig.getBoolean("PlayerAttackingMonster");
     private final boolean namePlatesEnabled = API.monsterConfig.getBoolean("General.nameplates-enabled");
     private final int bowMinimumDamage = API.playerConfig.getInt("MinimumDamage.Arrow");
+    private final boolean battleMusicEnabled = API.playerConfig.getBoolean("Music.BattleMusic.Enabled");
+
 
     private final static String ATTACK = "Attack";
 
@@ -55,7 +57,7 @@ public class PlayerAttackingMonster implements Listener {
                 {
 
                     Player p = (Player) attacker;
-                    if(!(playerHasMusic.contains(p.getUniqueId().toString()))) {
+                    if(!playerHasMusic.contains(p.getUniqueId().toString()) && battleMusicEnabled) {
 
                         p.playSound(p.getLocation(),Sound.MUSIC_DISC_11,100f,1f);
                         //p.playEffect(p.getLocation(), Effect.RECORD_PLAY, Material.LEGACY_RECORD_11);

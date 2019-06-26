@@ -147,11 +147,17 @@ public class Main extends JavaPlugin {
         {
             for(ArmorStand stand : world.getEntitiesByClass(ArmorStand.class))
             {
-                if(!(stand.isVisible() && Objects.requireNonNull(stand.getCustomName()).contains("+EXP:")))
-                {
+                try {
+                    if(!stand.isVisible() && stand.getCustomName().contains("+EXP:"))
+                    {
                         stand.remove();
 
+                    }
+                }catch (NullPointerException e)
+                {
+
                 }
+
             }
 
         }
