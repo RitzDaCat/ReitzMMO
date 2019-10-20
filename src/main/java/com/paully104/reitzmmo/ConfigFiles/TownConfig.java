@@ -17,9 +17,15 @@ public class TownConfig {
         configuration.addDefault("Towns.StartingTown", null);
         configuration.addDefault("Towns.StartingTown.Name", "Starting Town");
         configuration.addDefault("Towns.StartingTown.World", "World");
-        configuration.addDefault("Towns.StartingTown.X", 38.809);
-        configuration.addDefault("Towns.StartingTown.Y", 77);
-        configuration.addDefault("Towns.StartingTown.Z", -30.477);
+        configuration.addDefault("Towns.StartingTown.X", 9.982);
+        configuration.addDefault("Towns.StartingTown.Y", 72);
+        configuration.addDefault("Towns.StartingTown.Z", -56.751);
+        configuration.addDefault("Towns.Lakeshore", null);
+        configuration.addDefault("Towns.Lakeshore.Name", "Lakeshore");
+        configuration.addDefault("Towns.Lakeshore.World", "World");
+        configuration.addDefault("Towns.Lakeshore.X", -339.134);
+        configuration.addDefault("Towns.Lakeshore.Y", 77);
+        configuration.addDefault("Towns.Lakeshore.Z", 1323.494);
 
         configuration.options().copyDefaults(true);
 
