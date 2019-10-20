@@ -28,6 +28,7 @@ public class Sword_Skills implements Listener {
     private final int underFireDuration = API.weaponskillConfig.getInt("Swords.WeaponSkills.Under_Fire.DurationInSeconds");
     private final int underFireLevelNeeded = API.weaponskillConfig.getInt("Swords.WeaponSkills.Under_Fire.LevelRequirement");
 
+
     private static void createDisplay(Material material, int Slot, String name, String lore) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
@@ -60,9 +61,9 @@ public class Sword_Skills implements Listener {
     static {
         final int underFireDuration = API.weaponskillConfig.getInt("Swords.WeaponSkills.Under_Fire.DurationInSeconds");
         final boolean underFireEnabled = API.weaponskillConfig.getBoolean("Swords.WeaponSkills.Under_Fire.Enabled");
-
+        final int underFireDurabilityLoss = API.weaponskillConfig.getInt("Swords.WeaponSkills.Under_Fire.DurabilityLoss");
         if(underFireEnabled) {
-            createDisplay(Material.WOODEN_SWORD, 0, "Under Fire", "Run faster for " + underFireDuration + " seconds Cost: 1 food");
+            createDisplay(Material.FEATHER, 0, "Under Fire", "Faster for " + underFireDuration + "s cost: " + underFireDurabilityLoss);
         }
 
 

@@ -15,6 +15,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +32,8 @@ public class onRightClickWeaponSkills implements Listener {
     private final int underFireDuration = API.weaponskillConfig.getInt("Swords.WeaponSkills.Under_Fire.DurationInSeconds");
     private final int underFireSpeedIncrease = API.weaponskillConfig.getInt("Swords.WeaponSkills.Under_Fire.MovementSpeedIncreasePercent");
     private final int underFireLevelNeeded = API.weaponskillConfig.getInt("Swords.WeaponSkills.Under_Fire.LevelRequirement");
+    private final int underFireDurabilityLoss = API.weaponskillConfig.getInt("Swords.WeaponSkills.Under_Fire.DurabilityLoss");
+
 
     @EventHandler
     public void onPlayerUse(PlayerInteractEvent event) {
@@ -39,15 +44,22 @@ public class onRightClickWeaponSkills implements Listener {
 
         if (p.getInventory().getItemInMainHand().hasItemMeta()) {
             if (p.getInventory().getItemInMainHand().getItemMeta().hasLore()) {
-                if (level >= underFireLevelNeeded && !(underFireUsers.contains(p.getUniqueId().toString())) && underFireEnabled && p.getInventory().getItemInMainHand().getItemMeta().getLore().contains("Under Fire") && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) && p.getPlayer().getFoodLevel() >= 1) {
+
+                if (level >= underFireLevelNeeded && !(underFireUsers.contains(p.getUniqueId().toString())) && underFireEnabled && p.getInventory().getItemInMainHand().getItemMeta().getLore().contains("Under Fire") && (event.getAction() == Action.RIGHT_CLICK_AIR
+                        || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
 
 
                     //default walk speed is .2
                     p.getPlayer().setWalkSpeed((float)0.2 * (underFireSpeedIncrease/100));
                     underFireUsers.add(p.getUniqueId().toString());
                     p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder("Under Fire [Activated]").color(ChatColor.GREEN).create());
-                    int foodLevel = p.getPlayer().getFoodLevel();
-                    p.setFoodLevel(foodLevel - 1);
+
+                    final ItemStack modifiedItem = p.getInventory().getItemInMainHand();
+                    final Damageable im = (Damageable) modifiedItem.getItemMeta();
+                    final int damage = underFireDurabilityLoss; // you should handle this as a NumberFormatException can be thrown.
+                    final int currentDamage = im.getDamage();
+                    im.setDamage(currentDamage + damage);
+                    modifiedItem.setItemMeta((ItemMeta)im);
                     Bukkit.getScheduler().scheduleSyncDelayedTask(API.plugin, new Runnable() {
                         public void run() {
                             p.getPlayer().setWalkSpeed((float)0.2);

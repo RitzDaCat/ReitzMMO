@@ -56,8 +56,8 @@ public class Party_Menu implements Listener{
     {
         System.out.println(event.getDestination().toString());
         if (event.getDestination() == PARTY_MENU) {
-            System.out.println(event.getDestination().toString());
-            System.out.println("InventoryMoveEvent on GUI_MENU");
+            //System.out.println(event.getDestination().toString());
+            //System.out.println("InventoryMoveEvent on GUI_MENU");
             event.setCancelled(true);
         }
 

@@ -17,11 +17,9 @@ public class PlayerConfig {
 
         configuration.addDefault("BossBar",null);
         configuration.addDefault("BossBar.Enabled",true);
-
         configuration.addDefault("Music",null);
         configuration.addDefault("Music.BattleMusic",null);
         configuration.addDefault("Music.BattleMusic.Enabled",false);
-
         configuration.addDefault("Scaling.World",null);
         configuration.addDefault("Scaling.World.WorldBaseCombatEXP", null);
         configuration.addDefault("Scaling.World.WorldBaseCombatEXP.Base", 25);
@@ -29,15 +27,8 @@ public class PlayerConfig {
         configuration.addDefault("Scaling.Player.HealthScale",2);
         configuration.addDefault("Scaling.Player.AttackScale",2);
         configuration.addDefault("Scaling.Player.DefenseScale",2);
-
         configuration.addDefault("MinimumDamage",null);
         configuration.addDefault("MinimumDamage.Arrow",2);
-
-
-
-
-
-
 
 
         configuration.options().copyDefaults(true);
@@ -50,8 +41,6 @@ public class PlayerConfig {
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
-
-
 
         }
     }

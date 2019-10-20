@@ -72,7 +72,7 @@ public class MonsterConfig {
         configuration.addDefault("Endermite.base_attack", 3);
         configuration.addDefault("Endermite.speed", 1);
         configuration.addDefault("Endermite.min_level", 5);
-        configuration.addDefault("Enbdermite.nameplates_enabled", true);
+        configuration.addDefault("Endermite.nameplates_enabled", true);
 
         configuration.addDefault("Ghast", null);
         configuration.addDefault("Ghast.base_hp", 4);
@@ -134,7 +134,6 @@ public class MonsterConfig {
         configuration.addDefault("Rabbit.min_level", 1);
         configuration.addDefault("Rabbit.nameplates_enabled", true);
 
-
         configuration.addDefault("Sheep", null);
         configuration.addDefault("Sheep.base_hp", 2);
         configuration.addDefault("Sheep.speed", 1);
@@ -173,9 +172,8 @@ public class MonsterConfig {
         configuration.addDefault("Spider.base_hp", 3);
         configuration.addDefault("Spider.base_attack", 3);
         configuration.addDefault("Spider.speed", 1.2);
-        configuration.addDefault("Spider.min_leveL", 1);
+        configuration.addDefault("Spider.min_level", 2);
         configuration.addDefault("Spider.nameplates_enabled", true);
-
 
         configuration.addDefault("Squid", null);
         configuration.addDefault("Squid.base_hp", 2);
@@ -199,7 +197,7 @@ public class MonsterConfig {
         configuration.addDefault("Zombie", null);
         configuration.addDefault("Zombie.base_hp", 3);
         configuration.addDefault("Zombie.base_attack", 2);
-        configuration.addDefault("Zombie.speed", 1);
+        configuration.addDefault("Zombie.speed", 1.2);
         configuration.addDefault("Zombie.min_level", 1);
         configuration.addDefault("Zombie.nameplates_enableD", true);
 
@@ -255,7 +253,7 @@ public class MonsterConfig {
         configuration.addDefault("Bat", null);
         configuration.addDefault("Bat.base_hp", 3);
         configuration.addDefault("Bat.base_attack", 3);
-        configuration.addDefault("Bat.speed", 1);
+        configuration.addDefault("Bat.speed", 1.2);
         configuration.addDefault("Bat.min_level", 1);
         configuration.addDefault("Bat.nameplates_enabled", true);
 
@@ -315,6 +313,19 @@ public class MonsterConfig {
         configuration.addDefault("Salmon.min_level", 1);
         configuration.addDefault("Salmon.nameplates_enabled", true);
 
+        configuration.addDefault("Vex", null);
+        configuration.addDefault("Vex.base_hp", 8);
+        configuration.addDefault("Vex.base_attack", 3);
+        configuration.addDefault("Vex.speed", 1);
+        configuration.addDefault("Vex.min_level", 5);
+        configuration.addDefault("Vex.nameplates_enabled", true);
+
+        configuration.addDefault("Vindicator", null);
+        configuration.addDefault("Vindicator.base_hp", 10);
+        configuration.addDefault("Vindicator.base_attack", 5);
+        configuration.addDefault("Vindicator.speed", 1);
+        configuration.addDefault("Vindicator.min_level", 5);
+        configuration.addDefault("Vindicator.nameplates_enabled", true);
 
         configuration.options().copyDefaults(true);
 

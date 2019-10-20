@@ -225,11 +225,9 @@ public class ReitzMMO_Book {
                 .event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/reitzmmo.1159/"))
                 .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Go to the plugin website").create()))
                 .create();
-        BaseComponent[] page2 = new ComponentBuilder("Chickens")
-               .append("Base Health: " + chickenBaseHP)
-                .append("Base Attack: " + "0")
-                .append("Speed:" + chickenSpeed)
-                .append("Minimum LV: " + chickenMinLevel)
+        BaseComponent[] page2 = new ComponentBuilder("ReitzMMO Command Menu(Click Here)")
+                .bold(false)
+                .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/reitz"))
                 .create();
 
         //add the page to the meta

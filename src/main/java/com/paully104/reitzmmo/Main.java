@@ -3,9 +3,11 @@ package com.paully104.reitzmmo;
 import com.paully104.reitzmmo.Command_Handlers.Party_Commands;
 import com.paully104.reitzmmo.Command_Handlers.ReitzRPGMain;
 import com.paully104.reitzmmo.ConfigFiles.*;
+import com.paully104.reitzmmo.Custom_Recipes.ReitzMMO_Book;
 import com.paully104.reitzmmo.Menu.Menu;
 import com.paully104.reitzmmo.Menu.Party_Menu;
 import com.paully104.reitzmmo.Menu.Sword_Skills;
+import com.paully104.reitzmmo.Menu.Town_Menu;
 import com.paully104.reitzmmo.Metrics.Metrics;
 import com.paully104.reitzmmo.MonsterCombatRelated.MonsterLevelsDamage;
 import com.paully104.reitzmmo.MonsterCombatRelated.MonsterLevelsHealth;
@@ -47,20 +49,15 @@ public class Main extends JavaPlugin {
     public void onEnable(){
 
         Metrics metrics = new Metrics(this);
-
         // Optional: Add custom charts
         metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));
-
-
         //Fired when the server enables the plugin
         getLogger().info("ReitzRPGMMO is now enabled");
         API.plugin = this;
         //Setup PlayerData
         PlayerData.setup(this);
-
         //Register Config Files
         FileManager.FileManagerFiles();
-
         //Set Config File Data
         MonsterConfig.Configuration();
         PlayerConfig.Configuration();
@@ -72,7 +69,7 @@ public class Main extends JavaPlugin {
         SpecialMonsterConfig.Configuration();
         LootConfig.Configuration();
         MenuConfig.Configuration();
-
+        TownConfig.Configuration();
         //Set API data for quicker config reading
         API.setMonsterConfig();
         API.setPlayerConfig();
@@ -85,7 +82,7 @@ public class Main extends JavaPlugin {
         API.setSpecialMonsterConfig();
         API.setLootConfig();
         API.setMenuConfig();
-
+        API.setTownConfig();
         //Main Commands
         Objects.requireNonNull(this.getCommand("reitz")).setExecutor(new ReitzRPGMain());
         Objects.requireNonNull(this.getCommand("rrm")).setExecutor(new ReitzRPGMain());
@@ -95,11 +92,9 @@ public class Main extends JavaPlugin {
         //removed weaponskills and weaponskill menu
         registerEvents(this,new OnPlayerJoinStatSetup(), new MonsterLevelsHealth(), new OnPlayerExitStatSave(),
         new MonsterLevelsDamage(), new PlayerAttackingMonster(),new PlayerDefeatsMonster(), new Menu(), new Party_Menu(),
-                new Scoreboard_Custom(), new Sword_Skills(), new onRightClickWeaponSkills());
+                new Scoreboard_Custom(), new Sword_Skills(), new onRightClickWeaponSkills(), new Town_Menu());
 
         //SetCustomItems
-
-
         //if they reloaded the server people might be on, lets set their stats
         for(Player p : Bukkit.getServer().getOnlinePlayers())
         {
@@ -155,23 +150,14 @@ public class Main extends JavaPlugin {
                     }
                 }catch (NullPointerException e)
                 {
-
                 }
-
             }
-
         }
-
-
         //placeholder nonsense
         if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
         {
             registerPlaceHolders.registerPlaceHoldersReitzMMO();
-
-
-
         }
-
     }
     @Override
     public void onDisable(){
@@ -197,8 +183,6 @@ public class Main extends JavaPlugin {
             pd.getData().set(COMBATEXP, combatexp);
             pd.getData().set(DISPLAYNAME,p.getDisplayName());
             pd.save();
-
-
             //They disconnect make sure their party status is removed!
             if (Party_API.Party_Leaders.containsKey(name))
             {
@@ -210,7 +194,7 @@ public class Main extends JavaPlugin {
                 p.performCommand("Rparty leave");
             }
             //Remove Book
-            //ReitzMMO_Book.removeLoginBook(p);
+            ReitzMMO_Book.removeLoginBook(p);
 
             //everyone has their own partyboard
 

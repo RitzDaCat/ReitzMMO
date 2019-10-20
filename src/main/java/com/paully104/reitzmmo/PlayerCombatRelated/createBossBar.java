@@ -3,6 +3,7 @@ package com.paully104.reitzmmo.PlayerCombatRelated;
 import com.paully104.reitzmmo.ConfigFiles.API;
 import com.paully104.reitzmmo.Party_System.Party_Queue;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
@@ -13,27 +14,27 @@ import org.bukkit.entity.*;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.paully104.reitzmmo.ConfigFiles.API.plugin;
+
 public class createBossBar {
 
     public static final HashMap<String, BossBar> playerBossBar = new HashMap<>();
     public static final Boolean bossBarEnabled = API.playerConfig.getBoolean("BossBar.Enabled");
 
-    public void setBossBaronPlayer(Player p)
+    public static void setBossBaronPlayer(Player p)
     {
-       if(playerBossBar.get(p.getUniqueId().toString()) == null && bossBarEnabled)
+       if(bossBarEnabled)
        {
            String uuid = p.getUniqueId().toString();
-           BossBar bossbar = Bukkit.createBossBar("Test",BarColor.RED,BarStyle.SOLID,BarFlag.PLAY_BOSS_MUSIC);
+           BossBar bossbar = Bukkit.createBossBar("MobBar",BarColor.RED,BarStyle.SOLID);
            bossbar.setVisible(false);
            bossbar.addPlayer(p);
            playerBossBar.put(uuid,bossbar);
-
-
        }
        //now we can assume they have their "own" bar
     }
 
-    public void updateBossBaronPlayer(Player p, LivingEntity le, int damagedone)
+    public static void updateBossBaronPlayer(Player p, LivingEntity le, int damagedone)
     {
         if(!(le instanceof ArmorStand)  && bossBarEnabled) {
             String uuid = p.getUniqueId().toString();
@@ -50,13 +51,22 @@ public class createBossBar {
         }
 
 
+
     }
 
-    public void removeBossBaronPlayer(Player p)
+    public static void removeBossBaronPlayer(Player p)
     {
         if(bossBarEnabled) {
             String uuid = p.getUniqueId().toString();
             playerBossBar.get(uuid).setVisible(false);
+        }
+
+    }
+    public static void deleteBossBaronPlayer(Player p)
+    {
+        if(bossBarEnabled) {
+            String uuid = p.getUniqueId().toString();
+            playerBossBar.get(uuid).removeAll();//delete it?
         }
 
     }

@@ -24,6 +24,7 @@ public class WeaponskillConfig {
         configuration.addDefault("Swords.WeaponSkills.Under_Fire.DurationInSeconds",10);
         configuration.addDefault("Swords.WeaponSkills.Under_Fire.MovementSpeedIncreasePercent",200);
         configuration.addDefault("Swords.WeaponSkills.Under_Fire.LevelRequirement",2);
+        configuration.addDefault("Swords.WeaponSkills.Under_Fire.DurabilityLoss",10);
 
 
 

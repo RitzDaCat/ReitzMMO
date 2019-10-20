@@ -3,12 +3,10 @@ package com.paully104.reitzmmo.PlayerCombatRelated;
 import com.paully104.reitzmmo.ConfigFiles.API;
 import com.paully104.reitzmmo.Enum.Weapon_Damage;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
-import org.bukkit.ChatColor;
-import org.bukkit.Effect;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+
+import static com.paully104.reitzmmo.ConfigFiles.API.plugin;
 
 /**
  * Created by Paul on 3/22/2016.
@@ -124,8 +124,14 @@ public class PlayerAttackingMonster implements Listener {
                     }
 
                     //end of player attacking monster lets do our bossBar here
-                    createBossBar bar = new createBossBar();
-                    bar.updateBossBaronPlayer((Player)attacker,(LivingEntity)defender,damage_done);
+                    //createBossBar bar = new createBossBar();
+                    String uuid = p.getUniqueId().toString();
+                    BossBar bar = createBossBar.playerBossBar.get((uuid));
+                    createBossBar.updateBossBaronPlayer((Player)attacker,(LivingEntity)defender,damage_done);
+                    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                        createBossBar.removeBossBaronPlayer(p);
+                        //YOUR MESSAGE TO SAY AFTER THEY SAY STUFF
+                    }, 300); //100 MEANS WAIT 5 SECCONDS BEFORE RUNNING THE CODE ABOVE
 
 
                 }

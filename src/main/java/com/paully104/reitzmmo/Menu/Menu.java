@@ -52,7 +52,7 @@ public class Menu implements Listener {
         }
         createDisplay(Material.WOODEN_SWORD, 3, "Sword Skills", "Apply sword weaponskills");
         //createDisplay(Material.ARMOR_STAND, 6, "Fix EXP","Fix floating EXP");
-        //createDisplay(Material.MAP, 7, "Town Menu","Teleport to a town");
+        createDisplay(Material.MAP, 4, "Town Menu","Town Menu");
         //GUI_MENU.setItem(0, new ItemStack(Material.DIRT, 3));
         //GUI_MENU.setItem(8, new ItemStack(Material.GOLD_BLOCK, 4));
         //The first parameter, is the slot that is assigned to. Starts counting at 0
@@ -61,7 +61,7 @@ public class Menu implements Listener {
     @EventHandler
     public void onInventoryMoveEvent(InventoryMoveItemEvent event)
     {
-        System.out.println(event.getDestination().toString());
+        //System.out.println(event.getDestination().toString());
         if (event.getDestination() == GUI_MENU) {
             event.setCancelled(true);
         }

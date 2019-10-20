@@ -18,6 +18,7 @@ public class FileManager
     public static File specialMonsterConfig;
     public static File lootConfig;
     public static File menuConfig;
+    public static File townConfig;
 
 
 
@@ -35,6 +36,7 @@ public class FileManager
         specialMonsterConfig = new File("plugins/ReitzMMO/MonsterSettings/SpecialMonsterConfig.yml");
         lootConfig = new File("plugins/ReitzMMO/LootSettings/LootConfig.yml");
         menuConfig = new File("plugins/ReitzMMO/MenuSettings/MenuConfig.yml");
+        townConfig = new File("plugins/ReitzMMO/TownSettings/TownConfig.yml");
 
 
     }
