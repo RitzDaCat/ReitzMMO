@@ -85,6 +85,8 @@ public class MonsterLevelsHealth implements Listener {
     private final int huskBaseHP = API.monsterConfig.getInt("Husk.base_hp");
     private final int vindicatorBaseHP = API.monsterConfig.getInt("Vindicator.base_hp");
     private final int vexBaseHP = API.monsterConfig.getInt("Vex.base_hp");
+    private final int foxBaseHP = API.monsterConfig.getInt("Fox.base_hp");
+    private final int pandaBaseHP = API.monsterConfig.getInt("Panda.base_hp");
 
     //NAMEPLATE SECTION
     private final boolean monsterNameplatesEnabled = API.monsterConfig.getBoolean("General.nameplates-enabled");
@@ -133,6 +135,8 @@ public class MonsterLevelsHealth implements Listener {
     private final boolean huskNameplate = API.monsterConfig.getBoolean("Husk.nameplates_enabled");
     private final boolean vindicatorNameplate = API.monsterConfig.getBoolean("Vindicator.nameplates_enabled");
     private final boolean vexNameplate = API.monsterConfig.getBoolean("Vex.nameplates_enabled");
+    private final boolean foxNameplate = API.monsterConfig.getBoolean("Fox.nameplates_enabled");
+    private final boolean pandaNameplate = API.monsterConfig.getBoolean("Panda.nameplates_enabled");
 
     //Monster SPEED SECTION
     private final int zombieSpeed = API.monsterConfig.getInt("Zombie.speed");
@@ -179,6 +183,8 @@ public class MonsterLevelsHealth implements Listener {
     private final int huskSpeed = API.monsterConfig.getInt("Husk.speed");
     private final int vindicatorSpeed = API.monsterConfig.getInt("Vindicator.speed");
     private final int vexSpeed = API.monsterConfig.getInt("Vex.speed");
+    private final int foxSpeed = API.monsterConfig.getInt("Fox.speed");
+    private final int pandaSpeed = API.monsterConfig.getInt("Panda.speed");
 
     //Monster MINIMUM SECTION
     private final int zombieMinLevel = API.monsterConfig.getInt("Zombie.min_level");
@@ -225,6 +231,8 @@ public class MonsterLevelsHealth implements Listener {
     private final int huskMinLevel = API.monsterConfig.getInt("Husk.min_level");
     private final int vindicatorMinLevel = API.monsterConfig.getInt("Vindicator.min_level");
     private final int vexMinLevel = API.monsterConfig.getInt("Vex.min_level");
+    private final int foxMinLevel = API.monsterConfig.getInt("Fox.min_level");
+    private final int pandaMinLevel = API.monsterConfig.getInt("Panda.min_level");
 
 
     private int calculateDistanceFromSpawn(Location worldSpawn, Location monsterSpawn)
@@ -406,13 +414,53 @@ public class MonsterLevelsHealth implements Listener {
                         distance = wolfMinLevel;
                     }
                     Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
-                                            e.getEntity().setHealth(hp);
-                        levelColor = ChatColor.YELLOW + "[" + distance + "]";
-                                                if(e.getEntity().getCustomName() == null) {
-                            e.getEntity().setCustomName(mobName + levelColor);
-                        }
+                    e.getEntity().setHealth(hp);
+                    levelColor = ChatColor.YELLOW + "[" + distance + "]";
+                    if(e.getEntity().getCustomName() == null) {
+                        e.getEntity().setCustomName(mobName + levelColor);
+                    }
                     Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * wolfSpeed);
                     if(monsterNameplatesEnabled && wolfNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
+                    break;
+
+                case FOX:
+                    hp = distance * foxBaseHP;
+                    if(hp < foxMinLevel * foxBaseHP)
+                    {
+                        hp = foxMinLevel * foxBaseHP;
+                        distance = foxMinLevel;
+                    }
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
+                    e.getEntity().setHealth(hp);
+                    levelColor = ChatColor.YELLOW + "[" + distance + "]";
+                    if(e.getEntity().getCustomName() == null) {
+                        e.getEntity().setCustomName(mobName + levelColor);
+                    }
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * foxSpeed);
+                    if(monsterNameplatesEnabled && foxNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
+                    break;
+                    
+                case PANDA:
+                    hp = distance * pandaBaseHP;
+                    if(hp < pandaMinLevel * pandaBaseHP)
+                    {
+                        hp = pandaMinLevel * pandaBaseHP;
+                        distance = pandaMinLevel;
+                    }
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
+                    e.getEntity().setHealth(hp);
+                    levelColor = ChatColor.YELLOW + "[" + distance + "]";
+                    if(e.getEntity().getCustomName() == null) {
+                        e.getEntity().setCustomName(mobName + levelColor);
+                    }
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * pandaSpeed);
+                    if(monsterNameplatesEnabled && pandaNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
                     }

@@ -116,7 +116,7 @@ public class MonsterConfig {
         configuration.addDefault("Mushroomcow.nameplates_enabled", true);
 
         configuration.addDefault("Pig", null);
-        configuration.addDefault("Pig.base_hp", 2);
+        configuration.addDefault("Pig.base_hp", 1);
         configuration.addDefault("Pig.speed", 1);
         configuration.addDefault("Pig.min_level", 1);
         configuration.addDefault("Pig.nameplates_enabled", true);
@@ -139,6 +139,18 @@ public class MonsterConfig {
         configuration.addDefault("Sheep.speed", 1);
         configuration.addDefault("Sheep.min_level", 1);
         configuration.addDefault("Sheep.nameplates_enabled", true);
+
+        configuration.addDefault("Fox", null);
+        configuration.addDefault("Fox.base_hp", 2);
+        configuration.addDefault("Fox.speed", 1.5);
+        configuration.addDefault("Fox.min_level", 1);
+        configuration.addDefault("Fox.nameplates_enabled", true);
+
+        configuration.addDefault("Panda", null);
+        configuration.addDefault("Panda.base_hp", 1);
+        configuration.addDefault("Panda.speed", 2);
+        configuration.addDefault("Panda.min_level", 1);
+        configuration.addDefault("Panda.nameplates_enabled", true);
 
         configuration.addDefault("Silverfish", null);
         configuration.addDefault("Silverfish.base_hp", 2);
@@ -190,7 +202,7 @@ public class MonsterConfig {
         configuration.addDefault("Wolf", null);
         configuration.addDefault("Wolf.base_hp", 3);
         configuration.addDefault("Wolf.base_attack", 3);
-        configuration.addDefault("Wolf.speed", 1);
+        configuration.addDefault("Wolf.speed", 1.5);
         configuration.addDefault("Wolf.min_level", 1);
         configuration.addDefault("Wolf.nameplates_enabled", true);
 
@@ -223,10 +235,10 @@ public class MonsterConfig {
         configuration.addDefault("Shulker.nameplates_enabled", true);
 
         configuration.addDefault("Pillager", null);
-        configuration.addDefault("Pillager.base_hp", 4);
-        configuration.addDefault("Pillager.base_attack", 3);
-        configuration.addDefault("Pillager.speed", 1);
-        configuration.addDefault("Pillager.min_level", 5);
+        configuration.addDefault("Pillager.base_hp", 5);
+        configuration.addDefault("Pillager.base_attack", 4);
+        configuration.addDefault("Pillager.speed", 2);
+        configuration.addDefault("Pillager.min_level", 8);
         configuration.addDefault("Pillager.nameplates_enabled", true);
 
         configuration.addDefault("Illusioner", null);
@@ -253,14 +265,14 @@ public class MonsterConfig {
         configuration.addDefault("Bat", null);
         configuration.addDefault("Bat.base_hp", 3);
         configuration.addDefault("Bat.base_attack", 3);
-        configuration.addDefault("Bat.speed", 1.2);
+        configuration.addDefault("Bat.speed", 1.5);
         configuration.addDefault("Bat.min_level", 1);
         configuration.addDefault("Bat.nameplates_enabled", true);
 
         configuration.addDefault("Drowned", null);
         configuration.addDefault("Drowned.base_hp", 3);
         configuration.addDefault("Drowned.base_attack", 2);
-        configuration.addDefault("Drowned.speed", 1);
+        configuration.addDefault("Drowned.speed", 1.2);
         configuration.addDefault("Drowned.min_level", 3);
         configuration.addDefault("Drowned.nameplates_enabled", true);
 
