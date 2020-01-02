@@ -3,17 +3,14 @@ package com.paully104.reitzmmo.PlayerCombatRelated;
 import com.paully104.reitzmmo.ConfigFiles.API;
 import com.paully104.reitzmmo.Hologram.SpawnChest;
 import com.paully104.reitzmmo.Hologram.Hologram;
+import com.paully104.reitzmmo.ItemData.nameSpaceKey;
 import com.paully104.reitzmmo.Party_System.Party;
 import com.paully104.reitzmmo.Party_System.Party_API;
-import io.netty.buffer.Unpooled;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.minecraft.server.v1_14_R1.*;
-import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.*;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
@@ -97,62 +94,21 @@ public class PlayerDefeatsMonster implements Listener {
                 //lets handle mob custom drops here
                 //dont iteriate while the thread is modifying
                 if (e.getEntity() instanceof Monster && mobsDropAttackUpItems) {
-                    try {
-                        for (ItemStack eachItem : e.getDrops()) {
-                            int randomNum = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-                            if (mobsDropAttackUpItemsChance >= randomNum) {
-                                //chance to make the item have attack up
-                                int itemDamage = 0;
-                                int itemDefense = 0;
-                                //check to see if it already has an attack modifier
-                                if (!(Objects.requireNonNull(eachItem.getItemMeta()).hasAttributeModifiers())) {
-                                    //does not have a modifier so we can add
 
-
-                                    net.minecraft.server.v1_14_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(eachItem);
-                                    NBTTagCompound compound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
-                                    NBTTagList modifiers = new NBTTagList();
-                                    NBTTagCompound damage = new NBTTagCompound();
-                                    damage.set("AttributeName", new NBTTagString("generic.attackDamage"));
-                                    damage.set("Name", new NBTTagString("generic.attackDamage"));
-                                    damage.set("Amount", new NBTTagInt(monster_level + itemDamage));
-                                    damage.set("Operation", new NBTTagInt(0));
-                                    damage.set("UUIDLeast", new NBTTagInt(894654));
-                                    damage.set("UUIDMost", new NBTTagInt(2872));
-                                    damage.set("Slot", new NBTTagString("mainhand"));
-                                    damage.set("Durability", new NBTTagInt(100));
-
-                                    modifiers.add(damage);
-                                    Objects.requireNonNull(compound).set("AttributeModifiers", modifiers);
-                                    nmsStack.setTag(compound);
-                                    ItemStack item = CraftItemStack.asBukkitCopy(nmsStack);
-                                    if (debugEnabled) {
-                                        System.out.println("Item drop");
-                                    }
-                                    Objects.requireNonNull(e.getEntity().getLocation().getWorld()).dropItemNaturally(e.getEntity().getLocation(), item);
-
-
-                                }
-                                e.getDrops().clear();
-                            }
-
-
-                        }
-                        //after the usual items we can do chest logic?
-                        int randomNumBonusChest = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-                        if (mobsDropBonusChest && (mobsDropBonusChestPercentChance >= randomNumBonusChest)) {
-                            SpawnChest chestspawn = new SpawnChest();
-                            chestspawn.setChest(e.getEntity().getWorld(), e.getEntity().getLocation(), "Bonus Loot", monster_level);
-                        }
-
-
-                    } catch (ConcurrentModificationException ce) {
-                        if (debugEnabled) {
-                            System.out.println("CME");
-                        }
-
-
+                    for(ItemStack item : e.getDrops()) {
+                        nameSpaceKey.setCustomTagOnItemStack(item, monster_level);
+                        Objects.requireNonNull(e.getEntity().getLocation().getWorld()).dropItemNaturally(e.getEntity().getLocation(), item);
+                        //e.getDrops().clear();
                     }
+                    //after the usual items we can do chest logic?
+                    int randomNumBonusChest = ThreadLocalRandom.current().nextInt(0, 100 + 1);
+                    if (mobsDropBonusChest && (mobsDropBonusChestPercentChance >= randomNumBonusChest)) {
+                        SpawnChest chestspawn = new SpawnChest();
+                        chestspawn.setChest(e.getEntity().getWorld(), e.getEntity().getLocation(), "Bonus Loot", monster_level);
+                    }
+
+                }
+
 
 
                     if (Party_API.Party_Leaders.containsKey(playerName)) {
@@ -631,6 +587,6 @@ public class PlayerDefeatsMonster implements Listener {
         }
 
         }
-    }
-
 }
+
+

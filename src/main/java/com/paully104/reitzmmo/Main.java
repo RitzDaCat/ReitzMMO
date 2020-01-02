@@ -15,7 +15,6 @@ import com.paully104.reitzmmo.OnPlayerEvents.OnPlayerExitStatSave;
 import com.paully104.reitzmmo.OnPlayerEvents.OnPlayerJoinStatSetup;
 import com.paully104.reitzmmo.Party_System.Party_API;
 import com.paully104.reitzmmo.Party_System.Scoreboard_Custom;
-import com.paully104.reitzmmo.Party_System.createPartyScoreboard;
 import com.paully104.reitzmmo.PlaceHolderAPI.registerPlaceHolders;
 import com.paully104.reitzmmo.PlayerCombatRelated.PlayerAttackingMonster;
 import com.paully104.reitzmmo.PlayerCombatRelated.PlayerDefeatsMonster;
@@ -44,7 +43,7 @@ public class Main extends JavaPlugin {
     public static final String HEALTH = "Health";
     public static final String COMBATEXP = "Combat-EXP";
     public static final String DISPLAYNAME = "DisplayName";
-
+    
     @Override
     public void onEnable(){
 
@@ -93,6 +92,7 @@ public class Main extends JavaPlugin {
         registerEvents(this,new OnPlayerJoinStatSetup(), new MonsterLevelsHealth(), new OnPlayerExitStatSave(),
         new MonsterLevelsDamage(), new PlayerAttackingMonster(),new PlayerDefeatsMonster(), new Menu(), new Party_Menu(),
                 new Scoreboard_Custom(), new Sword_Skills(), new onRightClickWeaponSkills(), new Town_Menu());
+
 
         //SetCustomItems
         //if they reloaded the server people might be on, lets set their stats

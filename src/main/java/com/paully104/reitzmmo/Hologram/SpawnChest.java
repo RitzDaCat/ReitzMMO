@@ -1,23 +1,15 @@
 package com.paully104.reitzmmo.Hologram;
-
 import com.paully104.reitzmmo.ConfigFiles.API;
-import com.paully104.reitzmmo.Enum.Weapon_Damage;
-import net.minecraft.server.v1_14_R1.NBTTagCompound;
-import net.minecraft.server.v1_14_R1.NBTTagInt;
-import net.minecraft.server.v1_14_R1.NBTTagList;
-import net.minecraft.server.v1_14_R1.NBTTagString;
+import com.paully104.reitzmmo.ItemData.nameSpaceKey;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class SpawnChest {
@@ -55,31 +47,10 @@ public class SpawnChest {
         originalWeapons.add(iron_sword);
         originalWeapons.add(diamond_sword);
 
-        HashMap<String,ItemStack> modifiedWeapons = new HashMap<>();
 
         for(ItemStack item : originalWeapons)
         {
-            net.minecraft.server.v1_14_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
-            NBTTagCompound compound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
-            NBTTagList modifiers = new NBTTagList();
-            NBTTagCompound damage = new NBTTagCompound();
-            damage.set("AttributeName", new NBTTagString("generic.attackDamage"));
-            damage.set("Name", new NBTTagString("generic.attackDamage"));
-            int weaponDamage = (Weapon_Damage.Weapon_Damages.valueOf(item.getType().name()).getValue());
-            damage.set("Amount", new NBTTagInt(monster_level + weaponDamage));
-            damage.set("Operation", new NBTTagInt(0));
-            damage.set("UUIDLeast", new NBTTagInt(894654));
-            damage.set("UUIDMost", new NBTTagInt(2872));
-            damage.set("Slot", new NBTTagString("mainhand"));
-
-            modifiers.add(damage);
-            Objects.requireNonNull(compound).set("AttributeModifiers", modifiers);
-            nmsStack.setTag(compound);
-
-            ItemStack nmsItem = CraftItemStack.asBukkitCopy(nmsStack);
-            modifiedWeapons.put(item.getType().name(),nmsItem);
-
-
+            nameSpaceKey.setCustomTagOnItemStack(item,monster_level);
 
         }
 
@@ -89,27 +60,27 @@ public class SpawnChest {
         int random = ThreadLocalRandom.current().nextInt(0, 100 + 1);
         if(wooden_swordEnabled && wooden_swordPercentChance > random)
         {
-            chest.getInventory().addItem(modifiedWeapons.get("WOODEN_SWORD"));
+            chest.getInventory().addItem(originalWeapons.get(0));
         }
         int random2 = ThreadLocalRandom.current().nextInt(0, 100 + 1);
         if(gold_swordEnabled && gold_swordPercentChance > random2)
         {
-            chest.getInventory().addItem(modifiedWeapons.get("GOLDEN_SWORD"));
+            chest.getInventory().addItem(originalWeapons.get(1));
         }
         int random3 = ThreadLocalRandom.current().nextInt(0, 100 + 1);
         if(stone_swordEnabled && stone_swordPercentChance > random3)
         {
-            chest.getInventory().addItem(modifiedWeapons.get("STONE_SWORD"));
+            chest.getInventory().addItem(originalWeapons.get(2));
         }
         int random4 = ThreadLocalRandom.current().nextInt(0, 100 + 1);
         if(iron_swordEnabled && iron_swordPercentChance > random4)
         {
-            chest.getInventory().addItem(modifiedWeapons.get("IRON_SWORD"));
+            chest.getInventory().addItem(originalWeapons.get(3));
         }
         int random5 = ThreadLocalRandom.current().nextInt(0, 100 + 1);
         if(diamond_swordEnabled && diamond_swordPercentChance > random5)
         {
-            chest.getInventory().addItem(modifiedWeapons.get("DIAMOND_SWORD"));
+            chest.getInventory().addItem(originalWeapons.get(4));
         }
 
 
