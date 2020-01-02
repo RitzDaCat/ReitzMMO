@@ -13,12 +13,16 @@ import java.util.Arrays;
 
 public class nameSpaceKey {
     public static NamespacedKey itemDamageKey = new NamespacedKey(API.plugin, "ReitzMMOItemDamageKey");
+    public static NamespacedKey itemDefenseKey = new NamespacedKey(API.plugin, "ReitzMMOItemDefenseKey");
 
     public static NamespacedKey getItemDamageKey() {
         return itemDamageKey;
     }
+    public static NamespacedKey getItemDefenseKey() {
+        return itemDefenseKey;
+    }
 
-    public static void setCustomTagOnItemStack(ItemStack item, int number)
+    public static void setItemDamageContainer(ItemStack item, int number)
     {
         ItemMeta meta = item.getItemMeta();
         meta.getPersistentDataContainer().set(itemDamageKey, PersistentDataType.INTEGER,number);
@@ -26,12 +30,34 @@ public class nameSpaceKey {
         item.setItemMeta(meta);
 
     }
-    public static int getCustomTagonItemStack(ItemStack item)
 
+    public static void setItemDefenseContainer(ItemStack item, int number)
+    {
+        ItemMeta meta = item.getItemMeta();
+        meta.getPersistentDataContainer().set(itemDefenseKey, PersistentDataType.INTEGER,number);
+        meta.setLore(Arrays.asList(ChatColor.BLUE+"Bonus Defense: " +number));
+        item.setItemMeta(meta);
+
+    }
+    public static int getItemDamageFromContainer(ItemStack item)
     {
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer container = meta.getPersistentDataContainer();
         if(container.has(itemDamageKey, PersistentDataType.INTEGER)){
+
+            int foundvalue = container.get(itemDamageKey,PersistentDataType.INTEGER);
+            return foundvalue;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    public static int getItemDefenseFromContainer(ItemStack item)
+    {
+        ItemMeta meta = item.getItemMeta();
+        PersistentDataContainer container = meta.getPersistentDataContainer();
+        if(container.has(itemDefenseKey, PersistentDataType.INTEGER)){
 
             int foundvalue = container.get(itemDamageKey,PersistentDataType.INTEGER);
             return foundvalue;

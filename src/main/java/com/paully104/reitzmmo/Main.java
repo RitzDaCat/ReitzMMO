@@ -4,6 +4,7 @@ import com.paully104.reitzmmo.Command_Handlers.Party_Commands;
 import com.paully104.reitzmmo.Command_Handlers.ReitzRPGMain;
 import com.paully104.reitzmmo.ConfigFiles.*;
 import com.paully104.reitzmmo.Custom_Recipes.ReitzMMO_Book;
+import com.paully104.reitzmmo.ItemData.craftingArmorEvent;
 import com.paully104.reitzmmo.Menu.Menu;
 import com.paully104.reitzmmo.Menu.Party_Menu;
 import com.paully104.reitzmmo.Menu.Sword_Skills;
@@ -91,7 +92,7 @@ public class Main extends JavaPlugin {
         //removed weaponskills and weaponskill menu
         registerEvents(this,new OnPlayerJoinStatSetup(), new MonsterLevelsHealth(), new OnPlayerExitStatSave(),
         new MonsterLevelsDamage(), new PlayerAttackingMonster(),new PlayerDefeatsMonster(), new Menu(), new Party_Menu(),
-                new Scoreboard_Custom(), new Sword_Skills(), new onRightClickWeaponSkills(), new Town_Menu());
+                new Scoreboard_Custom(), new Sword_Skills(), new onRightClickWeaponSkills(), new Town_Menu(),new craftingArmorEvent());
 
 
         //SetCustomItems

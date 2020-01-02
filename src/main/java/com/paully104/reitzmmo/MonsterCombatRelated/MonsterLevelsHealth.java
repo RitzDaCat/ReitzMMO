@@ -87,6 +87,7 @@ public class MonsterLevelsHealth implements Listener {
     private final int vexBaseHP = API.monsterConfig.getInt("Vex.base_hp");
     private final int foxBaseHP = API.monsterConfig.getInt("Fox.base_hp");
     private final int pandaBaseHP = API.monsterConfig.getInt("Panda.base_hp");
+    private final int beeBaseHP = API.monsterConfig.getInt("Bees.base_hp");
 
     //NAMEPLATE SECTION
     private final boolean monsterNameplatesEnabled = API.monsterConfig.getBoolean("General.nameplates-enabled");
@@ -137,6 +138,7 @@ public class MonsterLevelsHealth implements Listener {
     private final boolean vexNameplate = API.monsterConfig.getBoolean("Vex.nameplates_enabled");
     private final boolean foxNameplate = API.monsterConfig.getBoolean("Fox.nameplates_enabled");
     private final boolean pandaNameplate = API.monsterConfig.getBoolean("Panda.nameplates_enabled");
+    private final boolean beeNameplate = API.monsterConfig.getBoolean("Bee.nameplates_enabled");
 
     //Monster SPEED SECTION
     private final int zombieSpeed = API.monsterConfig.getInt("Zombie.speed");
@@ -185,6 +187,7 @@ public class MonsterLevelsHealth implements Listener {
     private final int vexSpeed = API.monsterConfig.getInt("Vex.speed");
     private final int foxSpeed = API.monsterConfig.getInt("Fox.speed");
     private final int pandaSpeed = API.monsterConfig.getInt("Panda.speed");
+    private final int beeSpeed = API.monsterConfig.getInt("Bee.speed");
 
     //Monster MINIMUM SECTION
     private final int zombieMinLevel = API.monsterConfig.getInt("Zombie.min_level");
@@ -233,6 +236,7 @@ public class MonsterLevelsHealth implements Listener {
     private final int vexMinLevel = API.monsterConfig.getInt("Vex.min_level");
     private final int foxMinLevel = API.monsterConfig.getInt("Fox.min_level");
     private final int pandaMinLevel = API.monsterConfig.getInt("Panda.min_level");
+    private final int beeMinLevel = API.monsterConfig.getInt("Bee.min_level");
 
 
     private int calculateDistanceFromSpawn(Location worldSpawn, Location monsterSpawn)
@@ -1288,6 +1292,26 @@ public class MonsterLevelsHealth implements Listener {
                     }
                     Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * vindicatorSpeed);
                     if(monsterNameplatesEnabled && vindicatorNameplate)
+                    {
+                        e.getEntity().setCustomNameVisible(true);
+                    }
+                    break;
+
+                case BEE:
+                    hp = distance * beeBaseHP;
+                    if(hp < beeMinLevel * beeBaseHP)
+                    {
+                        hp = beeMinLevel * vindicatorBaseHP;
+                        distance = beeMinLevel;
+                    }
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(hp);
+                    e.getEntity().setHealth(hp);
+                    levelColor = ChatColor.YELLOW + "[" + distance + "]";
+                    if(e.getEntity().getCustomName() == null) {
+                        e.getEntity().setCustomName(mobName + levelColor);
+                    }
+                    Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).setBaseValue(Objects.requireNonNull(e.getEntity().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)).getValue() * beeSpeed);
+                    if(monsterNameplatesEnabled && beeNameplate)
                     {
                         e.getEntity().setCustomNameVisible(true);
                     }

@@ -96,7 +96,7 @@ public class PlayerDefeatsMonster implements Listener {
                 if (e.getEntity() instanceof Monster && mobsDropAttackUpItems) {
 
                     for(ItemStack item : e.getDrops()) {
-                        nameSpaceKey.setCustomTagOnItemStack(item, monster_level);
+                        nameSpaceKey.setItemDamageContainer(item, monster_level);
                         Objects.requireNonNull(e.getEntity().getLocation().getWorld()).dropItemNaturally(e.getEntity().getLocation(), item);
                         //e.getDrops().clear();
                     }

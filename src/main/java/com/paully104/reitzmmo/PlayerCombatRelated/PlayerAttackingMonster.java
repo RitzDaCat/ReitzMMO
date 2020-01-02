@@ -93,7 +93,7 @@ public class PlayerAttackingMonster implements Listener {
                         finally
                         {
 
-                            weaponBonus = nameSpaceKey.getCustomTagonItemStack(human.getInventory().getItemInMainHand());
+                            weaponBonus = nameSpaceKey.getItemDamageFromContainer(human.getInventory().getItemInMainHand());
                             totalDamage = (weaponDamage + weaponBonus + player_attack) - monster_defense;
                             if (totalDamage < 1) {
                                 totalDamage = 1;

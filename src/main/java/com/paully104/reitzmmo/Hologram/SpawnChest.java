@@ -50,7 +50,7 @@ public class SpawnChest {
 
         for(ItemStack item : originalWeapons)
         {
-            nameSpaceKey.setCustomTagOnItemStack(item,monster_level);
+            nameSpaceKey.setItemDamageContainer(item,monster_level);
 
         }
 
