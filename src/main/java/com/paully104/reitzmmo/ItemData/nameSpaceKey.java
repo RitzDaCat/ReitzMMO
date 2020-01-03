@@ -41,29 +41,41 @@ public class nameSpaceKey {
     }
     public static int getItemDamageFromContainer(ItemStack item)
     {
-        ItemMeta meta = item.getItemMeta();
-        PersistentDataContainer container = meta.getPersistentDataContainer();
-        if(container.has(itemDamageKey, PersistentDataType.INTEGER)){
+        if (item.hasItemMeta())
+        {
+            ItemMeta meta = item.getItemMeta();
+            PersistentDataContainer container = meta.getPersistentDataContainer();
+            if (container.has(itemDamageKey, PersistentDataType.INTEGER)) {
 
-            int foundvalue = container.get(itemDamageKey,PersistentDataType.INTEGER);
-            return foundvalue;
+                int foundvalue = container.get(itemDamageKey, PersistentDataType.INTEGER);
+                return foundvalue;
+            } else {
+                return 0;
+            }
         }
-        else {
-            return 0;
+        else
+        {
+            return  0;
         }
     }
 
-    public static int getItemDefenseFromContainer(ItemStack item)
-    {
-        ItemMeta meta = item.getItemMeta();
-        PersistentDataContainer container = meta.getPersistentDataContainer();
-        if(container.has(itemDefenseKey, PersistentDataType.INTEGER)){
+    public static int getItemDefenseFromContainer(ItemStack item) {
+        if(!(null == item))
+        {
+            if (item.hasItemMeta()) {
+                ItemMeta meta = item.getItemMeta();
+                PersistentDataContainer container = meta.getPersistentDataContainer();
+                if (container.has(itemDefenseKey, PersistentDataType.INTEGER)) {
 
-            int foundvalue = container.get(itemDamageKey,PersistentDataType.INTEGER);
-            return foundvalue;
+                    int foundvalue = container.get(itemDefenseKey, PersistentDataType.INTEGER);
+                    return foundvalue;
+                } else {
+                    return 0;
+                }
+            } else {
+                return 0;
+            }
         }
-        else {
-            return 0;
-        }
+        return 0;
     }
 }

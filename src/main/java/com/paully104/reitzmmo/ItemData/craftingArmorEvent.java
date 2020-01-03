@@ -18,8 +18,8 @@ public class craftingArmorEvent implements Listener {
 
     public boolean isArmour(Material type) {
 
-        if (type.name().contains("Boot") || type.name().contains("Legging") ||
-                type.name().contains("Chestplate") || type.name().contains("Helmet") || type.name().contains("Cap"))
+        if (type.name().contains("BOOT") || type.name().contains("LEGGING") ||
+                type.name().contains("CHESTPLATE") || type.name().contains("HELMET") || type.name().contains("CAP"))
         {
             return true;
         }
@@ -29,10 +29,9 @@ public class craftingArmorEvent implements Listener {
     }
 
     @EventHandler
-    public void onPlayerCrafting(PrepareItemCraftEvent c)
+    public void onPlayerCrafting(PrepareItemCraftEvent event)
     {
-        System.out.println((c.getRecipe()));
-
+        //System.out.println(event);
     }
 
     @EventHandler
@@ -43,8 +42,9 @@ public class craftingArmorEvent implements Listener {
             Player p = (Player)event.getWhoClicked();
             int level = API.Players.get(p.getUniqueId().toString()).getData().getInt(LEVEL);
             int rnd = new Random().nextInt(level);
-            nameSpaceKey.setItemDefenseContainer(event.getRecipe().getResult(),rnd);
-            System.out.print(event.getRecipe().getResult().getType());
+            //nameSpaceKey.setItemDefenseContainer(event.getRecipe().getResult(),rnd);
+            nameSpaceKey.setItemDefenseContainer(event.getInventory().getResult(),rnd);
+            System.out.print("Is Armor: " + event.getRecipe().getResult().getType());
 
         }
         else

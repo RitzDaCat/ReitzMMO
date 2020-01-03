@@ -3,6 +3,7 @@ package com.paully104.reitzmmo.MonsterCombatRelated;
 import com.paully104.reitzmmo.ConfigFiles.API;
 import com.paully104.reitzmmo.Enum.Armor_Defense;
 import com.paully104.reitzmmo.Enum.Weapon_Damage;
+import com.paully104.reitzmmo.ItemData.nameSpaceKey;
 import com.paully104.reitzmmo.Party_System.Party_API;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
 import org.bukkit.attribute.Attribute;
@@ -109,6 +110,82 @@ public class MonsterLevelsDamage implements Listener {
                 int boots;
                 int bootsEnchant;
                 int armorTotal;
+                int helmBonus = nameSpaceKey.getItemDefenseFromContainer(defendingPlayer.getInventory().getHelmet());
+                int chestBonus = nameSpaceKey.getItemDefenseFromContainer(defendingPlayer.getInventory().getChestplate());
+                int leggingBonus = nameSpaceKey.getItemDefenseFromContainer(defendingPlayer.getInventory().getLeggings());
+                int bootBonus = nameSpaceKey.getItemDefenseFromContainer(defendingPlayer.getInventory().getBoots());
+                int totalBonus = helmBonus + chestBonus + leggingBonus + bootBonus;
+                
+                //lets set some values
+                try {
+
+                    helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
+                    try {
+                        Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
+                        int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
+                        helmet = helmet + helmetBonus;
+
+                    } catch (NullPointerException er) {
+                        //theres no itemmeta so no need to do anything
+                    }
+                } catch (NullPointerException error) {
+                    //no helmet armor so 0 it is
+                    helmet = 0;
+                }
+                try {
+
+                    chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
+
+                    try {
+
+                        Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
+                        int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
+                        chestplate = chestplate + chestplateBonus;
+
+                    } catch (NullPointerException er) {
+                        //theres no itemmeta so no need to do anything
+                    }
+
+                } catch (NullPointerException error) {
+                    //no chestplate armor so 0
+                    chestplate = 0;
+                }
+                try {
+                    leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
+                    try {
+
+                        Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
+                        int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
+                        leggings = leggings + leggingsBonus;
+
+                    } catch (NullPointerException er) {
+                        //theres no itemmeta so no need to do anything
+
+                    }
+
+                } catch (NullPointerException error) {
+                    //no leggings so 0
+                    leggings = 0;
+                }
+                try {
+                    boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
+                    try {
+
+                        Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
+                        int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
+                        boots = boots + bootsBonus;
+
+                    } catch (NullPointerException er) {
+                        //no enchant so no need to do anything
+                    }
+
+
+                } catch (NullPointerException error) {
+                    boots = 0;
+                }
+                //end of values
+                
+                
                 switch (attackerType)
                 {
                     case PLAYER:
@@ -203,76 +280,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * zombieBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-
-                        armorTotal = helmet + chestplate + leggings + boots;
-
-
+                        armorTotal = helmet + chestplate + leggings + boots + totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -288,73 +296,8 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * wolfBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -369,73 +312,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * squidBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -450,73 +327,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * snowmanBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -531,73 +342,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * slimeBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -612,73 +357,8 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * silverfishBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -693,73 +373,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * sheepBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -774,73 +388,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * rabbitBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -855,73 +403,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * pigzombieBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -936,73 +418,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * pigBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -1017,73 +433,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * mushroomcowBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -1098,73 +448,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * magmacubeBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -1179,73 +463,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * guardianBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -1260,73 +478,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * giantBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -1341,73 +493,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * ghastBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -1422,73 +508,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * endermiteBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -1503,73 +523,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * endermanBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -1584,73 +538,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * enderdragonBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -1665,73 +553,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * creeperBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -1746,73 +568,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * cowBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -1827,73 +583,7 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * chickenBaseAttack;
-                        try {
-
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -1908,73 +598,8 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * cavespiderBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -1989,73 +614,8 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * spiderBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -2070,73 +630,8 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * witherSkeletonBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -2151,73 +646,8 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * blazeBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -2232,73 +662,8 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * pillagerBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -2313,73 +678,8 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * illusionerBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -2427,7 +727,7 @@ public class MonsterLevelsDamage implements Listener {
                         } catch (NullPointerException error) {
                             boots = 0;
                         }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -2442,73 +742,8 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * batBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -2523,73 +758,8 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * ravagerBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -2604,73 +774,8 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * drownedBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -2686,73 +791,8 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * vexBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -2768,73 +808,8 @@ public class MonsterLevelsDamage implements Listener {
 
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * vindicatorBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -2849,73 +824,8 @@ public class MonsterLevelsDamage implements Listener {
                     case ZOMBIE_VILLAGER:
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * zombievillagerBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -2930,73 +840,8 @@ public class MonsterLevelsDamage implements Listener {
                     case PANDA:
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * pandaBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -3012,73 +857,8 @@ public class MonsterLevelsDamage implements Listener {
                     case FOX:
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * foxBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -3093,73 +873,8 @@ public class MonsterLevelsDamage implements Listener {
                     case BEE:
                         monster_level_from_name = attacker.getCustomName().replaceAll("\\D+", "");
                         monster_attack = Integer.parseInt(monster_level_from_name) * beeBaseAttack;
-                        try {
 
-                            helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                            try {
-                                Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                helmet = helmet + helmetBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-                        } catch (NullPointerException error) {
-                            //no helmet armor so 0 it is
-                            helmet = 0;
-                        }
-                        try {
-
-                            chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                            try {
-
-                                Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                chestplate = chestplate + chestplateBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no chestplate armor so 0
-                            chestplate = 0;
-                        }
-                        try {
-                            leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                leggings = leggings + leggingsBonus;
-
-                            } catch (NullPointerException er) {
-                                //theres no itemmeta so no need to do anything
-
-                            }
-
-                        } catch (NullPointerException error) {
-                            //no leggings so 0
-                            leggings = 0;
-                        }
-                        try {
-                            boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                            try {
-
-                                Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                boots = boots + bootsBonus;
-
-                            } catch (NullPointerException er) {
-                                //no enchant so no need to do anything
-                            }
-
-
-                        } catch (NullPointerException error) {
-                            boots = 0;
-                        }
-                        armorTotal = helmet + chestplate + leggings + boots;
+                        armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                         damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1) {
                             damage_done = 1;
@@ -3178,73 +893,8 @@ public class MonsterLevelsDamage implements Listener {
 
                             monster_level_from_name = ((Skeleton) arrow.getShooter()).getCustomName().replaceAll("\\D+", "");
                             monster_attack = Integer.parseInt(monster_level_from_name) * skeletonBaseAttack;
-                            try {
-
-                                helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                                try {
-                                    Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                    int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                    helmet = helmet + helmetBonus;
-
-                                } catch (NullPointerException er) {
-                                    //theres no itemmeta so no need to do anything
-                                }
-                            } catch (NullPointerException error) {
-                                //no helmet armor so 0 it is
-                                helmet = 0;
-                            }
-                            try {
-
-                                chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                                try {
-
-                                    Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                    int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                    chestplate = chestplate + chestplateBonus;
-
-                                } catch (NullPointerException er) {
-                                    //theres no itemmeta so no need to do anything
-                                }
-
-                            } catch (NullPointerException error) {
-                                //no chestplate armor so 0
-                                chestplate = 0;
-                            }
-                            try {
-                                leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                                try {
-
-                                    Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                    int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                    leggings = leggings + leggingsBonus;
-
-                                } catch (NullPointerException er) {
-                                    //theres no itemmeta so no need to do anything
-
-                                }
-
-                            } catch (NullPointerException error) {
-                                //no leggings so 0
-                                leggings = 0;
-                            }
-                            try {
-                                boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                                try {
-
-                                    Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                    int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                    boots = boots + bootsBonus;
-
-                                } catch (NullPointerException er) {
-                                    //no enchant so no need to do anything
-                                }
-
-
-                            } catch (NullPointerException error) {
-                                boots = 0;
-                            }
-                            armorTotal = helmet + chestplate + leggings + boots;
+    
+                            armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                             damage_done = monster_attack - (player_defense + armorTotal);
                             if (damage_done < 1) {
                                 damage_done = 1;
@@ -3263,73 +913,8 @@ public class MonsterLevelsDamage implements Listener {
 
                             monster_level_from_name = ((Witch) potion.getShooter()).getCustomName().replaceAll("\\D+", "");
                             monster_attack = Integer.parseInt(monster_level_from_name) * witchBaseAttack;
-                            try {
-
-                                helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                                try {
-                                    Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                    int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                    helmet = helmet + helmetBonus;
-
-                                } catch (NullPointerException er) {
-                                    //theres no itemmeta so no need to do anything
-                                }
-                            } catch (NullPointerException error) {
-                                //no helmet armor so 0 it is
-                                helmet = 0;
-                            }
-                            try {
-
-                                chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                                try {
-
-                                    Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                    int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                    chestplate = chestplate + chestplateBonus;
-
-                                } catch (NullPointerException er) {
-                                    //theres no itemmeta so no need to do anything
-                                }
-
-                            } catch (NullPointerException error) {
-                                //no chestplate armor so 0
-                                chestplate = 0;
-                            }
-                            try {
-                                leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                                try {
-
-                                    Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                    int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                    leggings = leggings + leggingsBonus;
-
-                                } catch (NullPointerException er) {
-                                    //theres no itemmeta so no need to do anything
-
-                                }
-
-                            } catch (NullPointerException error) {
-                                //no leggings so 0
-                                leggings = 0;
-                            }
-                            try {
-                                boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                                try {
-
-                                    Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                    int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                    boots = boots + bootsBonus;
-
-                                } catch (NullPointerException er) {
-                                    //no enchant so no need to do anything
-                                }
-
-
-                            } catch (NullPointerException error) {
-                                boots = 0;
-                            }
-                            armorTotal = helmet + chestplate + leggings + boots;
+    
+                            armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                             damage_done = monster_attack - (player_defense + armorTotal);
                             if (damage_done < 1) {
                                 damage_done = 1;
@@ -3348,73 +933,8 @@ public class MonsterLevelsDamage implements Listener {
 
                             monster_level_from_name = ((Witch) arrow.getShooter()).getCustomName().replaceAll("\\D+", "");
                             monster_attack = Integer.parseInt(monster_level_from_name) * shulkerBaseAttack;
-                            try {
-
-                                helmet = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getHelmet().getType().toString().toUpperCase()).getValue());
-                                try {
-                                    Collection<AttributeModifier> helmetEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                    int helmetBonus = (int) helmetEnchantAttribute.iterator().next().getAmount();
-                                    helmet = helmet + helmetBonus;
-
-                                } catch (NullPointerException er) {
-                                    //theres no itemmeta so no need to do anything
-                                }
-                            } catch (NullPointerException error) {
-                                //no helmet armor so 0 it is
-                                helmet = 0;
-                            }
-                            try {
-
-                                chestplate = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getChestplate().getType().toString().toUpperCase()).getValue());
-
-                                try {
-
-                                    Collection<AttributeModifier> chestplateEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                    int chestplateBonus = (int) chestplateEnchantAttribute.iterator().next().getAmount();
-                                    chestplate = chestplate + chestplateBonus;
-
-                                } catch (NullPointerException er) {
-                                    //theres no itemmeta so no need to do anything
-                                }
-
-                            } catch (NullPointerException error) {
-                                //no chestplate armor so 0
-                                chestplate = 0;
-                            }
-                            try {
-                                leggings = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getLeggings().getType().toString().toUpperCase()).getValue());
-                                try {
-
-                                    Collection<AttributeModifier> leggingsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                    int leggingsBonus = (int) leggingsEnchantAttribute.iterator().next().getAmount();
-                                    leggings = leggings + leggingsBonus;
-
-                                } catch (NullPointerException er) {
-                                    //theres no itemmeta so no need to do anything
-
-                                }
-
-                            } catch (NullPointerException error) {
-                                //no leggings so 0
-                                leggings = 0;
-                            }
-                            try {
-                                boots = (Armor_Defense.Armor_Defenses.valueOf(defendingPlayer.getInventory().getBoots().getType().toString().toUpperCase()).getValue());
-                                try {
-
-                                    Collection<AttributeModifier> bootsEnchantAttribute = defendingPlayer.getInventory().getHelmet().getItemMeta().getAttributeModifiers(Attribute.GENERIC_ARMOR);
-                                    int bootsBonus = (int) bootsEnchantAttribute.iterator().next().getAmount();
-                                    boots = boots + bootsBonus;
-
-                                } catch (NullPointerException er) {
-                                    //no enchant so no need to do anything
-                                }
-
-
-                            } catch (NullPointerException error) {
-                                boots = 0;
-                            }
-                            armorTotal = helmet + chestplate + leggings + boots;
+    
+                            armorTotal = helmet + chestplate + leggings + boots +totalBonus;
                             damage_done = monster_attack - (player_defense + armorTotal);
                             if (damage_done < 1) {
                                 damage_done = 1;

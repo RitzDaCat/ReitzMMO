@@ -98,7 +98,7 @@ public class PlayerAttackingMonster implements Listener {
                             if (totalDamage < 1) {
                                 totalDamage = 1;
                             }
-                            System.out.println(totalDamage);
+                            //System.out.println(totalDamage);
                             e.setDamage(totalDamage);
                         }
 
@@ -109,7 +109,7 @@ public class PlayerAttackingMonster implements Listener {
                         if (totalDamage < 1) {
                             totalDamage = 1;
                         }
-                        System.out.println("empty handed" + totalDamage);
+                        //System.out.println("empty handed" + totalDamage);
 
 
                     }
