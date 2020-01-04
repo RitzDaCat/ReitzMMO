@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.Random;
 
-public class craftingArmorEvent implements Listener {
+public class craftingEvents implements Listener {
 
     private final static String LEVEL = "Level";
 
@@ -20,6 +20,17 @@ public class craftingArmorEvent implements Listener {
 
         if (type.name().contains("BOOT") || type.name().contains("LEGGING") ||
                 type.name().contains("CHESTPLATE") || type.name().contains("HELMET") || type.name().contains("CAP"))
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    public boolean isWeapon(Material type) {
+
+        if (type.name().contains("AXE") || type.name().contains("SWORD") ||
+                type.name().contains("TRIDENT") || type.name().contains("BOW"))
         {
             return true;
         }
@@ -47,9 +58,19 @@ public class craftingArmorEvent implements Listener {
             System.out.print("Is Armor: " + event.getRecipe().getResult().getType());
 
         }
+        else if(isWeapon(event.getRecipe().getResult().getType()))
+        {
+            Player p = (Player)event.getWhoClicked();
+            int level = API.Players.get(p.getUniqueId().toString()).getData().getInt(LEVEL);
+            int rnd = new Random().nextInt(level);
+            //nameSpaceKey.setItemDefenseContainer(event.getRecipe().getResult(),rnd);
+            nameSpaceKey.setItemDamageContainer(event.getInventory().getResult(),rnd);
+            //System.out.print("Is Weapon: " + event.getRecipe().getResult().getType());
+
+        }
         else
         {
-            System.out.print("Not armor: " + event.getRecipe().getResult().getType());
+            //System.out.print("Not armor: " + event.getRecipe().getResult().getType());
         }
 
     }

@@ -1,6 +1,7 @@
 package com.paully104.reitzmmo.Skills;
 
 import com.paully104.reitzmmo.ConfigFiles.API;
+import com.paully104.reitzmmo.ItemData.nameSpaceKey;
 import com.paully104.reitzmmo.Party_System.Party_Queue;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
 import net.md_5.bungee.api.ChatColor;
@@ -43,9 +44,10 @@ public class onRightClickWeaponSkills implements Listener {
         int level = pd.getData().getInt("Level");
 
         if (p.getInventory().getItemInMainHand().hasItemMeta()) {
-            if (p.getInventory().getItemInMainHand().getItemMeta().hasLore()) {
 
-                if (level >= underFireLevelNeeded && !(underFireUsers.contains(p.getUniqueId().toString())) && underFireEnabled && p.getInventory().getItemInMainHand().getItemMeta().getLore().contains("Under Fire") && (event.getAction() == Action.RIGHT_CLICK_AIR
+            String weaponSkill = nameSpaceKey.getItemWeaponSkillFromContainer(p.getInventory().getItemInMainHand());
+
+                if (level >= underFireLevelNeeded && !(underFireUsers.contains(p.getUniqueId().toString())) && underFireEnabled && weaponSkill.equalsIgnoreCase("Under Fire") && (event.getAction() == Action.RIGHT_CLICK_AIR
                         || event.getAction() == Action.RIGHT_CLICK_BLOCK)) {
 
 
@@ -70,7 +72,7 @@ public class onRightClickWeaponSkills implements Listener {
 
                 }
 
-            }
+
         }
         return;
     }

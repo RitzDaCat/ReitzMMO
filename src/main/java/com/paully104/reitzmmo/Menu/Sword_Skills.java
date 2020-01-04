@@ -2,10 +2,12 @@ package com.paully104.reitzmmo.Menu;
 
 import com.google.common.collect.Multimap;
 import com.paully104.reitzmmo.ConfigFiles.API;
+import com.paully104.reitzmmo.ItemData.nameSpaceKey;
 import com.paully104.reitzmmo.PlayerData.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,16 +35,6 @@ public class Sword_Skills implements Listener {
         item.setItemMeta(meta);
 
         Sword_Skills.setItem(Slot, item);
-
-    }
-
-    private static void setLore(ItemStack item, String lore) {
-        ItemMeta meta = item.getItemMeta();
-        ArrayList<String> Lore = new ArrayList<>();
-        Lore.add(lore);
-        meta.setLore(Lore);
-        item.setItemMeta(meta);
-
 
     }
 
@@ -81,7 +73,7 @@ public class Sword_Skills implements Listener {
                         PlayerData pd = API.Players.get(uuid);
                         int level = pd.getData().getInt("Level");
                         if(level >= underFireLevelNeeded) {
-                            setLore(player.getInventory().getItemInMainHand(), "Under Fire");
+                            nameSpaceKey.setItemWeaponSkillContainer(player.getInventory().getItemInMainHand(), "Under Fire");
                         }
                         else
                         {

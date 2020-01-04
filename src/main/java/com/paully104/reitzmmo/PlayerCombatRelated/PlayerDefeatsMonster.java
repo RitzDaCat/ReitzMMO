@@ -93,6 +93,7 @@ public class PlayerDefeatsMonster implements Listener {
 
                 //lets handle mob custom drops here
                 //dont iteriate while the thread is modifying
+                /*
                 if (e.getEntity() instanceof Monster && mobsDropAttackUpItems) {
 
                     for(ItemStack item : e.getDrops()) {
@@ -109,7 +110,7 @@ public class PlayerDefeatsMonster implements Listener {
 
                 }
 
-
+*/
 
                     if (Party_API.Party_Leaders.containsKey(playerName)) {
                         //Party leader kills the mob
