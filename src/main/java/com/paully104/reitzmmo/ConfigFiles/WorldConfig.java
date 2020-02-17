@@ -1,37 +1,40 @@
-package com.paully104.reitzmmo.ConfigFiles;
+/*    */ package com.paully104.reitzmmo.ConfigFiles;
+/*    */ 
+/*    */ import java.io.File;
+/*    */ import java.io.IOException;
+/*    */ import org.bukkit.configuration.file.YamlConfiguration;
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ public class WorldConfig
+/*    */ {
+/*    */   public static void Configuration() {
+/* 15 */     File file = FileManager.worldConfig;
+/* 16 */     YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
+/* 17 */     configuration.options().header("This config is used to set all world levels configurations.\n Use -1 to make the plugin disabled on a world");
+/*    */     
+/* 19 */     configuration.addDefault("world", Integer.valueOf(1));
+/* 20 */     configuration.addDefault("world_nether", Integer.valueOf(15));
+/* 21 */     configuration.addDefault("world_the_end", Integer.valueOf(30));
+/* 22 */     configuration.options().copyDefaults(true);
+/*    */ 
+/*    */     
+/*    */     try {
+/* 26 */       configuration.save(file);
+/*    */     }
+/* 28 */     catch (IOException e) {
+/*    */ 
+/*    */       
+/* 31 */       e.printStackTrace();
+/*    */     } 
+/*    */   }
+/*    */ }
 
-import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.File;
-import java.io.IOException;
-
-/**
- * Created by Paul on 7/29/2016.
+/* Location:              D:\Minecraft\plugins\ReitzMMO.jar!\com\paully104\reitzmmo\ConfigFiles\WorldConfig.class
+ * Java compiler version: 8 (52.0)
+ * JD-Core Version:       1.1.3
  */
-public class WorldConfig {
-
-    public static void Configuration()
-    {
-        File file = FileManager.worldConfig;
-        YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-        configuration.options().header("This config is used to set all world levels configurations.\n Use -1 to make the plugin disabled on a world");
-
-        configuration.addDefault("world", 1);
-        configuration.addDefault("world_nether", 15);
-        configuration.addDefault("world_the_end", 30);
-        configuration.options().copyDefaults(true);
-
-        try
-        {
-            configuration.save(file);
-        }
-        catch (IOException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-
-
-
-        }
-    }
-}

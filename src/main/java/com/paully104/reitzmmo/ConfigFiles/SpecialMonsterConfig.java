@@ -1,53 +1,56 @@
-package com.paully104.reitzmmo.ConfigFiles;
+/*    */ package com.paully104.reitzmmo.ConfigFiles;
+/*    */ 
+/*    */ import java.io.File;
+/*    */ import java.io.IOException;
+/*    */ import org.bukkit.configuration.file.YamlConfiguration;
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ public class SpecialMonsterConfig
+/*    */ {
+/*    */   public static void Configuration() {
+/* 12 */     File file = FileManager.specialMonsterConfig;
+/* 13 */     YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
+/* 14 */     configuration.options().header("This config is used to configure special monsters");
+/*    */     
+/* 16 */     configuration.addDefault("specialMonsterGlowEnabled", Boolean.valueOf(true));
+/* 17 */     configuration.addDefault("specialMonsterSilentEnabled", Boolean.valueOf(true));
+/* 18 */     configuration.addDefault("kingMobsEnabled", Boolean.valueOf(true));
+/* 19 */     configuration.addDefault("kingMobsLVDifference", Integer.valueOf(25));
+/*    */     
+/* 21 */     configuration.addDefault("notoriousMobsEnabled", Boolean.valueOf(true));
+/* 22 */     configuration.addDefault("notoriousMobsLVDifference", Integer.valueOf(15));
+/*    */     
+/* 24 */     configuration.addDefault("devilishMobsEnabled", Boolean.valueOf(true));
+/* 25 */     configuration.addDefault("devilishMobsLVDifference", Integer.valueOf(5));
+/*    */     
+/* 27 */     configuration.addDefault("dumbMobsEnabled", Boolean.valueOf(true));
+/* 28 */     configuration.addDefault("dumbMobsLVDifference", Integer.valueOf(-5));
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */     
+/* 38 */     configuration.options().copyDefaults(true);
+/*    */ 
+/*    */     
+/*    */     try {
+/* 42 */       configuration.save(file);
+/*    */     }
+/* 44 */     catch (IOException e) {
+/*    */ 
+/*    */       
+/* 47 */       e.printStackTrace();
+/*    */     } 
+/*    */   }
+/*    */ }
 
-import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.File;
-import java.io.IOException;
-
-public class SpecialMonsterConfig {
-
-    public static void Configuration()
-    {
-        File file = FileManager.specialMonsterConfig;
-        YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
-        configuration.options().header("This config is used to configure special monsters");
-
-        configuration.addDefault("specialMonsterGlowEnabled", true);
-        configuration.addDefault("specialMonsterSilentEnabled", true);
-        configuration.addDefault("kingMobsEnabled", true);
-        configuration.addDefault("kingMobsLVDifference", 25);
-
-        configuration.addDefault("notoriousMobsEnabled", true);
-        configuration.addDefault("notoriousMobsLVDifference", 15);
-
-        configuration.addDefault("devilishMobsEnabled", true);
-        configuration.addDefault("devilishMobsLVDifference", 5);
-
-        configuration.addDefault("dumbMobsEnabled", true);
-        configuration.addDefault("dumbMobsLVDifference", -5);
-
-
-
-
-
-
-
-
-
-        configuration.options().copyDefaults(true);
-
-        try
-        {
-            configuration.save(file);
-        }
-        catch (IOException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-
-
-
-        }
-    }
-}
+/* Location:              D:\Minecraft\plugins\ReitzMMO.jar!\com\paully104\reitzmmo\ConfigFiles\SpecialMonsterConfig.class
+ * Java compiler version: 8 (52.0)
+ * JD-Core Version:       1.1.3
+ */

@@ -1,94 +1,93 @@
-package com.paully104.reitzmmo.OnPlayerEvents;
+/*    */ package com.paully104.reitzmmo.OnPlayerEvents;
+/*    */ 
+/*    */ import com.paully104.reitzmmo.ConfigFiles.API;
+/*    */ import com.paully104.reitzmmo.Custom_Recipes.ReitzMMO_Book;
+/*    */ import com.paully104.reitzmmo.PlayerCombatRelated.createBossBar;
+/*    */ import com.paully104.reitzmmo.PlayerData.PlayerData;
+/*    */ import java.util.Objects;
+/*    */ import org.bukkit.attribute.Attribute;
+/*    */ import org.bukkit.attribute.AttributeInstance;
+/*    */ import org.bukkit.entity.Player;
+/*    */ import org.bukkit.event.EventHandler;
+/*    */ import org.bukkit.event.EventPriority;
+/*    */ import org.bukkit.event.Listener;
+/*    */ import org.bukkit.event.player.PlayerJoinEvent;
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ public class OnPlayerJoinStatSetup
+/*    */   implements Listener
+/*    */ {
+/*    */   private static final String HEALTH = "Health";
+/*    */   private static final String ATTACK = "Attack";
+/*    */   private static final String LEVEL = "Level";
+/*    */   private static final String PLAYERCOMBATEXP = "Combat-EXP";
+/*    */   
+/*    */   @EventHandler(priority = EventPriority.NORMAL)
+/*    */   public void OnPlayerJoinStatSetup(PlayerJoinEvent e) {
+/* 30 */     Player p = e.getPlayer();
+/* 31 */     if (!e.getPlayer().hasMetadata("NPC")) {
+/*    */       
+/* 33 */       p.setWalkSpeed(0.2F);
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */       
+/* 41 */       String uuid = p.getUniqueId().toString();
+/* 42 */       PlayerData pd = new PlayerData(uuid);
+/* 43 */       pd.getData().set("UUID", uuid);
+/*    */       
+/* 45 */       int Level = pd.getData().getInt("Level");
+/* 46 */       int Attack = pd.getData().getInt("Attack");
+/* 47 */       double Health = pd.getData().getDouble("Health");
+/* 48 */       int CombatEXP = pd.getData().getInt("Combat-EXP");
+/*    */       
+/* 50 */       if (Level == 0) {
+/* 51 */         pd.getData().set("Level", Integer.valueOf(1));
+/*    */       }
+/*    */       
+/* 54 */       if (Attack == 0) {
+/* 55 */         pd.getData().set("Attack", Integer.valueOf(1));
+/*    */       }
+/*    */       
+/* 58 */       if (Health == 0.0D) {
+/* 59 */         pd.getData().set("Health", Integer.valueOf(20));
+/* 60 */         ((AttributeInstance)Objects.<AttributeInstance>requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH))).setBaseValue(20.0D);
+/*    */       
+/*    */       }
+/*    */       else {
+/*    */         
+/* 65 */         ((AttributeInstance)Objects.<AttributeInstance>requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH))).setBaseValue(Health);
+/*    */       } 
+/* 67 */       if (CombatEXP == 0) {
+/* 68 */         pd.getData().set("Combat-EXP", Integer.valueOf(0));
+/*    */       }
+/*    */       
+/* 71 */       pd.getData().set("DisplayName", p.getDisplayName());
+/* 72 */       pd.save();
+/* 73 */       API.Players.put(p.getUniqueId().toString(), pd);
+/*    */ 
+/*    */ 
+/*    */       
+/* 77 */       ReitzMMO_Book.setLoginBook(p);
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */ 
+/*    */       
+/* 84 */       createBossBar.setBossBaronPlayer(p);
+/*    */     } 
+/*    */   }
+/*    */ }
 
-import com.paully104.reitzmmo.ConfigFiles.API;
-import com.paully104.reitzmmo.Custom_Recipes.ReitzMMO_Book;
-import com.paully104.reitzmmo.Party_System.createPartyScoreboard;
-import com.paully104.reitzmmo.PlayerCombatRelated.createBossBar;
-import com.paully104.reitzmmo.PlayerData.PlayerData;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.boss.BossBar;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.Objects;
-
-/**
- * Created by Paul on 3/22/2016.
+/* Location:              D:\Minecraft\plugins\ReitzMMO.jar!\com\paully104\reitzmmo\OnPlayerEvents\OnPlayerJoinStatSetup.class
+ * Java compiler version: 8 (52.0)
+ * JD-Core Version:       1.1.3
  */
-public class OnPlayerJoinStatSetup implements Listener {
-
-    private final static String HEALTH = "Health";
-    private final static String ATTACK = "Attack";
-    private final static String LEVEL = "Level";
-    private final static String PLAYERCOMBATEXP = "Combat-EXP";
-
-
-    @EventHandler(priority = EventPriority.NORMAL)
-    public void OnPlayerJoinStatSetup(PlayerJoinEvent e) {
-
-
-        Player p = e.getPlayer();
-        //make sure players go normal speed which is .2
-        p.setWalkSpeed((float)(.2));
-
-        /*
-        PlayerData pd = new PlayerData(p.getName());
-        pd.getData().set("Name", p.getName());
-*/
-
-        //now lets use UUID
-        String uuid = p.getUniqueId().toString();
-        PlayerData pd = new PlayerData(uuid);
-        pd.getData().set("UUID", uuid);
-
-        int Level = pd.getData().getInt(LEVEL);
-        int Attack = pd.getData().getInt(ATTACK);
-        double Health = pd.getData().getDouble(HEALTH);
-        int CombatEXP = pd.getData().getInt(PLAYERCOMBATEXP);
-
-        if (Level == 0) {
-            pd.getData().set(LEVEL, 1);
-
-        }
-        if (Attack == 0) {
-            pd.getData().set(ATTACK, 1);
-
-        }
-        if (Health == 0.0) {
-            pd.getData().set(HEALTH, 20);
-            Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(20);
-
-
-        } else {
-
-            Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(Health);
-        }
-        if (CombatEXP == 0) {
-            pd.getData().set(PLAYERCOMBATEXP, 0);
-
-        }
-        pd.getData().set("DisplayName",p.getDisplayName());
-        pd.save();
-        API.Players.put(p.getUniqueId().toString(), pd); //this loads the player data into the API
-        //p.sendMessage(PlaceholderAPI.setPlaceholders(p,"%ReitzMMO_Attack%"));
-
-        //Lets give the book
-        ReitzMMO_Book.setLoginBook(p);
-
-        //lets try the boss bar creation
-
-        createPartyScoreboard board = new createPartyScoreboard();
-        board.setPartyScoreboardonPlayer(p);
-
-        createBossBar.setBossBaronPlayer(p);
-
-    }
-
-
-
-
-
-}
