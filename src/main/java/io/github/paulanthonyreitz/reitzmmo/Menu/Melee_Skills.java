@@ -1,8 +1,5 @@
 package io.github.paulanthonyreitz.reitzmmo.Menu;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
 import io.github.paulanthonyreitz.reitzmmo.ConfigFiles.API;
 import io.github.paulanthonyreitz.reitzmmo.ItemData.craftingEvents;
 import io.github.paulanthonyreitz.reitzmmo.ItemData.nameSpaceKey;
@@ -16,6 +13,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class Melee_Skills implements Listener {
     private final int underFireDuration = API.weaponskillConfig.getInt("Melee.WeaponSkills.Under_Fire.DurationInSeconds");

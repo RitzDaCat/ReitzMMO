@@ -1,9 +1,9 @@
 package io.github.paulanthonyreitz.reitzmmo.ConfigFiles;
 
+import org.bukkit.configuration.file.YamlConfiguration;
+
 import java.io.File;
 import java.io.IOException;
-
-import org.bukkit.configuration.file.YamlConfiguration;
 
 public class FileManager
 {

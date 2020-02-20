@@ -1,14 +1,14 @@
 package io.github.paulanthonyreitz.reitzmmo.ItemData;
-import java.util.Random;
 
 import io.github.paulanthonyreitz.reitzmmo.ConfigFiles.API;
-import io.github.paulanthonyreitz.reitzmmo.PlayerData.PlayerData;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
+
+import java.util.Random;
 
 public class craftingEvents implements Listener {
     private static final String LEVEL = "Level";

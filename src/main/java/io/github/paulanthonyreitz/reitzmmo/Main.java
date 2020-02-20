@@ -1,8 +1,6 @@
 package io.github.paulanthonyreitz.reitzmmo;
 
 
-import java.util.Objects;
-
 import io.github.paulanthonyreitz.reitzmmo.Citizens.npcCreateEvent;
 import io.github.paulanthonyreitz.reitzmmo.Command_Handlers.Party_Commands;
 import io.github.paulanthonyreitz.reitzmmo.Command_Handlers.ReitzRPGMain;
@@ -34,6 +32,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Objects;
 
 public class Main extends JavaPlugin {
     public static final String LEVEL = "Level";
@@ -81,7 +81,7 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("rparty")).setExecutor(new Party_Commands());
         registerEvents(this, new OnPlayerJoinStatSetup(), new MonsterLevelsHealth(), new OnPlayerExitStatSave(), new MonsterLevelsDamage(), new PlayerAttackingMonster(),
                 new PlayerDefeatsMonster(), new Menu(), new Party_Menu(), new Melee_Skills(), new onRightClickWeaponSkills(),
-                new Town_Menu(), new craftingEvents(), new npcCreateEvent(), new HP_Scoreboard(), new Partyboard());
+                new Town_Menu(), new craftingEvents(), new HP_Scoreboard(), new Partyboard(), new npcCreateEvent());
         for (Player p : Bukkit.getServer().getOnlinePlayers()) {
             String uuid = p.getUniqueId().toString();
             PlayerData pd = new PlayerData(uuid);
@@ -91,17 +91,17 @@ public class Main extends JavaPlugin {
             double Health = pd.getData().getDouble("Health");
             int CombatEXP = pd.getData().getInt("Combat-EXP");
             if (Level == 0)
-                pd.getData().set("Level", Integer.valueOf(1));
+                pd.getData().set("Level", 1);
             if (Attack == 0)
-                pd.getData().set("Attack", Integer.valueOf(1));
+                pd.getData().set("Attack", 1);
             if (Health == 0.0D) {
-                pd.getData().set("Health", Integer.valueOf(20));
+                pd.getData().set("Health", 20);
                 Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(20.0D);
             } else {
                 Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(Health);
             }
             if (CombatEXP == 0)
-                pd.getData().set("Combat-EXP", Integer.valueOf(0));
+                pd.getData().set("Combat-EXP", 0);
             pd.getData().set("DisplayName", p.getDisplayName());
             pd.save();
             API.Players.put(p.getUniqueId().toString(), pd);
@@ -109,7 +109,7 @@ public class Main extends JavaPlugin {
         for (World world : Bukkit.getWorlds()) {
             for (ArmorStand stand : world.getEntitiesByClass(ArmorStand.class)) {
                 try {
-                    if (!stand.isVisible() && stand.getCustomName().contains("+EXP:"))
+                    if (!stand.isVisible() && Objects.requireNonNull(stand.getCustomName()).contains("+EXP:"))
                         stand.remove();
                 } catch (NullPointerException nullPointerException) {}
             }
@@ -125,10 +125,10 @@ public class Main extends JavaPlugin {
             String uuid = p.getUniqueId().toString();
             PlayerData pd = new PlayerData(uuid);
             System.err.println(p.getName() + " has exited the game!");
-            Integer level = Integer.valueOf(API.Players.get(uuid).getData().getInt("Level"));
-            Integer attack = Integer.valueOf(API.Players.get(uuid).getData().getInt("Attack"));
-            Integer health = Integer.valueOf(API.Players.get(uuid).getData().getInt("Health"));
-            Integer combatexp = Integer.valueOf(API.Players.get(uuid).getData().getInt("Combat-EXP"));
+            Integer level = API.Players.get(uuid).getData().getInt("Level");
+            Integer attack = API.Players.get(uuid).getData().getInt("Attack");
+            Integer health = API.Players.get(uuid).getData().getInt("Health");
+            Integer combatexp = API.Players.get(uuid).getData().getInt("Combat-EXP");
             pd.getData().set("Level", level);
             pd.getData().set("Attack", attack);
             pd.getData().set("Health", health);

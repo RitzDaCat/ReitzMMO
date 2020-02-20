@@ -1,7 +1,5 @@
 package io.github.paulanthonyreitz.reitzmmo.PlayerCombatRelated;
 
-import java.util.HashMap;
-
 import io.github.paulanthonyreitz.reitzmmo.ConfigFiles.API;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
@@ -10,6 +8,8 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+
+import java.util.HashMap;
 
 public class createBossBar {
     public static final HashMap<String, BossBar> playerBossBar = new HashMap<>();

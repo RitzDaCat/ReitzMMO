@@ -1,9 +1,5 @@
 package io.github.paulanthonyreitz.reitzmmo.Menu;
 
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Set;
-
 import io.github.paulanthonyreitz.reitzmmo.ConfigFiles.API;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -18,6 +14,10 @@ import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Set;
 
 public class Town_Menu implements Listener {
     static FileConfiguration towns = API.getTownConfig();

@@ -1,10 +1,6 @@
 package io.github.paulanthonyreitz.reitzmmo.Menu;
 
 
-
-import java.util.ArrayList;
-import java.util.Objects;
-
 import io.github.paulanthonyreitz.reitzmmo.ConfigFiles.API;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,6 +13,9 @@ import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class Menu implements Listener {
     public static final Inventory GUI_MENU = Bukkit.createInventory(null, 9, "Reitz Menu");

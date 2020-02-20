@@ -1,12 +1,6 @@
 package io.github.paulanthonyreitz.reitzmmo.ItemData;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
 import io.github.paulanthonyreitz.reitzmmo.ConfigFiles.API;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
@@ -15,6 +9,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class nameSpaceKey {
     public static NamespacedKey itemDamageKey = new NamespacedKey(API.plugin, "ReitzMMOItemDamageKey");

@@ -2,16 +2,11 @@
 package io.github.paulanthonyreitz.reitzmmo.Scoreboard;
 
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.ScoreboardManager;
-import org.bukkit.scoreboard.Team;
+import org.bukkit.scoreboard.*;
 
 public class HP_Scoreboard implements Listener {
     @EventHandler
@@ -26,6 +21,10 @@ public class HP_Scoreboard implements Listener {
         for (Player online : Bukkit.getOnlinePlayers()) {
             online.setScoreboard(board);
             online.setHealth(online.getHealth());
+            if(online.hasMetadata("NPC"))
+            {
+                online.getScoreboard().resetScores("showhealth");
+            }
         }
     }
 

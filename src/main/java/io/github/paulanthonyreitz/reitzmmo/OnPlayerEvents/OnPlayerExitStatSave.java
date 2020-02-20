@@ -27,10 +27,10 @@ public class OnPlayerExitStatSave implements Listener {
             String uuid = p.getUniqueId().toString();
             PlayerData pd = new PlayerData(uuid);
             System.out.println(p.getName() + " has exited the game!");
-            Integer level = Integer.valueOf(((PlayerData) API.Players.get(uuid)).getData().getInt("Level"));
-            Integer attack = Integer.valueOf(((PlayerData)API.Players.get(uuid)).getData().getInt("Attack"));
-            Integer health = Integer.valueOf(((PlayerData)API.Players.get(uuid)).getData().getInt("Health"));
-            Integer combatexp = Integer.valueOf(((PlayerData)API.Players.get(uuid)).getData().getInt("Combat-EXP"));
+            Integer level = API.Players.get(uuid).getData().getInt("Level");
+            Integer attack = API.Players.get(uuid).getData().getInt("Attack");
+            Integer health = API.Players.get(uuid).getData().getInt("Health");
+            Integer combatexp = API.Players.get(uuid).getData().getInt("Combat-EXP");
             pd.getData().set("Level", level);
             pd.getData().set("Attack", attack);
             pd.getData().set("Health", health);

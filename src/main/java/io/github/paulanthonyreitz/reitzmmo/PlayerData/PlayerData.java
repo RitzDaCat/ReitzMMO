@@ -1,10 +1,11 @@
 package io.github.paulanthonyreitz.reitzmmo.PlayerData;
 
-import java.io.File;
-import java.io.IOException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
+
+import java.io.File;
+import java.io.IOException;
 
 public class PlayerData {
     private final String uuid;

@@ -1,8 +1,5 @@
 package io.github.paulanthonyreitz.reitzmmo.Skills;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.github.paulanthonyreitz.reitzmmo.ConfigFiles.API;
 import io.github.paulanthonyreitz.reitzmmo.ItemData.nameSpaceKey;
 import io.github.paulanthonyreitz.reitzmmo.PlayerData.PlayerData;
@@ -22,6 +19,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class onRightClickWeaponSkills implements Listener {
     ArrayList<String> underFireUsers = new ArrayList<>();

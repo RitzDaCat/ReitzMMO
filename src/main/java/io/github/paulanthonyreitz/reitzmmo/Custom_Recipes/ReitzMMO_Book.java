@@ -1,7 +1,5 @@
 package io.github.paulanthonyreitz.reitzmmo.Custom_Recipes;
 
-import java.util.Objects;
-
 import io.github.paulanthonyreitz.reitzmmo.ConfigFiles.API;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -12,6 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Objects;
 
 public class ReitzMMO_Book {
      public static void setLoginBook(Player p) {

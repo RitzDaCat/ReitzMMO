@@ -1,31 +1,24 @@
 package io.github.paulanthonyreitz.reitzmmo.PlayerCombatRelated;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
-
 import io.github.paulanthonyreitz.reitzmmo.ConfigFiles.API;
 import io.github.paulanthonyreitz.reitzmmo.Hologram.Hologram;
 import io.github.paulanthonyreitz.reitzmmo.Party_System.Party;
 import io.github.paulanthonyreitz.reitzmmo.Party_System.Party_API;
 import io.github.paulanthonyreitz.reitzmmo.PlayerData.PlayerData;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
 public class PlayerDefeatsMonster implements Listener {
     public static final String PLAYERCOMBATEXP = "Combat-EXP";

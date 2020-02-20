@@ -1,7 +1,5 @@
 package io.github.paulanthonyreitz.reitzmmo.Command_Handlers;
 
-import java.util.Objects;
-
 import io.github.paulanthonyreitz.reitzmmo.ConfigFiles.API;
 import io.github.paulanthonyreitz.reitzmmo.Menu.Menu;
 import io.github.paulanthonyreitz.reitzmmo.Party_System.Party_API;
@@ -16,6 +14,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+
+import java.util.Objects;
 
 public class ReitzRPGMain implements CommandExecutor {
     private static final String REITZ = "Reitz";

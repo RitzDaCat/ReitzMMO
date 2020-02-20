@@ -1,19 +1,12 @@
 package io.github.paulanthonyreitz.reitzmmo.Command_Handlers;
 
-import java.util.List;
-import java.util.Objects;
-
 import io.github.paulanthonyreitz.reitzmmo.ConfigFiles.API;
 import io.github.paulanthonyreitz.reitzmmo.Menu.Party_Menu;
 import io.github.paulanthonyreitz.reitzmmo.Party_System.Party;
 import io.github.paulanthonyreitz.reitzmmo.Party_System.Party_API;
 import io.github.paulanthonyreitz.reitzmmo.Party_System.Party_Queue;
 import io.github.paulanthonyreitz.reitzmmo.Scoreboard.HP_Scoreboard;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -25,6 +18,9 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
+
+import java.util.List;
+import java.util.Objects;
 
 public class Party_Commands implements CommandExecutor {
     private final boolean partyEnabled = API.partyConfig.getBoolean("Parties_Enabled");
