@@ -13,6 +13,7 @@ public class FileManager
     public static File worldConfig;
     public static File partyConfig;
     public static File weaponskillConfig;
+    public static File magicspellConfig;
     public static File customBowConfig;
     public static File chatConfig;
     public static File specialMonsterConfig;
@@ -31,6 +32,7 @@ public class FileManager
         worldConfig = new File("plugins/ReitzMMO/WorldSettings/WorldConfig.yml");
         partyConfig = new File("plugins/ReitzMMO/PartySettings/PartyConfig.yml");
         weaponskillConfig = new File("plugins/ReitzMMO/WeaponSkillSettings/WeaponskillConfig.yml");
+        magicspellConfig = new File("plugins/ReitzMMO/WeaponSkillSettings/MagicspellConfig.yml");
         customBowConfig = new File("plugins/ReitzMMO/CustomWeaponSettings/CustomBowConfig.yml");
         chatConfig = new File("plugins/ReitzMMO/ChatSettings/ChatConfig.yml");
         specialMonsterConfig = new File("plugins/ReitzMMO/MonsterSettings/SpecialMonsterConfig.yml");

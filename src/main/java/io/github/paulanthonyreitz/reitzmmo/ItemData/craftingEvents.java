@@ -27,6 +27,12 @@ public class craftingEvents implements Listener {
         return false;
     }
 
+    public static boolean isMagical(Material type) {
+        if (type.name().contains("STICK") || type.name().contains("BOOK"))
+            return true;
+        return false;
+    }
+
     @EventHandler
     public void onPlayerCrafting(PrepareItemCraftEvent event) {}
 
@@ -38,6 +44,12 @@ public class craftingEvents implements Listener {
             int rnd = (new Random()).nextInt(level);
             nameSpaceKey.setItemDefenseContainer(event.getInventory().getResult(), rnd);
         } else if (isWeapon(event.getRecipe().getResult().getType())) {
+            Player p = (Player)event.getWhoClicked();
+            int level = API.Players.get(p.getUniqueId().toString()).getData().getInt("Level");
+            int rnd = (new Random()).nextInt(level);
+            nameSpaceKey.setItemDamageContainer(event.getInventory().getResult(), rnd);
+        }
+        else if (isMagical(event.getRecipe().getResult().getType())) {
             Player p = (Player)event.getWhoClicked();
             int level = API.Players.get(p.getUniqueId().toString()).getData().getInt("Level");
             int rnd = (new Random()).nextInt(level);

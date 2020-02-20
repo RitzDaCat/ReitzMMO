@@ -67,37 +67,37 @@ public class Partyboard implements Listener {
                 if (size > 0) {
                     pm0 = members.get(0);
                     int lv = API.getPlayerDataFromAPI(Bukkit.getPlayer(pm0),"Level");
-                    Score score0 = obj.getScore("[" + lv + "]" +ChatColor.GOLD + pm0 + " " + ChatColor.RED + (int)Bukkit.getPlayer(pm0).getHealth());
+                    Score score0 = obj.getScore("[" + lv + "]" +ChatColor.GOLD + pm0 + " " + ChatColor.RED + (int)Bukkit.getPlayer(pm0).getHealth() + "\u2665");
                     score0.setScore(0);
                 }
                 if (members.size() > 1) {
                     pm1 = members.get(1);
                     int lv = API.getPlayerDataFromAPI(Bukkit.getPlayer(pm1),"Level");
-                    Score score1 = obj.getScore("[" + lv + "]" +ChatColor.GOLD + pm1 + " " + ChatColor.RED + (int)Bukkit.getPlayer(pm1).getHealth());
+                    Score score1 = obj.getScore("[" + lv + "]" +ChatColor.GOLD + pm1 + " " + ChatColor.RED + (int)Bukkit.getPlayer(pm1).getHealth() + "\u2665");
                     score1.setScore(1);
                 }
                 if (members.size() > 2) {
                     pm2 = members.get(2);
                     int lv = API.getPlayerDataFromAPI(Bukkit.getPlayer(pm2),"Level");
-                    Score score2 = obj.getScore("[" + lv + "]" +ChatColor.GOLD + pm2 + " " + ChatColor.RED + (int)Bukkit.getPlayer(pm2).getHealth());
+                    Score score2 = obj.getScore("[" + lv + "]" +ChatColor.GOLD + pm2 + " " + ChatColor.RED + (int)Bukkit.getPlayer(pm2).getHealth() + "\u2665");
                     score2.setScore(2);
                 }
                 if (members.size() > 3) {
                     pm3 = members.get(3);
                     int lv = API.getPlayerDataFromAPI(Bukkit.getPlayer(pm3),"Level");
-                    Score score3 = obj.getScore("[" + lv + "]" +ChatColor.GOLD + pm3 + " " + ChatColor.RED + (int)Bukkit.getPlayer(pm3).getHealth());
+                    Score score3 = obj.getScore("[" + lv + "]" +ChatColor.GOLD + pm3 + " " + ChatColor.RED + (int)Bukkit.getPlayer(pm3).getHealth() + "\u2665");
                     score3.setScore(3);
                 }
                 if (members.size() > 4) {
                     pm4 = members.get(4);
                     int lv = API.getPlayerDataFromAPI(Bukkit.getPlayer(pm4),"Level");
-                    Score score4 = obj.getScore("[" + lv + "]" +ChatColor.GOLD + pm4 + " " + ChatColor.RED + (int)Bukkit.getPlayer(pm4).getHealth());
+                    Score score4 = obj.getScore("[" + lv + "]" +ChatColor.GOLD + pm4 + " " + ChatColor.RED + (int)Bukkit.getPlayer(pm4).getHealth() + "\u2665");
                     score4.setScore(4);
                 }
                 if (members.size() > 5) {
                     pm5 = members.get(5);
                     int lv = API.getPlayerDataFromAPI(Bukkit.getPlayer(pm5),"Level");
-                    Score score5 = obj.getScore("[" + lv + "]" +ChatColor.GOLD + pm5 + " " + ChatColor.RED + (int)Bukkit.getPlayer(pm5).getHealth());
+                    Score score5 = obj.getScore("[" + lv + "]" +ChatColor.GOLD + pm5 + " " + ChatColor.RED + (int)Bukkit.getPlayer(pm5).getHealth() + "\u2665");
                     score5.setScore(5);
                 }
                 p.setScoreboard(scoreboard);
