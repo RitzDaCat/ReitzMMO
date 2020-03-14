@@ -5,7 +5,6 @@ import io.github.paulanthonyreitz.reitzmmo.Custom_Recipes.ReitzMMO_Book;
 import io.github.paulanthonyreitz.reitzmmo.PlayerCombatRelated.createBossBar;
 import io.github.paulanthonyreitz.reitzmmo.PlayerData.PlayerData;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

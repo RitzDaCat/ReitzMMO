@@ -222,7 +222,7 @@ public class MonsterLevelsDamage implements Listener {
                     case ZOMBIE:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.zombieBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -237,7 +237,7 @@ public class MonsterLevelsDamage implements Listener {
                     case WOLF:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.wolfBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -252,7 +252,7 @@ public class MonsterLevelsDamage implements Listener {
                     case SQUID:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.squidBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -267,7 +267,7 @@ public class MonsterLevelsDamage implements Listener {
                     case SNOWMAN:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.snowmanBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -282,7 +282,7 @@ public class MonsterLevelsDamage implements Listener {
                     case SLIME:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.slimeBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -297,7 +297,7 @@ public class MonsterLevelsDamage implements Listener {
                     case SILVERFISH:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.silverfishBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -312,7 +312,7 @@ public class MonsterLevelsDamage implements Listener {
                     case SHEEP:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.sheepBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -327,7 +327,7 @@ public class MonsterLevelsDamage implements Listener {
                     case RABBIT:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.rabbitBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -342,7 +342,7 @@ public class MonsterLevelsDamage implements Listener {
                     case PIG_ZOMBIE:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.pigzombieBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -357,7 +357,7 @@ public class MonsterLevelsDamage implements Listener {
                     case PIG:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.pigBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -372,7 +372,7 @@ public class MonsterLevelsDamage implements Listener {
                     case MUSHROOM_COW:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.mushroomcowBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -387,7 +387,7 @@ public class MonsterLevelsDamage implements Listener {
                     case MAGMA_CUBE:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.magmacubeBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -402,7 +402,7 @@ public class MonsterLevelsDamage implements Listener {
                     case GUARDIAN:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.guardianBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -417,7 +417,7 @@ public class MonsterLevelsDamage implements Listener {
                     case GIANT:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.giantBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -432,7 +432,7 @@ public class MonsterLevelsDamage implements Listener {
                     case GHAST:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.ghastBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -447,7 +447,7 @@ public class MonsterLevelsDamage implements Listener {
                     case ENDERMITE:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.endermiteBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -462,7 +462,7 @@ public class MonsterLevelsDamage implements Listener {
                     case ENDERMAN:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.endermanBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -477,7 +477,7 @@ public class MonsterLevelsDamage implements Listener {
                     case ENDER_DRAGON:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.enderdragonBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -492,7 +492,7 @@ public class MonsterLevelsDamage implements Listener {
                     case CREEPER:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.creeperBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -507,7 +507,7 @@ public class MonsterLevelsDamage implements Listener {
                     case COW:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.cowBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -522,7 +522,7 @@ public class MonsterLevelsDamage implements Listener {
                     case CHICKEN:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.chickenBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -537,7 +537,7 @@ public class MonsterLevelsDamage implements Listener {
                     case CAVE_SPIDER:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.cavespiderBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -552,7 +552,7 @@ public class MonsterLevelsDamage implements Listener {
                     case SPIDER:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.spiderBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -567,7 +567,7 @@ public class MonsterLevelsDamage implements Listener {
                     case WITHER_SKELETON:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.witherSkeletonBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -582,7 +582,7 @@ public class MonsterLevelsDamage implements Listener {
                     case BLAZE:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.blazeBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -597,7 +597,7 @@ public class MonsterLevelsDamage implements Listener {
                     case PILLAGER:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.pillagerBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -612,7 +612,7 @@ public class MonsterLevelsDamage implements Listener {
                     case ILLUSIONER:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.illusionerBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -659,7 +659,7 @@ public class MonsterLevelsDamage implements Listener {
                             boots = 0;
                         }
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -674,7 +674,7 @@ public class MonsterLevelsDamage implements Listener {
                     case BAT:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.batBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -689,7 +689,7 @@ public class MonsterLevelsDamage implements Listener {
                     case RAVAGER:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.ravagerBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -704,7 +704,7 @@ public class MonsterLevelsDamage implements Listener {
                     case DROWNED:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.drownedBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -719,7 +719,7 @@ public class MonsterLevelsDamage implements Listener {
                     case VEX:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.vexBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -734,7 +734,7 @@ public class MonsterLevelsDamage implements Listener {
                     case VINDICATOR:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.vindicatorBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -749,7 +749,7 @@ public class MonsterLevelsDamage implements Listener {
                     case ZOMBIE_VILLAGER:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.zombievillagerBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -764,7 +764,7 @@ public class MonsterLevelsDamage implements Listener {
                     case PANDA:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.pandaBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -779,7 +779,7 @@ public class MonsterLevelsDamage implements Listener {
                     case FOX:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.foxBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -794,7 +794,7 @@ public class MonsterLevelsDamage implements Listener {
                     case BEE:
                         monster_attack = nameSpaceKey.getMonsterLevelFromContainer(attacker) * this.beeBaseAttack;
                         armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                        damage_done = monster_attack - player_defense + armorTotal;
+                        damage_done = monster_attack - (player_defense + armorTotal);
                         if (damage_done < 1)
                             damage_done = 1;
                         e.setDamage(damage_done);
@@ -811,7 +811,7 @@ public class MonsterLevelsDamage implements Listener {
                         if (arrow.getShooter() instanceof org.bukkit.entity.Skeleton) {
                             monster_attack = nameSpaceKey.getMonsterLevelFromContainer((Entity)arrow.getShooter()) * this.skeletonBaseAttack;
                             armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                            damage_done = monster_attack - player_defense + armorTotal;
+                            damage_done = monster_attack - (player_defense + armorTotal);
                             if (damage_done < 1)
                                 damage_done = 1;
                             e.setDamage(damage_done);
@@ -829,7 +829,7 @@ public class MonsterLevelsDamage implements Listener {
                         if (potion.getShooter() instanceof org.bukkit.entity.Witch) {
                             monster_attack = nameSpaceKey.getMonsterLevelFromContainer((Entity)potion.getShooter()) * this.witchBaseAttack;
                             armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                            damage_done = monster_attack - player_defense + armorTotal;
+                            damage_done = monster_attack - (player_defense + armorTotal);
                             if (damage_done < 1)
                                 damage_done = 1;
                             e.setDamage(damage_done);
@@ -847,7 +847,7 @@ public class MonsterLevelsDamage implements Listener {
                         if (arrow.getShooter() instanceof org.bukkit.entity.Shulker) {
                             monster_attack = nameSpaceKey.getMonsterLevelFromContainer((Entity)arrow.getShooter()) * this.shulkerBaseAttack;
                             armorTotal = helmet + chestplate + leggings + boots + totalBonus;
-                            damage_done = monster_attack - player_defense + armorTotal;
+                            damage_done = monster_attack - (player_defense + armorTotal);
                             if (damage_done < 1)
                                 damage_done = 1;
                             e.setDamage(damage_done);

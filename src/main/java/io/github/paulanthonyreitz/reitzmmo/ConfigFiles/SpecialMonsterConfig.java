@@ -13,7 +13,7 @@ public class SpecialMonsterConfig {
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         configuration.options().header("This config is used to configure special monsters");
 
-        configuration.addDefault("specialMonsterGlowEnabled", true);
+        configuration.addDefault("specialMonsterGlowEnabled", false);
         configuration.addDefault("specialMonsterSilentEnabled", true);
         configuration.addDefault("kingMobsEnabled", true);
         configuration.addDefault("kingMobsLVDifference", 25);

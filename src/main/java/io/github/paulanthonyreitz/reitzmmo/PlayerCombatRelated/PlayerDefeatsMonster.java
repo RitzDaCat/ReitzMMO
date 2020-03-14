@@ -67,7 +67,14 @@ public class PlayerDefeatsMonster implements Listener {
                 } catch (NullPointerException ex) {
                     monster_level_from_name = "1";
                 }
-                int monster_level = Integer.parseInt(monster_level_from_name);
+                int monster_level;
+                try {
+                    monster_level = Integer.parseInt(monster_level_from_name);
+                }
+                catch (NumberFormatException exc)
+                {
+                    monster_level = 1;
+                }
                 String lootConfigItem = API.lootConfig.getString(monster_level_from_name + "." + e.getEntity().getType() + ".item");
                 int lootConfigChance = API.lootConfig.getInt(monster_level_from_name + "." + e.getEntity().getType() + ".chance");
                 Random randomLoot = new Random();

@@ -16,7 +16,7 @@ public class MonsterConfig {
         configuration.options().header("This config is used to set all monster related configurations");
 
         configuration.addDefault("General", null);
-        configuration.addDefault("General.blocks-per-mob-level", 150);
+        configuration.addDefault("General.blocks-per-mob-level", 125);
         configuration.addDefault("General.nameplates-enabled", true);
         configuration.addDefault("General.apply-on-spawner-spawns", true);
 
@@ -49,8 +49,8 @@ public class MonsterConfig {
         configuration.addDefault("Creeper", null);
         configuration.addDefault("Creeper.base_attack", 4);
         configuration.addDefault("Creeper.base_hp", 7);
-        configuration.addDefault("Creeper.speed", 1.2);
-        configuration.addDefault("Creeper.min_level", 1);
+        configuration.addDefault("Creeper.speed", 1.3);
+        configuration.addDefault("Creeper.min_level", 2);
         configuration.addDefault("Creeper.nameplates_enabled", true);
 
         configuration.addDefault("Enderdragon", null);
@@ -61,8 +61,8 @@ public class MonsterConfig {
         configuration.addDefault("Enderdragon.nameplates_enabled", true);
 
         configuration.addDefault("Enderman", null);
-        configuration.addDefault("Enderman.base_hp", 4);
-        configuration.addDefault("Enderman.base_attack", 3);
+        configuration.addDefault("Enderman.base_hp", 6);
+        configuration.addDefault("Enderman.base_attack", 6);
         configuration.addDefault("Enderman.speed", 1);
         configuration.addDefault("Enderman.min_level", 10);
         configuration.addDefault("Enderman.nameplates_enabled", true);
@@ -160,9 +160,9 @@ public class MonsterConfig {
         configuration.addDefault("Silverfish.nameplates_enabled", true);
 
         configuration.addDefault("Skeleton", null);
-        configuration.addDefault("Skeleton.base_hp", 3);
-        configuration.addDefault("Skeleton.base_attack", 1);
-        configuration.addDefault("Skeleton.speed", 1);
+        configuration.addDefault("Skeleton.base_hp", 2);
+        configuration.addDefault("Skeleton.base_attack", 2);
+        configuration.addDefault("Skeleton.speed", 1.1);
         configuration.addDefault("Skeleton.min_level", 2);
         configuration.addDefault("Skeleton.nameplates_enabled", true);
 
@@ -207,11 +207,11 @@ public class MonsterConfig {
         configuration.addDefault("Wolf.nameplates_enabled", true);
 
         configuration.addDefault("Zombie", null);
-        configuration.addDefault("Zombie.base_hp", 3);
-        configuration.addDefault("Zombie.base_attack", 2);
+        configuration.addDefault("Zombie.base_hp", 4);
+        configuration.addDefault("Zombie.base_attack", 3);
         configuration.addDefault("Zombie.speed", 1.2);
         configuration.addDefault("Zombie.min_level", 1);
-        configuration.addDefault("Zombie.nameplates_enableD", true);
+        configuration.addDefault("Zombie.nameplates_enabled", true);
 
         configuration.addDefault("Witch", null);
         configuration.addDefault("Witch.base_hp", 4);
@@ -298,10 +298,10 @@ public class MonsterConfig {
         configuration.addDefault("Polarbear.nameplates_enabled", true);
 
         configuration.addDefault("Wanderingtrader", null);
-        configuration.addDefault("Wanderingtrader.base_hp", 20);
-        configuration.addDefault("Wanderingtrader.base_attack", 4);
+        configuration.addDefault("Wanderingtrader.base_hp", 2000);
+        configuration.addDefault("Wanderingtrader.base_attack", 200);
         configuration.addDefault("Wanderingtrader.speed", 1);
-        configuration.addDefault("Wanderingtrader.min_level", 20);
+        configuration.addDefault("Wanderingtrader.min_level", 99);
         configuration.addDefault("Wanderingtrader.nameplates_enabled", true);
 
         configuration.addDefault("Donkey", null);

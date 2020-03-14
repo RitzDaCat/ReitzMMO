@@ -60,7 +60,7 @@ public class PlayerAttackingMonster implements Listener {
                     try {
                         monster_level_from_name = ((String)Objects.<String>requireNonNull(defender.getCustomName())).replaceAll("\\D+", "");
                     } catch (NullPointerException error) {
-                        String levelColor = ChatColor.YELLOW + "[" + '\001' + "]";
+                        String levelColor = ChatColor.YELLOW + "[" + 1 + "]";
                         defender.setCustomName(e.getEntityType() + levelColor);
                         monster_level_from_name = "1";
                         if (this.namePlatesEnabled)
@@ -102,7 +102,7 @@ public class PlayerAttackingMonster implements Listener {
                         try {
                             monster_level_from_name = ((String)Objects.<String>requireNonNull(defender.getCustomName())).replaceAll("\\D+", "");
                         } catch (NullPointerException error) {
-                            String levelColor = ChatColor.YELLOW + "[" + '\001' + "]";
+                            String levelColor = ChatColor.YELLOW + "[" + 1 + "]";
                             defender.setCustomName(e.getEntityType() + levelColor);
                             monster_level_from_name = "1";
                             if (this.namePlatesEnabled)

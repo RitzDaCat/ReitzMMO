@@ -12,16 +12,17 @@ import io.github.paulanthonyreitz.reitzmmo.Menu.Menu;
 import io.github.paulanthonyreitz.reitzmmo.Menu.Party_Menu;
 import io.github.paulanthonyreitz.reitzmmo.Menu.Town_Menu;
 import io.github.paulanthonyreitz.reitzmmo.Metrics.Metrics;
+import io.github.paulanthonyreitz.reitzmmo.MonsterCombatRelated.MonsterCombatAbilities;
 import io.github.paulanthonyreitz.reitzmmo.MonsterCombatRelated.MonsterLevelsDamage;
 import io.github.paulanthonyreitz.reitzmmo.MonsterCombatRelated.MonsterLevelsHealth;
 import io.github.paulanthonyreitz.reitzmmo.OnPlayerEvents.OnPlayerExitStatSave;
 import io.github.paulanthonyreitz.reitzmmo.OnPlayerEvents.OnPlayerJoinStatSetup;
 import io.github.paulanthonyreitz.reitzmmo.Party_System.Party_API;
 import io.github.paulanthonyreitz.reitzmmo.PlaceHolderAPI.registerPlaceHolders;
+import io.github.paulanthonyreitz.reitzmmo.PlayerCombatRelated.MonsterDefeatsPlayer;
 import io.github.paulanthonyreitz.reitzmmo.PlayerCombatRelated.PlayerAttackingMonster;
 import io.github.paulanthonyreitz.reitzmmo.PlayerCombatRelated.PlayerDefeatsMonster;
 import io.github.paulanthonyreitz.reitzmmo.PlayerData.PlayerData;
-import io.github.paulanthonyreitz.reitzmmo.Scoreboard.HP_Scoreboard;
 import io.github.paulanthonyreitz.reitzmmo.Scoreboard.Partyboard;
 import io.github.paulanthonyreitz.reitzmmo.Skills.onRightClickWeaponSkills;
 import org.bukkit.Bukkit;
@@ -81,7 +82,7 @@ public class Main extends JavaPlugin {
         Objects.requireNonNull(getCommand("rparty")).setExecutor(new Party_Commands());
         registerEvents(this, new OnPlayerJoinStatSetup(), new MonsterLevelsHealth(), new OnPlayerExitStatSave(), new MonsterLevelsDamage(), new PlayerAttackingMonster(),
                 new PlayerDefeatsMonster(), new Menu(), new Party_Menu(), new Melee_Skills(), new onRightClickWeaponSkills(),
-                new Town_Menu(), new craftingEvents(), new HP_Scoreboard(), new Partyboard(), new npcCreateEvent());
+                new Town_Menu(), new craftingEvents(), new Partyboard(), new npcCreateEvent(), new MonsterCombatAbilities(), new MonsterDefeatsPlayer());
         for (Player p : Bukkit.getServer().getOnlinePlayers()) {
             String uuid = p.getUniqueId().toString();
             PlayerData pd = new PlayerData(uuid);

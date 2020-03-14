@@ -7,10 +7,10 @@ C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\OnPlayerEven
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\Enum\Weaponskill_Item_Check.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\Hologram\SpawnChest.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\Custom_Recipes\setItemLore.java
+C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\PlayerCombatRelated\MonsterDefeatsPlayer.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\ConfigFiles\DebugConfig.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\ConfigFiles\LootConfig.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\MonsterCombatRelated\MonsterLevelsHealth.java
-C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\Scoreboard\HP_Scoreboard.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\Custom_Recipes\ReitzMMO_Book.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\Menu\Melee_Skills.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\ItemData\craftingEvents.java
@@ -24,10 +24,13 @@ C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\PlayerData\P
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\Enum\Armor_Defense.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\Citizens\npcCreateEvent.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\ConfigFiles\SpecialMonsterConfig.java
+C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\MonsterCombatRelated\MonsterCombatAbilities.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\Enum\Enchantment_Damage.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\PlayerCombatRelated\PlayerDefeatsMonster.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\Party_System\Party_Queue.java
+C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\Menu\Magic_Spells.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\ConfigFiles\MonsterConfig.java
+C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\ConfigFiles\MagicspellConfig.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\ConfigFiles\API.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\Menu\Menu.java
 C:\Repos\ReitzMMO\src\main\java\io\github\paulanthonyreitz\reitzmmo\Enum\Weapon_Damage.java

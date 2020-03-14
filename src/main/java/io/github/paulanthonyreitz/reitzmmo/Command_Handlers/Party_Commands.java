@@ -5,7 +5,6 @@ import io.github.paulanthonyreitz.reitzmmo.Menu.Party_Menu;
 import io.github.paulanthonyreitz.reitzmmo.Party_System.Party;
 import io.github.paulanthonyreitz.reitzmmo.Party_System.Party_API;
 import io.github.paulanthonyreitz.reitzmmo.Party_System.Party_Queue;
-import io.github.paulanthonyreitz.reitzmmo.Scoreboard.HP_Scoreboard;
 import net.md_5.bungee.api.chat.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -163,7 +162,6 @@ public class Party_Commands implements CommandExecutor {
                     party.Remove_Member(args[1]);
                     Party_API.Party_Leaders.put(sender.getName(), party);
                     Party_API.inParty.remove(args[1]);
-                    HP_Scoreboard.setHPScoreboard(Bukkit.getPlayer(args[1]));
                 } else {
                     sender.sendMessage(ChatColor.RED + "[Error]" + ChatColor.WHITE + " You are unable to remove members!");
                 }
@@ -190,7 +188,6 @@ public class Party_Commands implements CommandExecutor {
                     party.Remove_Member(name);
                     Party_API.inParty.remove(name);
                     Party_API.Party_Leaders.put(leader, party);
-                    HP_Scoreboard.setHPScoreboard(Bukkit.getPlayer(sender.getName()));
                     for (String people : members) {
                         Player partyMember = Bukkit.getPlayer(people);
                         Objects.<Player>requireNonNull(Bukkit.getPlayer(people)).sendMessage(name + " has left the party!");

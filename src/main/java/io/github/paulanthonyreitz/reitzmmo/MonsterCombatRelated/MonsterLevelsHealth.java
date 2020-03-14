@@ -456,7 +456,9 @@ public class MonsterLevelsHealth implements Listener {
                 if (distance < 1)
                     distance = 1;
                 String str = ChatColor.YELLOW + "[" + distance + "]";
-                e.getEntity().setCustomName("King " + mobName + str);
+                String kingName = "King " + mobName + str;
+                e.getEntity().setCustomName(kingName);
+                nameSpaceKey.setMonsterNameContainer(e.getEntity(), kingName);
                 if (this.specialMobGlowingEnabled)
                     e.getEntity().setGlowing(true);
                 if (this.specialMobSilentEnabled)
@@ -466,7 +468,9 @@ public class MonsterLevelsHealth implements Listener {
                 if (distance < 1)
                     distance = 1;
                 String str = ChatColor.YELLOW + "[" + distance + "]";
-                e.getEntity().setCustomName("Notorious " + mobName + str);
+                String notoriousName = "Notorious " + mobName + str;
+                e.getEntity().setCustomName(notoriousName);
+                nameSpaceKey.setMonsterNameContainer(e.getEntity(), notoriousName);
                 if (this.specialMobGlowingEnabled)
                     e.getEntity().setGlowing(true);
                 if (this.specialMobSilentEnabled)
@@ -476,7 +480,9 @@ public class MonsterLevelsHealth implements Listener {
                 if (distance < 1)
                     distance = 1;
                 String str = ChatColor.YELLOW + "[" + distance + "]";
-                e.getEntity().setCustomName("Devilish " + mobName + str);
+                String devilName = "Devilish " + mobName + str;
+                e.getEntity().setCustomName(devilName);
+                nameSpaceKey.setMonsterNameContainer(e.getEntity(), devilName);
                 if (this.specialMobGlowingEnabled)
                     e.getEntity().setGlowing(true);
                 if (this.specialMobSilentEnabled)
@@ -486,7 +492,9 @@ public class MonsterLevelsHealth implements Listener {
                 if (distance < 1)
                     distance = 1;
                 String str = ChatColor.YELLOW + "[" + distance + "]";
-                e.getEntity().setCustomName("Dumb " + mobName + str);
+                String dumbName = "Dumb " + mobName + str;
+                e.getEntity().setCustomName(dumbName);
+                nameSpaceKey.setMonsterNameContainer(e.getEntity(), dumbName);
                 if (this.specialMobGlowingEnabled)
                     e.getEntity().setGlowing(true);
                 if (this.specialMobSilentEnabled)

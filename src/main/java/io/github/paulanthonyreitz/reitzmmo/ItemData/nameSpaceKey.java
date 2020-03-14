@@ -27,6 +27,8 @@ public class nameSpaceKey {
 
     public static NamespacedKey monsterLevel = new NamespacedKey(API.plugin, "ReitzMMOMonsterLevel");
 
+    public static NamespacedKey monsterName = new NamespacedKey(API.plugin, "ReitzMMOMonsterName");
+
     public static NamespacedKey getItemDamageKey() {
         return itemDamageKey;
     }
@@ -47,6 +49,9 @@ public class nameSpaceKey {
         return monsterLevel;
     }
 
+    public static NamespacedKey getMonsterNameKey() {
+        return monsterName;
+    }
     public static void setItemDamageContainer(ItemStack item, int number) {
         ItemMeta meta = item.getItemMeta();
         meta.getPersistentDataContainer().set(itemDamageKey, PersistentDataType.INTEGER, Integer.valueOf(number));
@@ -70,6 +75,10 @@ public class nameSpaceKey {
 
     public static void setMonsterLevelContainer(Entity e, int number) {
         e.getPersistentDataContainer().set(getMonsterLevelKey(), PersistentDataType.INTEGER, Integer.valueOf(number));
+    }
+
+    public static void setMonsterNameContainer(Entity e, String name) {
+        e.getPersistentDataContainer().set(getMonsterNameKey(), PersistentDataType.STRING, name);
     }
 
     public static void setItemWeaponSkillContainer(ItemStack item, String skill) {
@@ -160,5 +169,11 @@ public class nameSpaceKey {
         if (e.getPersistentDataContainer().has(getMonsterLevelKey(), PersistentDataType.INTEGER))
             return e.getPersistentDataContainer().get(getMonsterLevelKey(), PersistentDataType.INTEGER).intValue();
         return 1;
+    }
+
+    public static String getMonsterNameFromContainer(Entity e) {
+        if (e.getPersistentDataContainer().has(getMonsterNameKey(), PersistentDataType.STRING))
+            return e.getPersistentDataContainer().get(getMonsterNameKey(), PersistentDataType.STRING);
+        return "UNKNOWN";
     }
 }
