@@ -26,11 +26,12 @@ public class createBossBar {
         }
     }
 
-    public static void updateBossBaronPlayer(Player p, LivingEntity le, int damagedone) {
+    public static void updateBossBaronPlayer(Player p, LivingEntity le,int damagedone) {
         if (!(le instanceof org.bukkit.entity.ArmorStand) && bossBarEnabled.booleanValue()) {
             String uuid = p.getUniqueId().toString();
             ((BossBar)playerBossBar.get(uuid)).setTitle(le.getCustomName());
             double percentHealth = (le.getHealth() - damagedone) / le.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+            //double percentHealth = le.getHealth() / le.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
             if (percentHealth < 0.0D)
                 percentHealth = 0.0D;
             playerBossBar.get(uuid).setProgress(percentHealth);

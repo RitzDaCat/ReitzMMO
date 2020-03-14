@@ -37,20 +37,22 @@ public class PlayerAttackingMonster implements Listener {
 
     @EventHandler
     public void playerAttackingMonster(EntityDamageByEntityEvent e) {
-        int worldEnabled = API.worldConfig.getInt(((World)Objects.<World>requireNonNull(e.getEntity().getLocation().getWorld())).getName());
+        int worldEnabled = API.worldConfig.getInt(Objects.<World>requireNonNull(e.getEntity().getLocation().getWorld()).getName());
         if (worldEnabled != -1) {
             Entity defender = e.getEntity();
             Entity attacker = e.getDamager();
-            if (!(defender instanceof Player) && !defender.hasMetadata("NPC")) {
-                int player_attack = 0;
-                int monster_defense = 0;
-                int damage_done = 0;
+            if (!(defender instanceof Player) && !defender.hasMetadata("NPC"))
+            {
+                int player_attack=0;
+                int monster_defense=0;
                 int weaponDamage = 0;
                 int weaponBonus = 0;
-                int totalDamage = 0;
-                if (attacker instanceof Player) {
+                int totalDamage=0;
+                if (attacker instanceof Player)
+                {
                     String monster_level_from_name;
                     Player p = (Player)attacker;
+                    String uuid = p.getUniqueId().toString();
                     if (!playerHasMusic.contains(p.getUniqueId().toString()) && this.battleMusicEnabled) {
                         p.playSound(p.getLocation(), Sound.MUSIC_DISC_11, 100.0F, 1.0F);
                         playerHasMusic.add(p.getUniqueId().toString());
@@ -58,7 +60,7 @@ public class PlayerAttackingMonster implements Listener {
                     PlayerData pd = API.Players.get(attacker.getUniqueId().toString());
                     player_attack = pd.getData().getInt("Attack");
                     try {
-                        monster_level_from_name = ((String)Objects.<String>requireNonNull(defender.getCustomName())).replaceAll("\\D+", "");
+                        monster_level_from_name = Objects.requireNonNull(defender.getCustomName()).replaceAll("\\D+", "");
                     } catch (NullPointerException error) {
                         String levelColor = ChatColor.YELLOW + "[" + 1 + "]";
                         defender.setCustomName(e.getEntityType() + levelColor);
@@ -86,21 +88,26 @@ public class PlayerAttackingMonster implements Listener {
                             totalDamage = 1;
                     }
                     e.setDamage(totalDamage);
-                    String uuid = p.getUniqueId().toString();
+                    //update bossbar
+                    //Update bossbar
                     BossBar bar = createBossBar.playerBossBar.get(uuid);
-                    createBossBar.updateBossBaronPlayer((Player)attacker, (LivingEntity)defender, damage_done);
+                    createBossBar.updateBossBaronPlayer(p, (LivingEntity)defender,totalDamage);
+
                     Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(API.plugin, () -> createBossBar.removeBossBaronPlayer(p), 300L);
                 }
-                if (attacker instanceof Arrow) {
+                if (attacker instanceof Arrow)
+                {
                     Arrow arrow = (Arrow)attacker;
-                    if (arrow.getShooter() instanceof Player) {
+                    if (arrow.getShooter() instanceof Player)
+                    {
                         String monster_level_from_name;
                         Player p = (Player)arrow.getShooter();
-                        double damage = e.getDamage();
+                        String uuid = p.getUniqueId().toString();
+                        int damage = (int)Math.round(e.getDamage());
                         PlayerData pd = (PlayerData)API.Players.get(p.getUniqueId().toString());
                         player_attack = pd.getData().getInt("Attack");
                         try {
-                            monster_level_from_name = ((String)Objects.<String>requireNonNull(defender.getCustomName())).replaceAll("\\D+", "");
+                            monster_level_from_name = Objects.<String>requireNonNull(defender.getCustomName()).replaceAll("\\D+", "");
                         } catch (NullPointerException error) {
                             String levelColor = ChatColor.YELLOW + "[" + 1 + "]";
                             defender.setCustomName(e.getEntityType() + levelColor);
@@ -114,9 +121,17 @@ public class PlayerAttackingMonster implements Listener {
                             monster_defense = 0;
                         }
                         damage = damage + player_attack - monster_defense;
-                        if (damage < this.bowMinimumDamage)
-                            damage = this.bowMinimumDamage + 0.0D;
+                        if (damage < bowMinimumDamage)
+                            damage = bowMinimumDamage;
                         e.setDamage(damage);
+
+                        //player shot the area update bossbar
+                        //Update bossbar
+                        BossBar bar = createBossBar.playerBossBar.get(uuid);
+                        createBossBar.updateBossBaronPlayer(p, (LivingEntity)defender,damage);
+
+                        //remove bar if timeout
+                        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(API.plugin, () -> createBossBar.removeBossBaronPlayer(p), 300L);
                     }
                 }
             }
