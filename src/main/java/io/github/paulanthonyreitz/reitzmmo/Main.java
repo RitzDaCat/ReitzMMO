@@ -1,6 +1,5 @@
 package io.github.paulanthonyreitz.reitzmmo;
 
-
 import io.github.paulanthonyreitz.reitzmmo.Citizens.npcCreateEvent;
 import io.github.paulanthonyreitz.reitzmmo.Command_Handlers.Party_Commands;
 import io.github.paulanthonyreitz.reitzmmo.Command_Handlers.ReitzRPGMain;
@@ -33,18 +32,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import java.util.Objects;
 
 public class Main extends JavaPlugin {
+    
     public static final String LEVEL = "Level";
-
     public static final String ATTACK = "Attack";
-
     public static final String HEALTH = "Health";
-
     public static final String COMBATEXP = "Combat-EXP";
-
     public static final String DISPLAYNAME = "DisplayName";
 
     public void onEnable() {
@@ -136,6 +131,7 @@ public class Main extends JavaPlugin {
             pd.getData().set("Combat-EXP", combatexp);
             pd.getData().set("DisplayName", p.getDisplayName());
             pd.save();
+            
             if (Party_API.Party_Leaders.containsKey(name)) {
                 p.performCommand("Rparty disband");
             } else if (Party_API.inParty.containsKey(name)) {
