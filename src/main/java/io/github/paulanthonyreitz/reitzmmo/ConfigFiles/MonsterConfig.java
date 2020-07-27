@@ -20,12 +20,12 @@ public class MonsterConfig {
         configuration.addDefault("General.nameplates-enabled", true);
         configuration.addDefault("General.apply-on-spawner-spawns", true);
         
-        configuration.addDefault("Bees", null);
-        configuration.addDefault("Bees.base_hp", 10);
-        configuration.addDefault("Bees.base_attack", 5);
-        configuration.addDefault("Bees.speed", 1);
-        configuration.addDefault("Bees.min_level", 1);
-        configuration.addDefault("Bees.nameplates_enabled", true);
+        configuration.addDefault("Bee", null);
+        configuration.addDefault("Bee.base_hp", 10);
+        configuration.addDefault("Bee.base_attack", 5);
+        configuration.addDefault("Bee.speed", 1);
+        configuration.addDefault("Bee.min_level", 1);
+        configuration.addDefault("Bee.nameplates_enabled", true);
         
         configuration.addDefault("Blaze", null);
         configuration.addDefault("Blaze.base_hp", 3);
