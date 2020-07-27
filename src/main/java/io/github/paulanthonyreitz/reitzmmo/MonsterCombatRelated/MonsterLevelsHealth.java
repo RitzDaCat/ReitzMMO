@@ -136,7 +136,7 @@ public class MonsterLevelsHealth implements Listener {
 
     private final int pandaBaseHP = API.monsterConfig.getInt("Panda.base_hp");
 
-    private final int beeBaseHP = API.monsterConfig.getInt("Bees.base_hp");
+    private final int beeBaseHP = API.monsterConfig.getInt("Bee.base_hp");
 
     private final boolean monsterNameplatesEnabled = API.monsterConfig.getBoolean("General.nameplates-enabled");
 
