@@ -14,13 +14,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import java.util.Objects;
 
 public class OnPlayerJoinStatSetup implements Listener {
+
     private static final String HEALTH = "Health";
-
     private static final String ATTACK = "Attack";
-
     private static final String LEVEL = "Level";
-
     private static final String PLAYERCOMBATEXP = "Combat-EXP";
+    Boolean ReitzMMOBook = API.PlayerConfig.getBoolean("ReitzMMOBook.Enabled");
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void OnPlayerJoinStatSetup(PlayerJoinEvent e) {
@@ -49,7 +48,10 @@ public class OnPlayerJoinStatSetup implements Listener {
             pd.getData().set("DisplayName", p.getDisplayName());
             pd.save();
             API.Players.put(p.getUniqueId().toString(), pd);
-            ReitzMMO_Book.setLoginBook(p);
+            if(ReitzMMOBook) {
+                ReitzMMO_Book.setLoginBook(p);
+            }
+
             createBossBar.setBossBaronPlayer(p);
         }
     }
