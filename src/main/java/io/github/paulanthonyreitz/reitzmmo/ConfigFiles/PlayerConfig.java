@@ -29,8 +29,8 @@ public class PlayerConfig {
         configuration.addDefault("Scaling.Player.DefenseScale",2);
         configuration.addDefault("MinimumDamage",null);
         configuration.addDefault("MinimumDamage.Arrow",2);
-        configuration.addDefault("ReitzMMOBook",null)
-        configuration.addDefault("ReitzMMOBook.Enabled",false)
+        configuration.addDefault("ReitzMMOBook",null);
+        configuration.addDefault("ReitzMMOBook.Enabled",false);
 
 
         configuration.options().copyDefaults(true);
