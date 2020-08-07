@@ -18,8 +18,8 @@ public class OnPlayerJoinStatSetup implements Listener {
     private static final String HEALTH = "Health";
     private static final String ATTACK = "Attack";
     private static final String LEVEL = "Level";
-    private static final String PLAYERCOMBATEXP = "Combat-EXP";
-    Boolean ReitzMMOBook = API.PlayerConfig.getBoolean("ReitzMMOBook.Enabled");
+    //private static final String PLAYERCOMBATEXP = "Combat-EXP";
+    Boolean ReitzMMOBook = API.playerConfig.getBoolean("ReitzMMOBook.Enabled");
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void OnPlayerJoinStatSetup(PlayerJoinEvent e) {
